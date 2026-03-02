@@ -109,3 +109,33 @@ layout_mode = 2
 [node name="NotificationIndicatorComponent" parent="." unique_id=191205824 instance=ExtResource("7_sxbij")]
 unique_name_in_owner = true
 layout_mode = 2
+
+[node name="StudyDialog" type="ConfirmationDialog" parent="." unique_id=432131031]
+oversampling_override = 1.0
+position = Vector2i(0, 36)
+size = Vector2i(338, 119)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="StudyDialog" unique_id=936973709]
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 330.0
+offset_bottom = 70.0
+
+[node name="Label" type="Label" parent="StudyDialog/VBoxContainer" unique_id=1885145770]
+unique_name_in_owner = true
+layout_mode = 2
+text = "How many hours would you like to study?"
+
+[node name="TimeSpinBox" type="SpinBox" parent="StudyDialog/VBoxContainer" unique_id=1837632786]
+unique_name_in_owner = true
+z_index = 100
+layout_mode = 2
+max_value = 99999.0
+
+[node name="DialogStatsLabel" type="RichTextLabel" parent="StudyDialog/VBoxContainer" unique_id=507146570]
+unique_name_in_owner = true
+layout_mode = 2
+bbcode_enabled = true
+fit_content = true
+scroll_active = false
+autowrap_mode = 0

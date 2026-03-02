@@ -23,3 +23,5 @@ class_name QuestData
 ## Optional: The currency to reward (using your existing definitions)
 @export var reward_currency: CurrencyDefinition
 @export var reward_amount: float = 100.0
+## Optional: The StoryFlag to reward (using your existing definitions)
+@export var reward_story_flag: StoryFlag

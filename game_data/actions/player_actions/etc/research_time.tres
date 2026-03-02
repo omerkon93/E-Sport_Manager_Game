@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="ActionData" format=3 uid="uid://vb1s7d7mjhp1"]
+
+[ext_resource type="Resource" uid="uid://vtr603fuofyn" path="res://game_data/game_progression/story_flags/unlock_learning.tres" id="1_7qr0o"]
+[ext_resource type="Script" uid="uid://cl7fnpxvwmebh" path="res://core/definitions/actions/action_data.gd" id="1_pby43"]
+
+[resource]
+script = ExtResource("1_pby43")
+id = "research_time"
+display_name = "Research"
+category = 3
+description = "Time to study."
+is_unlocked_by_default = false
+is_visible_in_menu = false
+required_story_flag = ExtResource("1_7qr0o")
+vital_costs = Dictionary[int, float]({
+101: 10.0,
+103: 10.0
+})
+metadata/_custom_type_script = "uid://cl7fnpxvwmebh"

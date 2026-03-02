@@ -1,6 +1,7 @@
 [gd_resource type="Resource" script_class="QuestData" format=3 uid="uid://cda7nx71wnkdp"]
 
 [ext_resource type="Resource" uid="uid://y3ehljvnfi6r" path="res://game_data/game_resources/currencies/money.tres" id="1_788op"]
+[ext_resource type="Resource" uid="uid://vtr603fuofyn" path="res://game_data/game_progression/story_flags/unlock_learning.tres" id="2_5uik0"]
 [ext_resource type="Script" uid="uid://dc14l4ce35m0o" path="res://core/definitions/story/quest_data.gd" id="2_t37ve"]
 [ext_resource type="Resource" uid="uid://cwc0t0g303r5u" path="res://game_data/actions/player_actions/career/work_001_helpdesk.tres" id="3_5uik0"]
 
@@ -13,4 +14,5 @@ target_action = ExtResource("3_5uik0")
 required_amount = 5
 reward_currency = ExtResource("1_788op")
 reward_amount = 1000.0
+reward_story_flag = ExtResource("2_5uik0")
 metadata/_custom_type_script = "uid://dc14l4ce35m0o"

@@ -42,6 +42,9 @@ func _connect_signals() -> void:
 		TimeManager.time_updated.connect(_on_time_updated)
 		TimeManager.day_started.connect(func(_d): _check_all_milestones())
 
+	if QuestManager and QuestManager.has_signal("quest_completed"):
+		QuestManager.quest_completed.connect(_on_quest_completed)
+
 func _load_milestones() -> void:
 	var dir = DirAccess.open(MILESTONE_PATH)
 	if dir:
@@ -80,6 +83,10 @@ func _on_time_updated(_day: int, _hour: int, _minute: int) -> void:
 		for m in all_milestones:
 			if m.min_day != -1:
 				_evaluate_milestone(m)
+
+func _on_quest_completed(quest: QuestData) -> void:
+	if quest.reward_story_flag != null:
+		set_flag(quest.reward_story_flag, true)
 
 func _check_all_milestones() -> void:
 	for m in all_milestones:

@@ -1,9 +1,9 @@
 extends Node
 
 # --- SIGNALS ---
-signal quest_activated(quest: QuestData)
+signal quest_activated(quest_data: QuestData)
 signal quest_progress_updated(quest_id: String, current: int, required: int)
-signal quest_completed(quest_id: String)
+signal quest_completed(quest_data: QuestData)
 
 # --- CONFIGURATION ---
 const QUESTS_PATH = "res://game_data/game_progression/quests/"
@@ -112,19 +112,32 @@ func _complete_quest(quest: QuestData) -> void:
 	active_quests.erase(quest.id)
 	completed_quests[quest.id] = true
 	
-	quest_completed.emit(quest.id)
+	# FIX: Emit the whole quest object, not just the string ID!
+	quest_completed.emit(quest) 
+	
 	print("✅ Quest Completed: ", quest.title)
 	
 	if SignalBus.has_signal("message_logged"):
 		SignalBus.message_logged.emit("Quest Completed: " + quest.title, Color.GREEN)
 
-	# 2. PAYOUT THE REWARD
+	# ==========================================
+	# 2. PAYOUT THE REWARDS
+	# ==========================================
+	
+	# A. Currency Reward
 	if quest.reward_currency and quest.reward_amount > 0:
-		# Assuming your CurrencyManager has an add/earn function like this:
 		CurrencyManager.add_currency(quest.reward_currency.type, quest.reward_amount)
 		SignalBus.message_logged.emit("Earned " + str(quest.reward_amount) + " " + quest.reward_currency.display_name, Color.GOLD)
 
+	# B. NEW: Story Flag Reward!
+	if quest.reward_story_flag:
+		# ProgressionManager's set_flag will automatically handle the UI logging for us!
+		ProgressionManager.set_flag(quest.reward_story_flag, true)
+
+
+	# ==========================================
 	# 3. CHECK FOR FOLLOW-UP QUESTS
+	# ==========================================
 	# Loop through all quests to see if completing THIS quest unlocks another one
 	for next_quest in all_quests:
 		if next_quest.prerequisite_quest and next_quest.prerequisite_quest.id == quest.id:

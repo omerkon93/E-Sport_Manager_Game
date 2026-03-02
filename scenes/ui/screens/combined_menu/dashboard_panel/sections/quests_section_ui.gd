@@ -29,9 +29,10 @@ func _on_quest_progress_updated(q_id: String, current: int, required: int) -> vo
 			child.update_progress(current, required)
 			break
 
-func _on_quest_completed(q_id: String) -> void:
+func _on_quest_completed(quest: QuestData) -> void:
+	var quest_id = quest.id
 	for child in quest_list.get_children():
-		if child is QuestItemUI and child.quest_id == q_id:
+		if child is QuestItemUI and child.quest_id == quest_id:
 			# Animate out, then delete
 			var tween = create_tween()
 			tween.tween_property(child, "modulate:a", 0.0, 0.3)
