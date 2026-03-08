@@ -24,8 +24,8 @@ func _ready() -> void:
 	_load_quests()
 	
 	# Listen for actions being clicked
-	if SignalBus.has_signal("action_triggered"):
-		SignalBus.action_triggered.connect(_on_action_triggered)
+	if ActionManager.has_signal("action_triggered"):
+		ActionManager.action_triggered.connect(_on_action_triggered)
 		
 	# Listen for story flags to unlock new quests
 	if ProgressionManager.has_signal("flag_changed"):
@@ -37,17 +37,35 @@ func reset() -> void:
 	_evaluate_all_quests()
 
 func _load_quests() -> void:
-	var dir = DirAccess.open(QUESTS_PATH)
+	var files = _get_all_files_recursive(QUESTS_PATH)
+	for file_path in files:
+		if file_path.ends_with(".tres") or file_path.ends_with(".res"):
+			var res = load(file_path)
+			if res is QuestData:
+				all_quests.append(res)
+				
+	print("📜 QuestManager: Loaded %d quests." % all_quests.size())
+
+# --- HELPER: Digs through all subfolders ---
+func _get_all_files_recursive(path: String) -> Array[String]:
+	var file_paths: Array[String] = []
+	var dir = DirAccess.open(path)
+	
 	if dir:
 		dir.list_dir_begin()
 		var file_name = dir.get_next()
 		while file_name != "":
-			if not dir.current_is_dir() and (file_name.ends_with(".tres") or file_name.ends_with(".res")):
-				var res = load(QUESTS_PATH + "/" + file_name)
-				if res is QuestData:
-					all_quests.append(res)
+			if dir.current_is_dir():
+				# Ignore the hidden Godot navigation folders
+				if file_name != "." and file_name != "..":
+					# It's a folder! Run this function again inside the new folder.
+					file_paths.append_array(_get_all_files_recursive(path + "/" + file_name))
+			else:
+				# It's a file! Save its exact path.
+				file_paths.append(path + "/" + file_name)
 			file_name = dir.get_next()
-		print("📜 QuestManager: Loaded %d quests." % all_quests.size())
+			
+	return file_paths
 
 # ==============================================================================
 # EVENT LISTENERS
@@ -64,12 +82,29 @@ func _on_flag_changed(flag_id: String, value: bool) -> void:
 	var current_active_keys = active_quests.keys()
 	for quest_id in current_active_keys:
 		var quest = _get_quest_data(quest_id)
+		if not quest: continue
 		
-		if quest and quest.target_story_flag and quest.target_story_flag.id == flag_id:
-			# Update progress to max so any UI listeners show 100% completion
-			active_quests[quest_id] = quest.required_amount
-			quest_progress_updated.emit(quest_id, quest.required_amount, quest.required_amount)
-			_complete_quest(quest)
+		# A. Check if the newly changed flag is one of this quest's targets
+		var is_target_flag = false
+		for flag in quest.target_story_flags:
+			if flag and flag.id == flag_id:
+				is_target_flag = true
+				break
+				
+		# B. If it is, verify if ALL target flags are now true
+		if is_target_flag:
+			var all_flags_met = true
+			for flag in quest.target_story_flags:
+				if flag and not ProgressionManager.get_flag(flag.id):
+					all_flags_met = false
+					break
+					
+			# C. If every flag is true, complete the quest!
+			if all_flags_met:
+				active_quests[quest_id] = quest.required_amount
+				quest_progress_updated.emit(quest_id, quest.required_amount, quest.required_amount)
+				_complete_quest(quest)
+
 func _on_action_triggered(action_data: ActionData) -> void:
 	if not action_data: return
 	
@@ -90,12 +125,22 @@ func _activate_quest(quest: QuestData) -> void:
 	quest_activated.emit(quest)
 	print("📜 New Quest Activated: ", quest.title)
 	
-	# NEW: Check if the objective story flag is ALREADY true upon activation
-	if quest.target_story_flag and ProgressionManager.get_flag(quest.target_story_flag.id):
-		# Immediately complete it
-		active_quests[quest.id] = quest.required_amount
-		quest_progress_updated.emit(quest.id, quest.required_amount, quest.required_amount)
-		_complete_quest(quest)
+	# Check if ALL objective story flags are ALREADY true upon activation
+	if quest.target_story_flags.size() > 0:
+		var all_flags_met = true
+		
+		# Loop through every flag in the array
+		for flag in quest.target_story_flags:
+			# If a flag exists but hasn't been unlocked yet, we fail the check
+			if flag and not ProgressionManager.get_flag(flag.id):
+				all_flags_met = false
+				break # Stops checking the rest of the list since we already failed
+				
+		# If the loop finished and all_flags_met is still true, we complete the quest
+		if all_flags_met:
+			active_quests[quest.id] = quest.required_amount
+			quest_progress_updated.emit(quest.id, quest.required_amount, quest.required_amount)
+			_complete_quest(quest)
 
 func _increment_quest_progress(quest: QuestData) -> void:
 	var current = active_quests[quest.id]

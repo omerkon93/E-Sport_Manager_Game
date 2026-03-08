@@ -2,8 +2,6 @@
 
 [ext_resource type="Script" uid="uid://b1t13ojjiieas" path="res://scenes/ui/screens/combined_menu/dashboard_panel/sections/research_section_ui.gd" id="1_wg0qf"]
 [ext_resource type="PackedScene" uid="uid://bkotj26uisfhp" path="res://scenes/ui/screens/combined_menu/dashboard_panel/sections/items/research_item_ui.tscn" id="2_oginr"]
-[ext_resource type="PackedScene" uid="uid://idg5ajfqohrb" path="res://scenes/ui/screens/combined_menu/actions_menu/action_button/action_button.tscn" id="3_8qmn1"]
-[ext_resource type="Resource" uid="uid://vb1s7d7mjhp1" path="res://game_data/actions/player_actions/etc/research_time.tres" id="4_bamb7"]
 
 [node name="ResearchSectionUI" type="VBoxContainer" unique_id=696280825]
 script = ExtResource("1_wg0qf")
@@ -12,11 +10,6 @@ research_item_scene = ExtResource("2_oginr")
 [node name="ActiveResearch" type="Label" parent="." unique_id=1242913073]
 layout_mode = 2
 text = "Active Research:"
-
-[node name="ActionButton" parent="." unique_id=433002123 instance=ExtResource("3_8qmn1")]
-layout_mode = 2
-action_data = ExtResource("4_bamb7")
-is_study_button = true
 
 [node name="ResearchList" type="VBoxContainer" parent="." unique_id=1295576222]
 layout_mode = 2

@@ -3,17 +3,16 @@ class_name GameItem
 
 # --- ENUMS ---
 enum ItemType {
-	## Used for rebuyable items (Coffee, Energy Drinks).
-	## The "Restore/Replenish" mechanic. Grants immediate ActionData rewards.
+	## Immediate use items (e.g., Coffee, Scripts). Grants temporary ActionData rewards.
 	CONSUMABLE,
-	## Used for 1-time upgrade items (Better IDE, Comfortable Chair).
-	## The "Improve" mechanic. Permanently boosts stats or efficiency.
-	UPGRADE,
-	## Used for 1-time technology items (Certifications, New Frameworks).
-	## The "Unlock" mechanic. Takes time to research and opens new story flags/actions.
-	TECHNOLOGY,
-	## Not used currently. Reserved for future crafting systems.
-	MATERIAL
+	## Instant purchase, 1-time unlocks (e.g., Certifications, Manuals). 
+	## Unlocks the path to research new Skills.
+	KNOWLEDGE,
+	## Takes time to research/practice (e.g., AD Management, Cable Routing). 
+	## Grants permanent stat boosts or workflow efficiencies.
+	SKILL,
+	## Crafting components (e.g., RAM, Cables, Switches).
+	HARDWARE
 }
 
 # --- IDENTITY ---
@@ -36,6 +35,9 @@ enum ItemType {
 
 ## The specific action this upgrade enhances.
 @export var target_action: ActionData
+
+## This is directed at the Knowledge GameItem of a SKILL GameItem.
+@export var parent_knowledge_item: GameItem
 
 # --- COMPONENTS ---
 @export_category("Logic")
@@ -61,7 +63,7 @@ enum ItemType {
 
 # --- RESEARCH SETTINGS ---
 @export_group("Research Duration")
-## Time in MINUTES required to unlock this technology. Only used if ItemType is TECHNOLOGY.
+## Time in MINUTES required to unlock this skill. Only used if ItemType is SKILL.
 @export var research_duration_minutes: int = 60
 
 # --- SPECIAL LOGIC ---

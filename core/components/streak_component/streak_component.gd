@@ -34,7 +34,7 @@ var current_streak: int = 0
 func _ready() -> void:
 	if not cost_component: cost_component = get_node_or_null("../CostComponent")
 	if not reward_component: reward_component = get_node_or_null("../RewardComponent")
-	SignalBus.action_triggered.connect(_on_any_action_triggered)
+	ActionManager.action_triggered.connect(_on_any_action_triggered)
 
 func configure(data: ActionData) -> void:
 	my_action_data = data

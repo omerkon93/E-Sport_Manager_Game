@@ -1,0 +1,29 @@
+[gd_resource type="Resource" script_class="GameItem" format=3 uid="uid://d1y8hl6j2xhjq"]
+
+[ext_resource type="Script" uid="uid://cmjd7pxovwsxn" path="res://core/definitions/economy/currency_definition.gd" id="1_s4s6o"]
+[ext_resource type="Resource" uid="uid://y3ehljvnfi6r" path="res://game_data/game_resources/currencies/money.tres" id="2_15o3q"]
+[ext_resource type="Script" uid="uid://cm754ldqgunog" path="res://core/definitions/items/effects/stat_effect.gd" id="3_hbdjy"]
+[ext_resource type="Script" uid="uid://ibattlbh7e1t" path="res://core/definitions/items/game_item.gd" id="4_0lbsc"]
+[ext_resource type="Script" uid="uid://cwsq8isjkr33d" path="res://core/definitions/story/story_flag.gd" id="5_altju"]
+[ext_resource type="Resource" uid="uid://csuup42je8kq7" path="res://game_data/game_progression/story_flags/locked.tres" id="6_s4s6o"]
+[ext_resource type="Script" uid="uid://derwj2ijevwkr" path="res://core/definitions/stats/vitals_definition.gd" id="7_mbxqm"]
+
+[sub_resource type="Resource" id="Resource_7oeeo"]
+script = ExtResource("3_hbdjy")
+stat = 202
+amount = 0.15
+is_percentage = true
+metadata/_custom_type_script = "uid://cm754ldqgunog"
+
+[resource]
+script = ExtResource("4_0lbsc")
+id = "item_mechanical_keyboard"
+display_name = "Mechanical Keyboard"
+description = "The tactile bump of productivity. It’s loud enough to sound like you’re working hard, but quiet enough that your housemates won't stage an intervention. Every keystroke feels like progress."
+item_type = 1
+currency_cost = Dictionary[ExtResource("1_s4s6o"), int]({
+ExtResource("2_15o3q"): 120
+})
+story_flags_requirement = Array[ExtResource("5_altju")]([ExtResource("6_s4s6o")])
+effects = Array[Resource]([SubResource("Resource_7oeeo")])
+metadata/_custom_type_script = "uid://ibattlbh7e1t"

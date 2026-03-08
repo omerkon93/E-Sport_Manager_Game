@@ -1,6 +1,5 @@
 extends CanvasLayer
 
-
 # --- TICKET DATABASE ---
 const TICKETS_PATH = "res://game_data/dialogue/"
 var all_tickets: Array[DialogueSequence] = []
@@ -56,7 +55,6 @@ func get_random_ticket_for(action: ActionData) -> DialogueSequence:
 	return valid_pool.pick_random()
 
 # --- INTERNAL LOGIC ---
-# --- INTERNAL LOGIC ---
 func _load_ticket_database() -> void:
 	# Start the recursive search at the root dialogue folder
 	_scan_directory_recursive(TICKETS_PATH)
@@ -69,8 +67,12 @@ func _scan_directory_recursive(path: String) -> void:
 		for file_name in dir.get_files():
 			if file_name.ends_with(".tres") or file_name.ends_with(".res"):
 				var res = load(path + file_name)
-				if res is DialogueSequence and res.parent_action != null:
-					all_tickets.append(res)
+				if res is DialogueSequence:
+					if res.parent_action != null:
+						all_tickets.append(res)
+					else:
+						# Print a warning so you know exactly which file is missing its action!
+						push_warning("DialogueManager: Skipped '%s' because parent_action is empty!" % file_name)
 					
 		# 2. Next, find any sub-folders and tell the script to scan those too!
 		for dir_name in dir.get_directories():
@@ -164,7 +166,7 @@ func _on_option_clicked(target: Variant) -> void:
 		
 	# 5. Is it Action Data? (The Transaction)
 	elif target is ActionData:
-		SignalBus.action_triggered.emit(target)
+		ActionManager.action_triggered.emit(target)
 		if "trigger_signal_id" in target and target.trigger_signal_id != "":
 			SignalBus.dialogue_action.emit(target.trigger_signal_id)
 		_end_dialogue()

@@ -1,0 +1,29 @@
+[gd_resource type="Resource" script_class="GameItem" format=3 uid="uid://bgcuapd7pl07a"]
+
+[ext_resource type="Script" uid="uid://cmjd7pxovwsxn" path="res://core/definitions/economy/currency_definition.gd" id="1_xdo0f"]
+[ext_resource type="Script" uid="uid://ibattlbh7e1t" path="res://core/definitions/items/game_item.gd" id="2_35ung"]
+[ext_resource type="Script" uid="uid://cm754ldqgunog" path="res://core/definitions/items/effects/stat_effect.gd" id="2_dp8k6"]
+[ext_resource type="Script" uid="uid://cwsq8isjkr33d" path="res://core/definitions/story/story_flag.gd" id="3_dp8k6"]
+[ext_resource type="Script" uid="uid://derwj2ijevwkr" path="res://core/definitions/stats/vitals_definition.gd" id="4_rh815"]
+[ext_resource type="Resource" uid="uid://cwc0t0g303r5u" path="res://game_data/actions/player_actions/career/work_001_helpdesk.tres" id="5_dp8k6"]
+[ext_resource type="Resource" uid="uid://cjjveqpykj6ji" path="res://game_data/game_progression/story_flags/stage_01/tutorial/flag_course_helpdesk_basics.tres" id="5_rh815"]
+
+[sub_resource type="Resource" id="Resource_rh815"]
+script = ExtResource("2_dp8k6")
+stat = 202
+amount = 0.1
+is_percentage = true
+metadata/_custom_type_script = "uid://cm754ldqgunog"
+
+[resource]
+script = ExtResource("2_35ung")
+id = "proficiency_work001_monitor_input"
+display_name = "U Can't C Me!"
+description = "Action: Change Monitor Input. 
+
+The PC is on, but the screen says \"No Signal.\" 9/10 times, the user (or a cat) bumped the \"Source\" button. Switching from HDMI 2 back to HDMI 1 fixes the \"broken\" computer instantly."
+item_type = 2
+target_action = ExtResource("5_dp8k6")
+story_flags_requirement = Array[ExtResource("3_dp8k6")]([ExtResource("5_rh815")])
+effects = Array[Resource]([SubResource("Resource_rh815")])
+metadata/_custom_type_script = "uid://ibattlbh7e1t"

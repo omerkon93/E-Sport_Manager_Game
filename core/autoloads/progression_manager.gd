@@ -44,21 +44,45 @@ func _connect_signals() -> void:
 
 	if QuestManager and QuestManager.has_signal("quest_completed"):
 		QuestManager.quest_completed.connect(_on_quest_completed)
+	
+	if ResearchManager and ResearchManager.has_signal("research_started"):
+		ResearchManager.research_started.connect(_on_research_started)
+	
+	if ResearchManager and ResearchManager.has_signal("research_finished"):
+		ResearchManager.research_finished.connect(_on_research_finished)
+	
+	if ItemManager.has_signal("consumable_purchased"):
+		ItemManager.consumable_purchased.connect(_on_consumable_purchased)
 
 func _load_milestones() -> void:
-	var dir = DirAccess.open(MILESTONE_PATH)
+	var files = _get_all_files_recursive(MILESTONE_PATH)
+	for file_path in files:
+		if file_path.ends_with(".tres") or file_path.ends_with(".res"):
+			var res = load(file_path)
+			if res is Milestone:
+				all_milestones.append(res)
+				
+	print("🏆 ProgressionManager: Loaded %d milestones." % all_milestones.size())
+	if all_milestones.is_empty():
+		push_error("ProgressionManager: No milestones found in: " + MILESTONE_PATH)
+
+# --- HELPER: Digs through all subfolders ---
+func _get_all_files_recursive(path: String) -> Array[String]:
+	var file_paths: Array[String] = []
+	var dir = DirAccess.open(path)
+	
 	if dir:
 		dir.list_dir_begin()
 		var file_name = dir.get_next()
 		while file_name != "":
-			if not dir.current_is_dir() and (file_name.ends_with(".tres") or file_name.ends_with(".res")):
-				var res = load(MILESTONE_PATH + "/" + file_name)
-				if res is Milestone:
-					all_milestones.append(res)
+			if dir.current_is_dir():
+				if file_name != "." and file_name != "..":
+					file_paths.append_array(_get_all_files_recursive(path + "/" + file_name))
+			else:
+				file_paths.append(path + "/" + file_name)
 			file_name = dir.get_next()
-		print("🏆 ProgressionManager: Loaded %d milestones." % all_milestones.size())
-	else:
-		push_error("ProgressionManager: Could not open folder: " + MILESTONE_PATH)
+			
+	return file_paths
 
 # ==============================================================================
 # EVENT LISTENERS
@@ -75,7 +99,7 @@ func _on_vital_changed(type: int, _current: float, _max: float) -> void:
 
 func _on_upgrade_leveled_internal(id: String, _level: int) -> void:
 	for m in all_milestones:
-		if m.required_upgrade_id == id:
+		if m.required_item != null and m.required_item.id == id:
 			_evaluate_milestone(m)
 
 func _on_time_updated(_day: int, _hour: int, _minute: int) -> void:
@@ -88,6 +112,26 @@ func _on_quest_completed(quest: QuestData) -> void:
 	if quest.reward_story_flag != null:
 		set_flag(quest.reward_story_flag, true)
 
+func _on_research_started(id: String, _duration: int) -> void:
+	for m in all_milestones:
+		# Did they start the specific item, OR does this milestone just want ANY research?
+		if m.any_research_started or (m.required_started_research != null and m.required_started_research.id == id):
+			# Pass the exact context so the evaluator knows this is a legitimate event!
+			_evaluate_milestone(m, "research_started")
+
+func _on_research_finished(id: String) -> void:
+	for m in all_milestones:
+		# Did they finish the specific item, OR does this milestone just want ANY research done?
+		if m.any_research_finished or (m.required_finished_research != null and m.required_finished_research.id == id):
+			# Pass the exact context so the evaluator knows this is a legitimate event!
+			_evaluate_milestone(m, "research_finished")
+
+func _on_consumable_purchased(item_id: String) -> void:
+	for m in all_milestones:
+		if m.required_item != null and m.required_item.id == item_id:
+			# Pass a specific context so the evaluator knows this is a transient event
+			_evaluate_milestone(m, "consumable_purchased")
+
 func _check_all_milestones() -> void:
 	for m in all_milestones:
 		_evaluate_milestone(m)
@@ -95,16 +139,25 @@ func _check_all_milestones() -> void:
 # ==============================================================================
 # EVALUATION LOGIC
 # ==============================================================================
-func _evaluate_milestone(m: Milestone) -> void:
+func _evaluate_milestone(m: Milestone, event_context: String = "") -> void:
 	if m.target_flag == null: return
 	
 	# Skip if already unlocked
 	if get_flag(m.target_flag): return 
 	
-	# --- NEW: THE SAFETY CATCH ---
-	# If the milestone has NO valid requirements, abort. Do not auto-unlock.
-	if m.currency_amount <= 0 and m.vital_amount <= 0 and m.min_day == -1 and m.required_upgrade_id == "":
+	# --- THE SAFETY CATCH (UPDATED) ---
+	if m.currency_amount <= 0 and m.vital_amount <= 0 and m.min_day == -1 and m.required_item == null and m.required_started_research == null and not m.any_research_started and m.required_finished_research == null and not m.any_research_finished:
 		return
+
+	# --- EVENT CHECK (UPDATED) ---
+	# If this milestone relies on a one-time event, it MUST fail passive checks unless context matches!
+	if m.any_research_started or m.required_started_research != null:
+		if event_context != "research_started":
+			return
+			
+	if m.any_research_finished or m.required_finished_research != null:
+		if event_context != "research_finished":
+			return
 
 	# --- A. Currency Check ---
 	if m.currency_amount > 0:
@@ -133,13 +186,21 @@ func _evaluate_milestone(m: Milestone) -> void:
 		else:
 			if current_total < target_total: return
 
-	# --- D. Upgrade Check ---
-	if m.required_upgrade_id != "":
-		var current = get_upgrade_level(m.required_upgrade_id)
-		if m.upgrade_is_less_than:
-			if current >= m.required_upgrade_level: return
+	# --- D. Item Check ---
+	if m.required_item != null:
+		# 1. Did we just buy a consumable? (Our new bypass)
+		var is_consumable_event = (event_context == "consumable_purchased")
+		
+		# 2. Do we permanently own this upgrade? (Your existing native check)
+		var has_upgrade = get_upgrade_level(m.required_item.id) > 0
+		
+		# 3. If EITHER is true, the requirement is met!
+		var has_item = has_upgrade or is_consumable_event
+		
+		if m.item_must_be_missing:
+			if has_item: return # Fails if they HAVE the item
 		else:
-			if current < m.required_upgrade_level: return
+			if not has_item: return # Fails if they DON'T have the item
 
 	# If it survives all checks above, it means valid requirements were met!
 	unlock_milestone(m.target_flag, m.notification_text)

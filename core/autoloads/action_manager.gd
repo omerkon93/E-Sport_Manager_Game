@@ -6,6 +6,10 @@ const AUTO_LOAD_PATHS = [
 	"res://game_data/actions/player_actions/"
 ]
 
+# --- SIGNALS ---
+@warning_ignore("unused_signal")
+signal action_triggered(action_data: ActionData)
+
 # --- STATE ---
 # The master list used by the ActionsMenu to populate the UI
 var all_actions: Array[ActionData] = []

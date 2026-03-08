@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="Milestone" format=3 uid="uid://qvi8p2e0qauq"]
+
+[ext_resource type="Resource" uid="uid://b485gq3w8c3gh" path="res://game_data/items/consumables/item_coffee.tres" id="1_8g0b5"]
+[ext_resource type="Script" uid="uid://b7uf1g2gx6qdg" path="res://core/definitions/story/milestone.gd" id="2_bql00"]
+[ext_resource type="Resource" uid="uid://bxgrsxiugmupm" path="res://game_data/game_progression/story_flags/stage_01/tutorial/flag_first_consumable.tres" id="3_8g0b5"]
+
+[resource]
+script = ExtResource("2_bql00")
+target_flag = ExtResource("3_8g0b5")
+notification_text = "First consumable"
+required_item = ExtResource("1_8g0b5")
+metadata/_custom_type_script = "uid://b7uf1g2gx6qdg"

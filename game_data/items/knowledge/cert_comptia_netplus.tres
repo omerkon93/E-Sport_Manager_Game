@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="GameItem" format=3 uid="uid://1qexp40mibln"]
+
+[ext_resource type="Script" uid="uid://cmjd7pxovwsxn" path="res://core/definitions/economy/currency_definition.gd" id="1_30b4o"]
+[ext_resource type="Script" uid="uid://ibattlbh7e1t" path="res://core/definitions/items/game_item.gd" id="1_l7365"]
+[ext_resource type="Resource" uid="uid://y3ehljvnfi6r" path="res://game_data/game_resources/currencies/money.tres" id="2_bvawg"]
+[ext_resource type="Resource" uid="uid://blrt60gxi5yeg" path="res://game_data/game_progression/story_flags/flag_cert_comptia_netplus.tres" id="3_fgy03"]
+[ext_resource type="Script" uid="uid://derwj2ijevwkr" path="res://core/definitions/stats/vitals_definition.gd" id="4_bvawg"]
+[ext_resource type="Script" uid="uid://cwsq8isjkr33d" path="res://core/definitions/story/story_flag.gd" id="5_bvawg"]
+[ext_resource type="Resource" uid="uid://csuup42je8kq7" path="res://game_data/game_progression/story_flags/locked.tres" id="5_lpwnb"]
+
+[resource]
+script = ExtResource("1_l7365")
+id = "cert_comptia_netplus"
+display_name = "CompTIA Network+ Certification"
+description = "\"It's not the network.\" You finally understand the OSI model, subnetting, and why the DNS is always the actual problem."
+item_type = 1
+currency_cost = Dictionary[ExtResource("1_30b4o"), int]({
+ExtResource("2_bvawg"): 1200
+})
+story_flags_requirement = Array[ExtResource("5_bvawg")]([ExtResource("5_lpwnb")])
+story_flags_reward = Array[ExtResource("5_bvawg")]([ExtResource("3_fgy03")])
+research_duration_minutes = 3200
+metadata/_custom_type_script = "uid://ibattlbh7e1t"

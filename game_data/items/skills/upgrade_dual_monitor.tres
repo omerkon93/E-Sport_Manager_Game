@@ -1,0 +1,29 @@
+[gd_resource type="Resource" script_class="GameItem" format=3 uid="uid://bb6ik5mfktye4"]
+
+[ext_resource type="Script" uid="uid://cmjd7pxovwsxn" path="res://core/definitions/economy/currency_definition.gd" id="1_rjyl5"]
+[ext_resource type="Resource" uid="uid://y3ehljvnfi6r" path="res://game_data/game_resources/currencies/money.tres" id="2_mtpqi"]
+[ext_resource type="Script" uid="uid://cm754ldqgunog" path="res://core/definitions/items/effects/stat_effect.gd" id="3_q1b5f"]
+[ext_resource type="Script" uid="uid://ibattlbh7e1t" path="res://core/definitions/items/game_item.gd" id="4_4gws2"]
+[ext_resource type="Script" uid="uid://cwsq8isjkr33d" path="res://core/definitions/story/story_flag.gd" id="5_2ma73"]
+[ext_resource type="Resource" uid="uid://csuup42je8kq7" path="res://game_data/game_progression/story_flags/locked.tres" id="6_rjyl5"]
+[ext_resource type="Script" uid="uid://derwj2ijevwkr" path="res://core/definitions/stats/vitals_definition.gd" id="7_0wojl"]
+
+[sub_resource type="Resource" id="Resource_avsnm"]
+script = ExtResource("3_q1b5f")
+stat = 203
+amount = 0.15
+is_percentage = true
+metadata/_custom_type_script = "uid://cm754ldqgunog"
+
+[resource]
+script = ExtResource("4_4gws2")
+id = "item_dual_monitor"
+display_name = "Dual-Monitor Setup"
+description = "Why alt-tab when you can just move your eyes? One screen for the code, one screen for the documentation you’re definitely reading. Your neck might hurt, but your productivity won't."
+item_type = 1
+currency_cost = Dictionary[ExtResource("1_rjyl5"), int]({
+ExtResource("2_mtpqi"): 150
+})
+story_flags_requirement = Array[ExtResource("5_2ma73")]([ExtResource("6_rjyl5")])
+effects = Array[Resource]([SubResource("Resource_avsnm")])
+metadata/_custom_type_script = "uid://ibattlbh7e1t"

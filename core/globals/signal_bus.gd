@@ -12,6 +12,3 @@ signal message_logged(text: String, color: Color)
 
 @warning_ignore("unused_signal")
 signal dialogue_action(action_id: String)
-
-@warning_ignore("unused_signal")
-signal action_triggered(action_data: ActionData)

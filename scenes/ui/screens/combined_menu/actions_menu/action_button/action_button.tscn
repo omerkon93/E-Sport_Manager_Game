@@ -36,7 +36,6 @@ message_component = NodePath("Components/MessageComponent")
 streak_component = NodePath("Components/StreakComponent")
 animation_component = NodePath("Components/AnimationComponent")
 notification_indicator_component = NodePath("NotificationIndicatorComponent")
-base_cooldown = 0.1
 metadata/_edit_use_anchors_ = true
 
 [node name="MarginContainer" type="MarginContainer" parent="." unique_id=725191919]

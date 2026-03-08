@@ -4,10 +4,14 @@ extends Node
 # CONFIGURATION
 # ==============================================================================
 const AUTO_LOAD_PATHS = [
-	"res://game_data/items/upgrades/",
-	"res://game_data/items/technology/",
+	"res://game_data/items/knowledge/",
+	"res://game_data/items/skills/",
 	"res://game_data/items/consumables/" 
 ]
+
+# --- SIGNALS ---
+signal consumable_purchased(consumable_id: String)
+
 
 var available_items: Array[GameItem] = []
 var reward_calculator: RewardComponent
@@ -28,7 +32,7 @@ func try_purchase_item(item: GameItem) -> bool:
 	# 1. Validation (Owned or Researching)
 	if item.item_type != GameItem.ItemType.CONSUMABLE:
 		if ProgressionManager.get_upgrade_level(item.id) >= 1: return false
-		if item.item_type == GameItem.ItemType.TECHNOLOGY and ResearchManager.is_researching(item.id):
+		if item.item_type == GameItem.ItemType.SKILL and ResearchManager.is_researching(item.id):
 			return false
 
 	# 2. Check Requirements (Can we afford it?)
@@ -52,7 +56,7 @@ func try_purchase_item(item: GameItem) -> bool:
 		VitalManager.consume(vit_def.type, amt) #
 
 	# 4. Handle Acquisition
-	if item.item_type == GameItem.ItemType.TECHNOLOGY:
+	if item.item_type == GameItem.ItemType.SKILL:
 		ResearchManager.start_research(item)
 		return true
 
@@ -65,7 +69,7 @@ func find_item_by_id(id: String) -> GameItem:
 	return null
 
 ## Grants rewards and status. Called by this script for Upgrades, 
-## or by ResearchManager for finished Technology.
+## or by ResearchManager for finished Skill.
 func apply_level_up(item: GameItem) -> void:
 	# A. Apply Stat Boosts
 	for effect in item.effects:
@@ -85,16 +89,17 @@ func apply_level_up(item: GameItem) -> void:
 	if item.on_purchase_action:
 		_execute_action_rewards(item.on_purchase_action)
 
-	# E. Mark Ownership
+	# E. Mark Ownership OR Broadcast Consumable
 	if item.item_type != GameItem.ItemType.CONSUMABLE:
 		ProgressionManager.increment_upgrade_level(item.id)
 		ProgressionManager.upgrade_leveled_up.emit(item.id, 1)
+	else:
+		consumable_purchased.emit(item.id)
 	
 	# F. Presentation
 	SignalBus.message_logged.emit("Acquired: %s" % item.display_name, Color.CYAN)
 	if item.audio_on_purchase:
 		SoundManager.play_sfx(item.audio_on_purchase)
-
 func get_upgrades_for_action(action: ActionData) -> Array[GameItem]:
 	var results: Array[GameItem] = []
 	for item in available_items:

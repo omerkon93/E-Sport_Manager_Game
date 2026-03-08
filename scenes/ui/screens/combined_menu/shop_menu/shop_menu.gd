@@ -8,8 +8,8 @@ class_name ShopMenu
 
 @export_category("Grids")
 @export var consumable_grid: GridContainer
-@export var upgrade_grid: GridContainer
-@export var technology_grid: GridContainer
+@export var knowledge_grid: GridContainer
+@export var skill_grid: GridContainer
 
 @export_group("Settings")
 ## If false, items missing Story Flags will be hidden entirely.
@@ -36,16 +36,16 @@ func _ready() -> void:
 func _rebuild_ui() -> void:
 	if not shop_button_scene: return
 	
-	_clear_container(upgrade_grid)
-	_clear_container(technology_grid)
+	_clear_container(knowledge_grid)
+	_clear_container(skill_grid)
 	_clear_container(consumable_grid)
 	
 	for item in ItemManager.available_items:
 		var target_grid: Container = null
 		
 		match item.item_type:
-			GameItem.ItemType.UPGRADE: target_grid = upgrade_grid
-			GameItem.ItemType.TECHNOLOGY: target_grid = technology_grid
+			GameItem.ItemType.KNOWLEDGE: target_grid = knowledge_grid
+			GameItem.ItemType.SKILL: target_grid = skill_grid
 			GameItem.ItemType.CONSUMABLE: target_grid = consumable_grid
 		
 		if target_grid:
@@ -88,8 +88,8 @@ func _try_add_item_button(item: GameItem, container: Container) -> void:
 # TAB MANAGEMENT & HELPERS
 # ==============================================================================
 func _update_tab_titles() -> void:
-	_apply_tab_state(upgrade_grid, upgrade_grid.get_child_count() > 0)
-	_apply_tab_state(technology_grid, technology_grid.get_child_count() > 0)
+	_apply_tab_state(knowledge_grid, knowledge_grid.get_child_count() > 0)
+	_apply_tab_state(skill_grid, skill_grid.get_child_count() > 0)
 	_apply_tab_state(consumable_grid, consumable_grid.get_child_count() > 0)
 
 func _apply_tab_state(grid: Control, has_items: bool) -> void:

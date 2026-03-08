@@ -7,37 +7,38 @@ enum ActionCategory { CAREER, SURVIVAL, SPIRITUAL, OTHER }
 @export_category("Identity")
 @export var id: String = "action_id"
 @export var display_name: String = "New Action"
-@export var category: ActionCategory = ActionCategory.CAREER
-@export_multiline var description: String = ""
 @export var icon: Texture2D
+@export_multiline var description: String = ""
+@export var category: ActionCategory = ActionCategory.CAREER
 
 # --- SETTINGS ---
 @export_category("Settings")
-@export_group("Unlock Settins")
+@export_group("Unlock Settings")
 @export var is_unlocked_by_default: bool = true 
 @export var is_visible_in_menu: bool = true
 
-@export_group("Time Settings")
-@export var time_cost_minutes: int = 60 
-@export var base_duration: float = 1.0 
+@export_group("Time & Pacing")
+@export var use_cooldown: bool = true 
+@export var is_study_action: bool = false
+## Action cooldown, counted in real-world seconds
+@export var base_duration: float = 0.01
+## Action time cost, counted in in-game minutes
+@export var time_cost_minutes: int = 60
 
-# --- REQUIREMENTS & UPGRADES ---
-@export_category("Requirements")
-@export var required_story_flag: StoryFlag
-
-# --- EVENTS ---
-@export_category("Events")
-@export var trigger_signal_id: String = ""
-
-# --- COSTS ---
-@export_category("Costs")
+# --- ECONOMY ---
+@export_category("Economy")                  # <--- Combined for cleaner scrolling
+@export_group("Costs")
 @export var vital_costs: Dictionary[VitalDefinition.VitalType, float] = {}
 @export var currency_costs: Dictionary[CurrencyDefinition.CurrencyType, float] = {}
 
-# --- REWARDS ---
-@export_category("Rewards")
+@export_group("Rewards")
 @export var vital_gains: Dictionary[VitalDefinition.VitalType, float] = {}
 @export var currency_gains: Dictionary[CurrencyDefinition.CurrencyType, float] = {}
+
+# --- REQUIREMENTS & EVENTS ---
+@export_category("Requirements & Events")    # <--- Combined into progression
+@export var required_story_flag: StoryFlag
+@export var trigger_signal_id: String = ""
 
 # --- MESSAGES ---
 @export_category("Messages")

@@ -5,6 +5,7 @@ class_name ActionButton
 # 1. DATA & CONFIGURATION
 # ==============================================================================
 
+@export_category("Data")
 @export var action_data: ActionData:
 	set(value):
 		action_data = value
@@ -20,25 +21,24 @@ class_name ActionButton
 @export var animation_component: AnimationComponent
 @export var notification_indicator_component: NotificationIndicatorComponent
 
-@export_category("Settings")
-@export var base_cooldown: float = 0.5 
-@export var is_study_button: bool = false 
-
-@export_group("Upgrades")
-@export var primary_upgrade: GameItem
-@export var contributing_upgrades: Array[GameItem] = []
-
+# ==============================================================================
+# 2. NODE REFERENCES
+# ==============================================================================
+# --- Logic Nodes ---
 @onready var timer: Timer = $CooldownTimer
+
+# --- Interactive UI ---
 @onready var interact_button: Button = $Button 
+@onready var time_spinbox: SpinBox = %TimeSpinBox
+
+# --- Visual UI ---
 @onready var title_label: Label = %TitleLabel
 @onready var stats_label: RichTextLabel = %StatsLabel 
 @onready var icon_rect: TextureRect = %IconRect
+
+# --- Popups ---
 @onready var study_dialog: ConfirmationDialog = $StudyDialog
-
-@onready var time_spinbox: SpinBox = %TimeSpinBox
 @onready var dialog_stats_label: RichTextLabel = %DialogStatsLabel
-
-var current_cooldown: float = 1.0
 
 # ==============================================================================
 # 2. LIFECYCLE
@@ -67,12 +67,13 @@ func _ready() -> void:
 # 3. INTERACTION
 # ==============================================================================
 func _on_pressed() -> void:
-	# 0. THE CRASH FIX: Make sure action_data actually exists before doing anything!
+	# 0. Make sure action_data actually exists before doing anything!
 	if not action_data: 
 		printerr("ActionButton pressed, but no action_data is assigned!")
 		return
 		
-	if timer and not timer.is_stopped(): return
+	if action_data.use_cooldown and timer and not timer.is_stopped(): 
+		return
 
 	# 1. CLEAR THE BADGE FIRST!
 	if notification_indicator_component:
@@ -87,12 +88,13 @@ func _on_pressed() -> void:
 	var random_ticket = DialogueManager.get_random_ticket_for(action_data)
 	if random_ticket != null:
 		if cost_component: cost_component.pay_all()
-		if timer: timer.start(current_cooldown)
+		if action_data.use_cooldown and timer: 
+			timer.start(action_data.effective_cooldown)
 		DialogueManager.start_dialogue(random_ticket)
 		return 
 
 	# 4. PROMPT OR EXECUTE
-	if is_study_button and study_dialog and time_spinbox:
+	if action_data.is_study_action and study_dialog and time_spinbox:
 		time_spinbox.value = max(1, round(float(action_data.effective_time_cost) / 60.0))
 		_on_time_spinbox_changed(time_spinbox.value)
 		
@@ -131,8 +133,9 @@ func _execute_standard_action() -> void:
 		animation_component.visualize_feedback(feedback)
 		animation_component.play_bounce()
 
-	SignalBus.action_triggered.emit(action_data)
-	if timer: timer.start(current_cooldown)
+	ActionManager.action_triggered.emit(action_data)
+	if action_data.use_cooldown and timer: 
+			timer.start(action_data.effective_cooldown)
 
 # --- FOR STUDY BUTTONS ONLY (Chunking Logic) ---
 func _execute_study_action(requested_minutes: int) -> void:
@@ -185,8 +188,9 @@ func _execute_study_action(requested_minutes: int) -> void:
 			animation_component.visualize_feedback(total_feedback)
 			animation_component.play_bounce()
 
-		SignalBus.action_triggered.emit(action_data)
-		if timer: timer.start(current_cooldown)
+		ActionManager.action_triggered.emit(action_data)
+		if action_data.use_cooldown and timer: 
+			timer.start(action_data.effective_cooldown)
 
 # ==============================================================================
 # 4. SETUP HELPERS & UI UPDATES 
@@ -268,19 +272,11 @@ func _recalculate_upgrades() -> void:
 	_load_data_into_components()
 
 func _on_upgrade_leveled(id: String, _lvl: int) -> void:
-	var is_relevant: bool = false
-	if primary_upgrade and primary_upgrade.id == id:
-		is_relevant = true
-	else:
-		for upg in contributing_upgrades:
-			if upg and upg.id == id:
-				is_relevant = true
-				break
-				
-	if not is_relevant and action_data:
-		var upgraded_item = ItemManager.find_item_by_id(id)
-		if upgraded_item != null and upgraded_item.target_action == action_data:
-			is_relevant = true
+	if not action_data: 
+		return
+		
+	var upgraded_item = ItemManager.find_item_by_id(id)
 	
-	if is_relevant:
+	# If the item that just leveled up is targeting THIS action, update the UI!
+	if upgraded_item != null and upgraded_item.target_action == action_data:
 		_load_data_into_components()

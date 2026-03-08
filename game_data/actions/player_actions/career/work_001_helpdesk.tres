@@ -6,16 +6,23 @@
 script = ExtResource("1_mfubx")
 id = "work_001_helpdesk"
 display_name = "Junior Helpdesk"
+category = null
 description = "Have you tried turning it off and on again?\" 
 
 You spend your day resettting passwords for people who think the 'Any' key is a physical button.
 With no skills and zero certification this is the best you got."
+is_unlocked_by_default = null
+is_visible_in_menu = null
 time_cost_minutes = 480
-base_duration = 0.1
+base_duration = null
+trigger_signal_id = null
 vital_costs = Dictionary[int, float]({
 101: 15.0
 })
+currency_costs = null
+vital_gains = null
 currency_gains = Dictionary[int, float]({
 1: 12.0
 })
+failure_messages = null
 metadata/_custom_type_script = "uid://cl7fnpxvwmebh"

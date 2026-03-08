@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="DialogueOption" format=3 uid="uid://c7lsrjg0ys7xi"]
 
-[ext_resource type="Resource" uid="uid://60htfc782k24" path="res://game_data/items/technology/course_helpdesk_basics.tres" id="1_pjt4x"]
+[ext_resource type="Resource" uid="uid://60htfc782k24" path="res://game_data/items/knowledge/course_helpdesk_basics.tres" id="1_pjt4x"]
 [ext_resource type="Script" uid="uid://c5u03fwuj8ukx" path="res://core/definitions/story/dialogue/dialogue_option.gd" id="1_rnw7q"]
 [ext_resource type="Resource" uid="uid://c3ui16qnna8ps" path="res://game_data/actions/game_actions/ticket_rewards/reward_ticket_success.tres" id="3_oimb2"]
 

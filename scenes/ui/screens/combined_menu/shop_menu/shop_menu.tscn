@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://dnssq07erf3q5" path="res://scenes/ui/screens/combined_menu/shop_menu/shop_menu.gd" id="1_3b8rw"]
 [ext_resource type="PackedScene" uid="uid://dn2stxn2gia2u" path="res://scenes/ui/screens/combined_menu/shop_menu/shop_item_button/shop_item_button.tscn" id="4_sjk1b"]
 
-[node name="ShopMenu" type="Control" unique_id=598056843 node_paths=PackedStringArray("consumable_grid", "upgrade_grid", "technology_grid")]
+[node name="ShopMenu" type="Control" unique_id=598056843 node_paths=PackedStringArray("consumable_grid", "knowledge_grid", "skill_grid")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -13,8 +13,8 @@ grow_vertical = 2
 script = ExtResource("1_3b8rw")
 shop_button_scene = ExtResource("4_sjk1b")
 consumable_grid = NodePath("MarginContainer/VBoxContainer/TabContainer/Consumable/Consumable/ConsumableGrid")
-upgrade_grid = NodePath("MarginContainer/VBoxContainer/TabContainer/Upgrades/Upgrades/UpgradesGrid")
-technology_grid = NodePath("MarginContainer/VBoxContainer/TabContainer/Technology/Technology/TechnologyGrid")
+knowledge_grid = NodePath("MarginContainer/VBoxContainer/TabContainer/Knowledge/Knowledge/KnowledgeGrid")
+skill_grid = NodePath("MarginContainer/VBoxContainer/TabContainer/Skill/Skill/SkillGrid")
 
 [node name="Panel" type="Panel" parent="." unique_id=662819966]
 layout_mode = 1
@@ -64,7 +64,7 @@ layout_mode = 2
 layout_mode = 2
 columns = 2
 
-[node name="Upgrades" type="MarginContainer" parent="MarginContainer/VBoxContainer/TabContainer" unique_id=143010617]
+[node name="Knowledge" type="MarginContainer" parent="MarginContainer/VBoxContainer/TabContainer" unique_id=143010617]
 visible = false
 layout_mode = 2
 theme_override_constants/margin_left = 10
@@ -73,15 +73,15 @@ theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 metadata/_tab_index = 1
 
-[node name="Upgrades" type="ScrollContainer" parent="MarginContainer/VBoxContainer/TabContainer/Upgrades" unique_id=2069156364]
+[node name="Knowledge" type="ScrollContainer" parent="MarginContainer/VBoxContainer/TabContainer/Knowledge" unique_id=2069156364]
 layout_mode = 2
 
-[node name="UpgradesGrid" type="GridContainer" parent="MarginContainer/VBoxContainer/TabContainer/Upgrades/Upgrades" unique_id=1057169241]
+[node name="KnowledgeGrid" type="GridContainer" parent="MarginContainer/VBoxContainer/TabContainer/Knowledge/Knowledge" unique_id=1057169241]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Technology" type="MarginContainer" parent="MarginContainer/VBoxContainer/TabContainer" unique_id=3417778]
+[node name="Skill" type="MarginContainer" parent="MarginContainer/VBoxContainer/TabContainer" unique_id=3417778]
 visible = false
 layout_mode = 2
 theme_override_constants/margin_left = 10
@@ -90,10 +90,10 @@ theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 metadata/_tab_index = 2
 
-[node name="Technology" type="ScrollContainer" parent="MarginContainer/VBoxContainer/TabContainer/Technology" unique_id=1289642]
+[node name="Skill" type="ScrollContainer" parent="MarginContainer/VBoxContainer/TabContainer/Skill" unique_id=1289642]
 layout_mode = 2
 
-[node name="TechnologyGrid" type="GridContainer" parent="MarginContainer/VBoxContainer/TabContainer/Technology/Technology" unique_id=35541590]
+[node name="SkillGrid" type="GridContainer" parent="MarginContainer/VBoxContainer/TabContainer/Skill/Skill" unique_id=35541590]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3

@@ -3,7 +3,7 @@ class_name QuestItemUI
 
 # --- NODES ---
 @onready var title_label: Label = %TitleLabel
-@onready var desc_label: Label = %DescLabel
+@onready var desc_label: RichTextLabel = %DescLabel
 @onready var progress_bar: ProgressBar = %ProgressBar
 @onready var progress_label: Label = %ProgressLabel
 
@@ -15,11 +15,23 @@ func setup(quest: QuestData) -> void:
 	title_label.text = quest.title
 	desc_label.text = quest.description
 	
-	# Initialize the progress bar max value
-	progress_bar.max_value = quest.required_amount
-	update_progress(0, quest.required_amount)
+	# THE FIX: Check if we actually have an objective amount!
+	if quest.required_amount <= 0:
+		# Hide the progress UI completely
+		progress_bar.visible = false
+		progress_label.visible = false
+	else:
+		# Show them and set them up normally
+		progress_bar.visible = true
+		progress_label.visible = true
+		progress_bar.max_value = quest.required_amount
+		update_progress(0, quest.required_amount)
 
 func update_progress(current: int, required: int) -> void:
+	# SAFETY CHECK: If this quest doesn't use numbers, ignore updates
+	if required <= 0:
+		return
+		
 	progress_bar.value = current
 	progress_label.text = str(current) + " / " + str(required)
 	

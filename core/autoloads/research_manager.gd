@@ -30,8 +30,8 @@ func start_research(item: GameItem) -> void:
 	}
 	
 	research_queue.append(item.id) 
-	
 	research_started.emit(item.id, item.research_duration_minutes)
+	
 	print("🔬 Research Queued: %s" % item.display_name)
 
 func get_progress(item_id: String) -> float:

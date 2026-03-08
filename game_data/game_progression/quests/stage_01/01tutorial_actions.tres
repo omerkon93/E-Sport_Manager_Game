@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="QuestData" format=3 uid="uid://cda7nx71wnkdp"]
+
+[ext_resource type="Resource" uid="uid://y3ehljvnfi6r" path="res://game_data/game_resources/currencies/money.tres" id="1_2tycw"]
+[ext_resource type="Resource" uid="uid://kwb5055m8yyb" path="res://game_data/game_progression/story_flags/stage_01/tutorial/unlock_consumables.tres" id="2_wfnt3"]
+[ext_resource type="Script" uid="uid://dc14l4ce35m0o" path="res://core/definitions/story/quest_data.gd" id="3_fuorb"]
+[ext_resource type="Resource" uid="uid://cwc0t0g303r5u" path="res://game_data/actions/player_actions/career/work_001_helpdesk.tres" id="4_xm06f"]
+[ext_resource type="Script" uid="uid://cwsq8isjkr33d" path="res://core/definitions/story/story_flag.gd" id="5_wfnt3"]
+
+[resource]
+script = ExtResource("3_fuorb")
+id = "tutorial_actions"
+title = "Help them desk!"
+description = "Clear out the morning queue. Resolve 5 basic IT tickets."
+target_action = ExtResource("4_xm06f")
+required_amount = 5
+reward_currency = ExtResource("1_2tycw")
+reward_amount = 1000.0
+reward_story_flag = ExtResource("2_wfnt3")
+metadata/_custom_type_script = "uid://dc14l4ce35m0o"

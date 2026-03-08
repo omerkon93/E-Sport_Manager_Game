@@ -68,8 +68,8 @@ func _update_label() -> void:
 	var res = upgrade_resource
 	
 	var level = ProgressionManager.get_upgrade_level(res.id)
-	var is_tech = res.item_type == GameItem.ItemType.TECHNOLOGY
-	var researching = is_tech and ResearchManager.is_researching(res.id)
+	var is_skill = res.item_type == GameItem.ItemType.SKILL
+	var researching = is_skill and ResearchManager.is_researching(res.id)
 
 	# --- A. STATE: OWNED OR RESEARCHING ---
 	if res.item_type != GameItem.ItemType.CONSUMABLE:
@@ -136,7 +136,7 @@ func _get_effects_text() -> String:
 	var res = upgrade_resource
 	
 	# 1. Tech Research Time
-	if res.item_type == GameItem.ItemType.TECHNOLOGY:
+	if res.item_type == GameItem.ItemType.SKILL:
 		var base_time = res.research_duration_minutes
 		var speed = ResearchManager.get_global_research_speed()
 		var effective_time = int(base_time / speed)
