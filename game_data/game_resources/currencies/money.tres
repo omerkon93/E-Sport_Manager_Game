@@ -9,5 +9,4 @@ display_name = "Money"
 text_icon = "💵"
 display_color = Color(0, 1, 0, 1)
 prefix = "$"
-description = "Money is yummy"
 metadata/_custom_type_script = "uid://cmjd7pxovwsxn"

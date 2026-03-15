@@ -7,7 +7,7 @@
 script = ExtResource("1_2u0ko")
 quest_item_scene = ExtResource("2_bwtok")
 
-[node name="ActiveObjectives" type="Label" parent="." unique_id=1016158916]
+[node name="TitleLabel" type="Label" parent="." unique_id=1016158916]
 layout_mode = 2
 text = "Quests menu:"
 

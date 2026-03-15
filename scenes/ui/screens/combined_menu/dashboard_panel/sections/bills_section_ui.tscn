@@ -5,9 +5,23 @@
 [node name="BillsSectionUI" type="VBoxContainer" unique_id=292039700]
 script = ExtResource("1_qc3bl")
 
-[node name="Label" type="Label" parent="." unique_id=1852141396]
+[node name="TitleLabel" type="Label" parent="." unique_id=418245616]
 layout_mode = 2
-text = "Upcoming Bills"
+text = "Bills menu:"
 
-[node name="BillList" type="VBoxContainer" parent="." unique_id=1005508259]
+[node name="EmptyStateLabel" type="Label" parent="." unique_id=1645049350]
+unique_name_in_owner = true
 layout_mode = 2
+theme_override_colors/font_color = Color(0.5019608, 0.5019608, 0.5019608, 1)
+text = "No active bills."
+
+[node name="ScrollContainer" type="ScrollContainer" parent="." unique_id=1495296675]
+custom_minimum_size = Vector2(0, 160)
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="BillsList" type="VBoxContainer" parent="ScrollContainer" unique_id=139836830]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3

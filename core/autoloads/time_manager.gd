@@ -58,3 +58,30 @@ func format_duration_in_hours(total_minutes: int) -> String:
 	else:
 		# If there are leftover minutes, show 1 decimal place (e.g., 90 mins = 1.5 hr)
 		return "%.1f hr" % hours
+
+# ==============================================================================
+# PERSISTENCE & RESET
+# ==============================================================================
+func get_save_data() -> Dictionary:
+	return {
+		"day": current_day,
+		"hour": current_hour,
+		"minute": current_minute
+	}
+
+func load_save_data(data: Dictionary) -> void:
+	current_day = data.get("day", 1)
+	current_hour = data.get("hour", 8)
+	current_minute = data.get("minute", 0)
+	
+	# Force the UI clock to update instantly on load
+	time_updated.emit(current_day, current_hour, current_minute)
+
+func reset() -> void:
+	current_day = 1
+	current_hour = DAY_START_HOUR # Assuming 6 AM based on your constants!
+	current_minute = 0
+	
+	time_updated.emit(current_day, current_hour, current_minute)
+	print("⏰ TimeManager: Reset to Day 1, %d:00." % DAY_START_HOUR)
+	

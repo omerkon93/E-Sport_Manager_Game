@@ -98,3 +98,22 @@ func load_save_data(data: Dictionary) -> void:
 		
 		# Update UI immediately after loading
 		currency_changed.emit(key_int, amount)
+
+# ==============================================================================
+# RESET LOGIC
+# ==============================================================================
+func reset() -> void:
+	# Clear out the old save's bank accounts
+	_currencies.clear()
+	
+	# Rebuild the default bank accounts based on your static definitions
+	for type in _definitions:
+		var def = _definitions[type]
+		var starting_amount = def.initial_amount if "initial_amount" in def else 0.0
+		
+		_currencies[type] = starting_amount
+		
+		# Immediately tell the UI to update to the starting values
+		currency_changed.emit(type, starting_amount)
+		
+	print("💰 CurrencyManager: Reset to initial amounts.")

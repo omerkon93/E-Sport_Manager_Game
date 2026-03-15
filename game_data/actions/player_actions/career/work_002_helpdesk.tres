@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="ActionData" format=3 uid="uid://bxu4308ifnc1n"]
+
+[ext_resource type="Script" uid="uid://dc14l4ce35m0o" path="res://core/definitions/story/quest_data.gd" id="1_al0gj"]
+[ext_resource type="Script" uid="uid://cl7fnpxvwmebh" path="res://core/definitions/actions/action_data.gd" id="1_mi07w"]
+[ext_resource type="Resource" uid="uid://dgp3ygtjcqcwc" path="res://game_data/game_progression/quests/stage_01/performance_review.tres" id="2_l8erm"]
+
+[resource]
+script = ExtResource("1_mi07w")
+id = "work_002_helpdesk"
+display_name = "Helpdesk"
+description = "More of the same, but you are better at it!
+
+Feels like progress!"
+time_cost_minutes = 120
+vital_costs = Dictionary[int, float]({
+101: 15.0,
+102: 15.0
+})
+currency_gains = Dictionary[int, float]({
+1: 20.0
+})
+required_completed_quests = Array[ExtResource("1_al0gj")]([ExtResource("2_l8erm")])
+metadata/_custom_type_script = "uid://cl7fnpxvwmebh"

@@ -8,7 +8,7 @@ size_flags_horizontal = 3
 script = ExtResource("1_wg0qf")
 research_item_scene = ExtResource("2_oginr")
 
-[node name="ActiveResearch" type="Label" parent="." unique_id=1242913073]
+[node name="TitleLabel" type="Label" parent="." unique_id=1242913073]
 layout_mode = 2
 text = "Research menu:"
 

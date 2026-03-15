@@ -69,11 +69,39 @@ func _add_action(action: ActionData) -> void:
 # ==============================================================================
 # 3. PUBLIC API
 # ==============================================================================
+# ==============================================================================
+# 3. PUBLIC API
+# ==============================================================================
 func get_action_by_id(id: String) -> ActionData:
 	for action in all_actions:
 		if action.id == id:
 			return action
 	return null
+
+func is_action_unlocked(action: ActionData) -> bool:
+	var has_locks = false
+	
+	# 1. Check Story Flag Lock
+	if action.required_story_flag != null:
+		has_locks = true
+		if not ProgressionManager.get_flag(action.required_story_flag.id):
+			return false # Failed the flag requirement
+
+	# 2. Check Quest Lock (Currently set up as AND logic: must complete ALL listed quests)
+	if action.required_completed_quests.size() > 0:
+		has_locks = true
+		for quest in action.required_completed_quests:
+			if quest and not QuestManager.completed_quests.has(quest.id):
+				return false # Failed the quest requirement
+
+	# 3. The Final Verdict
+	if has_locks:
+		# If the action HAD locks, and we survived the checks above without returning false,
+		# it means the player satisfied every single requirement!
+		return true
+		
+	# If the action has NO locks attached to it at all, we just look at the checkbox.
+	return action.is_unlocked_by_default
 
 # ==============================================================================
 # 4. ACTION EXECUTION & MATH

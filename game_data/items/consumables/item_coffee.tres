@@ -12,6 +12,7 @@
 script = ExtResource("1_c2bki")
 id = "item_coffee"
 display_name = "Hot Coffee"
+description = "Hot coffe for your stamina"
 currency_cost = Dictionary[ExtResource("1_d120w"), int]({
 ExtResource("2_gnep0"): 10
 })

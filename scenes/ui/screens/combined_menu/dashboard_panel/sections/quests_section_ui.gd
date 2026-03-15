@@ -24,10 +24,11 @@ func _on_quest_activated(quest: QuestData) -> void:
 	_spawn_quest_item(quest)
 	_check_empty_state() # Instantly hide the empty state label
 
-func _on_quest_progress_updated(q_id: String, current: int, required: int) -> void:
+func _on_quest_progress_updated(q_id: String, _action_id: String, _current: int, _required: int) -> void:
 	for child in quest_list.get_children():
 		if child is QuestItemUI and child.quest_id == q_id:
-			child.update_progress(current, required)
+			var progress_dict = QuestManager.active_quests.get(q_id, {})
+			child.update_progress(progress_dict)
 			break
 
 func _on_quest_completed(quest: QuestData) -> void:
@@ -63,13 +64,14 @@ func _refresh_quests_ui() -> void:
 	
 	for q_id in active.keys():
 		var quest_data = QuestManager._get_quest_data(q_id)
-		var current_progress = active[q_id]
+		
+		# active[q_id] is now a Dictionary!
+		var current_progress_dict = active[q_id] 
 		
 		if quest_data:
 			var item = _spawn_quest_item(quest_data)
-			item.update_progress(current_progress, quest_data.required_amount)
+			item.update_progress(current_progress_dict)
 			
-	# Update the UI once everything is spawned (or not spawned)
 	_check_empty_state()
 
 func _spawn_quest_item(quest: QuestData) -> QuestItemUI:

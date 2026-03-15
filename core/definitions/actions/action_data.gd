@@ -35,9 +35,10 @@ enum ActionCategory { CAREER, SURVIVAL, SPIRITUAL, OTHER }
 @export var vital_gains: Dictionary[VitalDefinition.VitalType, float] = {}
 @export var currency_gains: Dictionary[CurrencyDefinition.CurrencyType, float] = {}
 
-# --- REQUIREMENTS & EVENTS ---
-@export_category("Requirements & Events")    # <--- Combined into progression
+@export_category("Requirements & Events")    
 @export var required_story_flag: StoryFlag
+## The player MUST complete all of these quests before the action unlocks
+@export var required_completed_quests: Array[QuestData] = []
 @export var trigger_signal_id: String = ""
 
 # --- MESSAGES ---

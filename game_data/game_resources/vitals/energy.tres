@@ -10,6 +10,5 @@ script = ExtResource("1_4cp3g")
 type = 101
 display_name = "Energy"
 display_color = Color(0, 0.3882353, 0.9372549, 1)
-description = "Test palce"
 gradient = SubResource("Gradient_u1tk0")
 metadata/_custom_type_script = "uid://derwj2ijevwkr"

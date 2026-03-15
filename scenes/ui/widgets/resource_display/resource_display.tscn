@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://dsjxbnco6r66i" path="res://scenes/ui/widgets/info_popup_button/info_popup_button.tscn" id="4_orccg"]
 
 [node name="ResourceDisplay" type="PanelContainer" unique_id=708812145]
+custom_minimum_size = Vector2(80, 0)
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -12,11 +13,12 @@ anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -100.0
 offset_top = -22.5
-offset_right = 100.0
-offset_bottom = 22.5
+offset_right = -12.0
+offset_bottom = 8.5
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
+size_flags_vertical = 4
 script = ExtResource("1_ng5p0")
 resource_def = ExtResource("3_6p6o2")
 metadata/_edit_use_anchors_ = true
@@ -41,6 +43,7 @@ size_flags_vertical = 4
 unique_name_in_owner = true
 layout_mode = 2
 text = "100/100"
+horizontal_alignment = 1
 
 [node name="ItemInfoButton" parent="HBoxContainer" unique_id=1148206182 instance=ExtResource("4_orccg")]
 unique_name_in_owner = true

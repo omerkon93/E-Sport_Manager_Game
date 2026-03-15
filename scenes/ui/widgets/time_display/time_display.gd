@@ -3,9 +3,9 @@ class_name TimeDisplay
 
 # --- NODES ---
 # We use the same structure as ResourceDisplay so you can reuse the prefab
-@onready var icon_rect: TextureRect = $HBoxContainer/Icon
-@onready var value_label: Label = $HBoxContainer/VBoxContainer/ValueLabel
-@onready var progress_bar: ProgressBar = $HBoxContainer/VBoxContainer/ProgressBar
+@onready var icon_rect: TextureRect = %Icon
+@onready var value_label: Label = %ValueLabel
+@onready var progress_bar: ProgressBar = %ProgressBar
 
 # Optional: Export an icon for the clock
 @export var clock_icon: Texture2D
@@ -58,4 +58,4 @@ func _update_display() -> void:
 	
 	# Added the text_icon here to match your ResourceDisplay style
 	var day_str = "%s Day %d" % [text_icon, day]
-	value_label.text = "%s\n%s" % [day_str, time_str]
+	value_label.text = "%s | %s" % [day_str, time_str]

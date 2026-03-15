@@ -55,6 +55,7 @@ func _ready() -> void:
 	if back_btn: back_btn.pressed.connect(close)
 	if reset_btn: reset_btn.pressed.connect(_on_reset_pressed)
 	if quick_save_btn: quick_save_btn.pressed.connect(_on_quick_save_pressed)
+	SignalBus.open_settings_requested.connect(open)
 	
 	if save_btn: 
 		save_btn.pressed.connect(func(): 

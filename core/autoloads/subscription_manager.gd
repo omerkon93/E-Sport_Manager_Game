@@ -80,6 +80,47 @@ func _process_payment(id: String, data: Dictionary) -> void:
 		SignalBus.message_logged.emit("MISSED PAYMENT: %s!" % item.display_name, Color.RED)
 		
 		# Trigger penalty if defined
-		if item.penalty_flag != "":
+		if item.penalty_flag != null:
 			print("💀 Triggering Penalty: ", item.penalty_flag)
 			# ProgressionManager.set_flag(item.penalty_flag, true)
+
+# ==============================================================================
+# PERSISTENCE & RESET
+# ==============================================================================
+func get_save_data() -> Dictionary:
+	var save_data = {}
+	
+	for id in active_subscriptions:
+		var data = active_subscriptions[id]
+		save_data[id] = {
+			"next_due_day": data.next_due_day,
+			# Save the exact file path to the resource so we can load it later!
+			"resource_path": data.item.resource_path 
+		}
+		
+	return save_data
+
+func load_save_data(data: Dictionary) -> void:
+	reset() # Clear out any old data first
+	
+	for id in data:
+		var sub_data = data[id]
+		
+		# Load the resource back from the file path
+		var loaded_item = load(sub_data.resource_path) as SubscriptionItem
+		
+		if loaded_item:
+			active_subscriptions[id] = {
+				"item": loaded_item,
+				"next_due_day": sub_data.next_due_day
+			}
+			# Tell the UI this subscription exists!
+			subscription_added.emit(loaded_item)
+
+func reset() -> void:
+	# Tell the UI to remove the rows
+	for id in active_subscriptions.keys():
+		subscription_removed.emit(id)
+		
+	active_subscriptions.clear()
+	print("🧾 SubscriptionManager: All bills cleared.")

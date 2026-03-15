@@ -42,9 +42,6 @@ func _connect_signals() -> void:
 		TimeManager.time_updated.connect(_on_time_updated)
 		TimeManager.day_started.connect(func(_d): _check_all_milestones())
 
-	if QuestManager and QuestManager.has_signal("quest_completed"):
-		QuestManager.quest_completed.connect(_on_quest_completed)
-	
 	if ResearchManager and ResearchManager.has_signal("research_started"):
 		ResearchManager.research_started.connect(_on_research_started)
 	
@@ -107,10 +104,6 @@ func _on_time_updated(_day: int, _hour: int, _minute: int) -> void:
 		for m in all_milestones:
 			if m.min_day != -1:
 				_evaluate_milestone(m)
-
-func _on_quest_completed(quest: QuestData) -> void:
-	if quest.reward_story_flag != null:
-		set_flag(quest.reward_story_flag, true)
 
 func _on_research_started(id: String, _duration: int) -> void:
 	for m in all_milestones:

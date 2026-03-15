@@ -22,7 +22,7 @@ func _ready() -> void:
 	# Setup the universal info button!
 	if info_button:
 		# Assuming your definitions have display_name and description properties
-		info_button.setup(resource_def.display_name, resource_def.description)
+		info_button.setup(resource_def.display_name, resource_def.description, resource_def)
 	
 	if resource_def is VitalDefinition:
 		_setup_vital(resource_def)

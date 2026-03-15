@@ -31,13 +31,13 @@ func save_game() -> void:
 		"version": "1.1",
 		"timestamp": Time.get_unix_time_from_system(),
 		"currency": CurrencyManager.get_save_data(),
-		# Check if VitalManager exists before calling
 		"vitals": VitalManager.get_save_data() if VitalManager else {},
 		"settings": SettingsManager.get_save_data(),
-		"progression": ProgressionManager.get_save_data()
+		"progression": ProgressionManager.get_save_data(),
+		"research": ResearchManager.get_save_data() if ResearchManager else {},
+		"time": TimeManager.get_save_data() if TimeManager and TimeManager.has_method("get_save_data") else {}
 	}
 	
-	# Use the dynamic path for the current slot
 	var path = get_save_path(current_slot_id)
 	var file = FileAccess.open(path, FileAccess.WRITE)
 	
@@ -47,7 +47,6 @@ func save_game() -> void:
 		file.close()
 
 func load_game(slot_id: int = -1, send_signal: bool = true) -> void:
-	# If an ID is passed, update our current slot. Otherwise use current.
 	if slot_id != -1:
 		current_slot_id = slot_id
 
@@ -66,24 +65,20 @@ func load_game(slot_id: int = -1, send_signal: bool = true) -> void:
 		var data = json.data
 		print("Loading save from Slot ", current_slot_id, "...")
 		
-		# Load Data into Managers
 		if data.has("currency"): CurrencyManager.load_save_data(data.currency)
-		
 		if data.has("vitals") and VitalManager.has_method("load_save_data"): 
 			VitalManager.load_save_data(data.vitals)
-			
 		if data.has("settings"): SettingsManager.load_save_data(data.settings)
 		if data.has("progression"): ProgressionManager.load_save_data(data.progression)
 		
+		# --- NEW: Load Research and Time! ---
+		if data.has("research") and ResearchManager: ResearchManager.load_save_data(data.research)
+		if data.has("time") and TimeManager and TimeManager.has_method("load_save_data"): TimeManager.load_save_data(data.time)
+		
 		print("✅ Game Loaded Successfully!")
 		
-		# Start the auto-save timer now that we are playing
 		_timer.start()
 		
-		# --- CHANGED HERE ---
-		# Only emit the signal if send_signal is TRUE.
-		# This prevents the SettingsMenu from reloading the scene 
-		# when we are about to switch scenes manually in the SaveSelectionMenu.
 		if send_signal:
 			game_loaded.emit()
 		
@@ -102,18 +97,20 @@ func start_new_game(slot_id: int) -> void:
 	current_slot_id = slot_id
 	print("Starting new game on Slot ", slot_id)
 	
-	# Delete old save if it exists on this slot
 	if save_file_exists(slot_id):
 		delete_save(slot_id)
 		
-	# --- Wipe the ProgressionManager memory for the new game ---
-	if ProgressionManager.has_method("reset"):
-		ProgressionManager.reset()
+	# --- Wipe ALL Managers clean for the new game ---
+	if ProgressionManager.has_method("reset"): ProgressionManager.reset()
+	if QuestManager.has_method("reset"): QuestManager.reset()
+	
+	# NEW RESETS
+	if ResearchManager and ResearchManager.has_method("reset"): ResearchManager.reset()
+	if CurrencyManager and CurrencyManager.has_method("reset"): CurrencyManager.reset()
+	if VitalManager and VitalManager.has_method("reset"): VitalManager.reset()
+	if TimeManager and TimeManager.has_method("reset"): TimeManager.reset()
+	if SubscriptionManager and SubscriptionManager.has_method("reset"): SubscriptionManager.reset()
 		
-	if QuestManager.has_method("reset"):
-		QuestManager.reset()
-		
-	# Start the auto-save timer
 	_timer.start()
 
 func delete_save(slot_id: int) -> void:

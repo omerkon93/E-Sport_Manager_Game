@@ -15,6 +15,10 @@ func _ready() -> void:
 	# Rebuilds the whole list (e.g. unlocks new buttons)
 	ProgressionManager.flag_changed.connect(func(_id, _val): _rebuild_ui())
 	
+	# Rebuild when a quest finishes!
+	if QuestManager.has_signal("quest_completed"):
+		QuestManager.quest_completed.connect(func(_quest): _rebuild_ui())
+	
 	# Only updates the tab titles (e.g. removes "(!)") - No scroll reset!
 	ProgressionManager.item_seen.connect(func(_id): _update_tab_titles())
 	
@@ -34,10 +38,9 @@ func _rebuild_ui() -> void:
 	for action in ActionManager.all_actions:
 		if not action.is_visible_in_menu: continue
 		
-		# Flag Check
-		if action.required_story_flag != null:
-			if not ProgressionManager.get_flag(action.required_story_flag):
-				continue
+		# --- NEW: Use the centralized Manager check! ---
+		if not ActionManager.is_action_unlocked(action):
+			continue
 		
 		# Instantiate
 		match action.category:
@@ -76,7 +79,9 @@ func _get_category_status(cat: int) -> Dictionary:
 	for action in ActionManager.all_actions:
 		if action.category != cat: continue
 		if not action.is_visible_in_menu: continue
-		if action.required_story_flag and not ProgressionManager.get_flag(action.required_story_flag): continue
+		
+		if not ActionManager.is_action_unlocked(action): 
+			continue
 		
 		has_items = true
 		if ProgressionManager.is_item_new(action.id):

@@ -1,6 +1,5 @@
 [gd_scene format=3 uid="uid://bi6vn7ujskl0w"]
 
-[ext_resource type="StyleBox" uid="uid://llvx1tir3k1i" path="res://assets/style/resource_display_style_box_flat.tres" id="1_dhebs"]
 [ext_resource type="Script" uid="uid://bmhesm20mmgcj" path="res://scenes/ui/widgets/time_display/time_display.gd" id="1_r0ev5"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_i2cgv"]
@@ -14,11 +13,12 @@ anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -60.0
 offset_top = -22.5
-offset_right = 140.0
-offset_bottom = 22.5
+offset_right = 2.0
+offset_bottom = 0.5
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/panel = ExtResource("1_dhebs")
+size_flags_horizontal = 4
+size_flags_vertical = 4
 script = ExtResource("1_r0ev5")
 metadata/_edit_use_anchors_ = true
 
@@ -28,22 +28,21 @@ size_flags_vertical = 4
 theme_override_constants/separation = 10
 
 [node name="Icon" type="TextureRect" parent="HBoxContainer" unique_id=2107012525]
+unique_name_in_owner = true
 visible = false
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer" unique_id=2138339680]
+[node name="ValueLabel" type="Label" parent="HBoxContainer" unique_id=1269091464]
+unique_name_in_owner = true
 layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 4
+text = "My time"
 
-[node name="ValueLabel" type="Label" parent="HBoxContainer/VBoxContainer" unique_id=1269091464]
-layout_mode = 2
-text = "100/100"
-
-[node name="ProgressBar" type="ProgressBar" parent="HBoxContainer/VBoxContainer" unique_id=1527109390]
+[node name="ProgressBar" type="ProgressBar" parent="HBoxContainer" unique_id=1527109390]
+unique_name_in_owner = true
+visible = false
 custom_minimum_size = Vector2(100, 8)
 layout_mode = 2
 theme_override_styles/background = SubResource("StyleBoxFlat_i2cgv")

@@ -140,3 +140,16 @@ func load_save_data(data: Dictionary) -> void:
 		
 		if _vitals.has(id):
 			set_vital(id, value)
+
+# ==============================================================================
+# RESET LOGIC
+# ==============================================================================
+func reset() -> void:
+	for type in _vitals:
+		var data = _vitals[type]
+		# Restore current to whatever the max is
+		data["current"] = data["max"]
+		# Tell the UI to update the bars back to 100%
+		vital_changed.emit(type, data["current"], data["max"])
+	
+	print("❤️ VitalManager: Reset all vitals to max.")

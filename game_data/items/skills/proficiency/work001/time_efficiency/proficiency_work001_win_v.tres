@@ -5,7 +5,7 @@
 [ext_resource type="Script" uid="uid://ibattlbh7e1t" path="res://core/definitions/items/game_item.gd" id="3_8e7yy"]
 [ext_resource type="Script" uid="uid://cwsq8isjkr33d" path="res://core/definitions/story/story_flag.gd" id="4_8gw1w"]
 [ext_resource type="Resource" uid="uid://dowodxgc6qssh" path="res://game_data/game_progression/story_flags/stage_01/flag_course_keyboard_basics.tres" id="5_xjrr8"]
-[ext_resource type="Resource" uid="uid://cwc0t0g303r5u" path="res://game_data/actions/player_actions/career/work_001_helpdesk.tres" id="6_k5jl1"]
+[ext_resource type="Resource" uid="uid://cwc0t0g303r5u" path="res://game_data/actions/player_actions/career/work_001_junhelpdesk.tres" id="6_k5jl1"]
 [ext_resource type="Script" uid="uid://derwj2ijevwkr" path="res://core/definitions/stats/vitals_definition.gd" id="7_jvojb"]
 
 [sub_resource type="Resource" id="Resource_c1cig"]

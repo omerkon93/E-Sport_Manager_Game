@@ -15,10 +15,10 @@ bg_color = Color(0.16409835, 0.16409835, 0.16409835, 0.90000004)
 [node name="HUD" type="PanelContainer" unique_id=652665641]
 anchors_preset = 10
 anchor_right = 1.0
-offset_bottom = 65.0
+offset_bottom = 31.0
 grow_horizontal = 2
+size_flags_vertical = 4
 theme_override_styles/panel = SubResource("StyleBoxFlat_edj1p")
-metadata/_edit_use_anchors_ = true
 
 [node name="MarginContainer" type="MarginContainer" parent="." unique_id=1273881585]
 layout_mode = 2
@@ -48,18 +48,18 @@ resource_def = ExtResource("3_w5r6f")
 [node name="Spacer1" type="Control" parent="MarginContainer/HBoxContainer" unique_id=377554166]
 layout_mode = 2
 size_flags_horizontal = 3
+size_flags_vertical = 4
 
 [node name="TimeDisplay" parent="MarginContainer/HBoxContainer" unique_id=1284411020 instance=ExtResource("6_yn8iy")]
 layout_mode = 2
-size_flags_horizontal = 4
 
 [node name="Spacer2" type="Control" parent="MarginContainer/HBoxContainer" unique_id=517496176]
 layout_mode = 2
 size_flags_horizontal = 3
+size_flags_vertical = 4
 
 [node name="CurrencyBoxContainer" type="HBoxContainer" parent="MarginContainer/HBoxContainer" unique_id=857699710]
 layout_mode = 2
-theme_override_constants/separation = 10
 
 [node name="Money" parent="MarginContainer/HBoxContainer/CurrencyBoxContainer" unique_id=1046806299 instance=ExtResource("1_edj1p")]
 layout_mode = 2
@@ -71,6 +71,7 @@ resource_def = ExtResource("5_y1r2s")
 
 [node name="SettingsButton" parent="MarginContainer/HBoxContainer" unique_id=679154949 instance=ExtResource("8_8bf18")]
 layout_mode = 2
+size_flags_vertical = 4
 
 [node name="ChatLog" parent="." unique_id=812597784 instance=ExtResource("7_8cidd")]
 visible = false

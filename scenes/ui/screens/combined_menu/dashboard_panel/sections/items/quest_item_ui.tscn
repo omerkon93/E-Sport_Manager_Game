@@ -39,3 +39,4 @@ text = "prog label"
 [node name="ItemInfoButton" parent="VBoxContainer" unique_id=1148206182 instance=ExtResource("2_cggte")]
 unique_name_in_owner = true
 layout_mode = 2
+size_flags_horizontal = 4

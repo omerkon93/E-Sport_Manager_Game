@@ -24,4 +24,4 @@ class_name SubscriptionItem
 # --- PENALTY ---
 @export_category("Failure")
 ## Story flag to trigger if payment fails (e.g. "game_over_eviction")
-@export var penalty_flag: String = ""
+@export var penalty_flag: StoryFlag

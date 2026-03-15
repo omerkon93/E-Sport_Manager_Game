@@ -3,7 +3,8 @@
 [ext_resource type="Script" uid="uid://t2tdpr0t6n76" path="res://scenes/ui/screens/main_menu/settings_button/settings_button.gd" id="1_wltor"]
 
 [node name="SettingsButton" type="Button" unique_id=679154949]
-size_flags_horizontal = 4
-size_flags_vertical = 0
+offset_right = 23.0
+offset_bottom = 31.0
+theme_override_font_sizes/font_size = 14
 text = "⚙"
 script = ExtResource("1_wltor")

@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://idg5ajfqohrb"]
 
 [ext_resource type="Script" uid="uid://bfhdr6pllvdob" path="res://scenes/ui/screens/combined_menu/actions_menu/action_button/action_button.gd" id="1_eh05r"]
-[ext_resource type="Resource" uid="uid://cwc0t0g303r5u" path="res://game_data/actions/player_actions/career/work_001_helpdesk.tres" id="2_77re4"]
+[ext_resource type="Resource" uid="uid://cwc0t0g303r5u" path="res://game_data/actions/player_actions/career/work_001_junhelpdesk.tres" id="2_77re4"]
 [ext_resource type="PackedScene" uid="uid://b3t87otrm8e5y" path="res://core/components/animation_component/animation_component.tscn" id="2_aa0hu"]
 [ext_resource type="PackedScene" uid="uid://rpsmp7qml63x" path="res://core/components/cost_component/cost_component.tscn" id="3_hlq6p"]
 [ext_resource type="PackedScene" uid="uid://ci5gf3i2xpxe5" path="res://core/components/reward_component/reward_component.tscn" id="4_0hr7k"]

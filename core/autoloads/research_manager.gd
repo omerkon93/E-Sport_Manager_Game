@@ -90,3 +90,36 @@ func _complete_research(id: String) -> void:
 		ItemManager.apply_level_up(item)
 		SignalBus.message_logged.emit("Research Complete: %s" % item.display_name, Color.GREEN)
 		research_finished.emit(id)
+
+# ==============================================================================
+# SAVE & LOAD
+# ==============================================================================
+
+func get_save_data() -> Dictionary:
+	return {
+		# duplicate(true) ensures we do a deep copy of the nested dictionary
+		"active_research": active_research.duplicate(true),
+		"research_queue": research_queue.duplicate(true)
+	}
+
+func load_save_data(data: Dictionary) -> void:
+	active_research = data.get("active_research", {})
+	
+	# THE FIX: Grab the generic array first, then use .assign() to cast it to Array[String]
+	var loaded_queue = data.get("research_queue", [])
+	research_queue.assign(loaded_queue)
+	
+	# --- UI RESTORATION ---
+	# We need to tell the UI about the research we just loaded so it can 
+	# redraw the progress bars in your menus!
+	for item_id in research_queue:
+		if active_research.has(item_id):
+			var r_data = active_research[item_id]
+			# Tell the UI this exists
+			research_started.emit(item_id, r_data.total)
+			# Tell the UI exactly where the progress bar should be
+			research_progressed.emit(item_id, r_data.remaining)
+
+func reset() -> void:
+	active_research.clear()
+	research_queue.clear()
