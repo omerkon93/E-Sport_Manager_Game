@@ -14,7 +14,7 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 
 [application]
 
-config/name="Spiritual_Clicker_Game"
+config/name="E-Sport_Manager_Game"
 run/main_scene="uid://clvys7pbyarur"
 config/features=PackedStringArray("4.6", "GL Compatibility")
 config/icon="res://icon.svg"

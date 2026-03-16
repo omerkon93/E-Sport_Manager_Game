@@ -1,0 +1,51 @@
+[gd_scene format=3 uid="uid://c42li4sivc6rb"]
+
+[ext_resource type="Script" uid="uid://cqrb0s2f8v4hc" path="res://scenes/ui/screens/uncertain/player_roster_row.gd" id="1_j4xup"]
+
+[node name="PlayerRosterRow" type="PanelContainer" unique_id=1043887541]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_j4xup")
+money_resource = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=623554635]
+layout_mode = 2
+
+[node name="NameLabel" type="Label" parent="HBoxContainer" unique_id=95572952]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "namr"
+
+[node name="RoleLabel" type="Label" parent="HBoxContainer" unique_id=677357035]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "role"
+
+[node name="AimLabel" type="Label" parent="HBoxContainer" unique_id=1745313981]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "aim"
+
+[node name="SenseLabel" type="Label" parent="HBoxContainer" unique_id=210705638]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "sense"
+
+[node name="TeamworkLabel" type="Label" parent="HBoxContainer" unique_id=78245120]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "teamwork"
+
+[node name="TrainButton" type="Button" parent="HBoxContainer" unique_id=760257865]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Train Aim ($100)"

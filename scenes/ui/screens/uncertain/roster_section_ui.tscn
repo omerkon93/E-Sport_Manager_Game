@@ -1,0 +1,57 @@
+[gd_scene format=3 uid="uid://dt7oud6brxudn"]
+
+[ext_resource type="Script" uid="uid://cixsxxqp6eiqd" path="res://scenes/ui/screens/uncertain/roster_section_ui.gd" id="1_whvb2"]
+[ext_resource type="PackedScene" uid="uid://c42li4sivc6rb" path="res://scenes/ui/screens/uncertain/player_roster_row.tscn" id="2_4mfgy"]
+
+[node name="RosterSectionUI" type="VBoxContainer" unique_id=1161452960]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 62.0
+grow_horizontal = 2
+size_flags_horizontal = 3
+script = ExtResource("1_whvb2")
+player_row_scene = ExtResource("2_4mfgy")
+
+[node name="TitleLabel" type="Label" parent="." unique_id=2037186260]
+layout_mode = 2
+text = "Active Roster:"
+
+[node name="HeaderRow" type="HBoxContainer" parent="." unique_id=370417064]
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="Name" type="Label" parent="HeaderRow" unique_id=1032228286]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Name"
+
+[node name="Position" type="Label" parent="HeaderRow" unique_id=1464183822]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Position"
+
+[node name="Aim" type="Label" parent="HeaderRow" unique_id=1537186439]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Aim"
+
+[node name="Sense" type="Label" parent="HeaderRow" unique_id=310388101]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Sense"
+
+[node name="Teamwork" type="Label" parent="HeaderRow" unique_id=749073203]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Teamwork"
+
+[node name="Train" type="Label" parent="HeaderRow" unique_id=1960688840]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Train"
+
+[node name="HSeparator" type="HSeparator" parent="." unique_id=1642791011]
+layout_mode = 2
+
+[node name="PlayerList" type="VBoxContainer" parent="." unique_id=1032518826]
+layout_mode = 2

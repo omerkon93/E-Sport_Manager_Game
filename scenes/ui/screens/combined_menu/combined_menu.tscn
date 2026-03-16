@@ -7,13 +7,14 @@
 
 [node name="CombinedMenu" type="Control" unique_id=1927334450]
 layout_mode = 3
-anchor_top = 0.3
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
 script = ExtResource("1_n7u7p")
-metadata/_edit_use_anchors_ = true
 
 [node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=846988502]
 layout_mode = 1
@@ -45,4 +46,6 @@ layout_mode = 2
 metadata/_tab_index = 1
 
 [node name="DashboardPanel" parent="HBoxContainer" unique_id=41419043 instance=ExtResource("5_he5gf")]
+unique_name_in_owner = true
 layout_mode = 2
+size_flags_horizontal = 3

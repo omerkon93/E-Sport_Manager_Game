@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://cg4tvvr3xcavd" path="res://scenes/main/test/test_world.gd" id="1_mhjrp"]
 [ext_resource type="PackedScene" uid="uid://brw4tnt3187u7" path="res://core/components/floating_text_component/floating_text_component.tscn" id="2_4j6oq"]
 [ext_resource type="PackedScene" uid="uid://dos7ukivhojbo" path="res://scenes/ui/screens/hud_menu/hud.tscn" id="3_7erfn"]
+[ext_resource type="PackedScene" uid="uid://onv2rqhpafe5" path="res://scenes/ui/screens/combined_menu/dashboard_panel/dashboard_panel.tscn" id="4_aqvhb"]
 [ext_resource type="PackedScene" uid="uid://bxo11gelgnitj" path="res://scenes/ui/screens/settings_menu/settings_menu.tscn" id="7_d54ay"]
 [ext_resource type="PackedScene" uid="uid://dwyyyo58piqom" path="res://scenes/ui/screens/combined_menu/combined_menu.tscn" id="9_g5dh2"]
 [ext_resource type="PackedScene" uid="uid://ceyxvo0p4ysyx" path="res://scenes/ui/popups/study_action_popup/study_action_popup.tscn" id="13_c22xf"]
@@ -17,9 +18,24 @@ script = ExtResource("1_mhjrp")
 
 [node name="UI" type="CanvasLayer" parent="." unique_id=1925021350]
 
-[node name="HUD" parent="UI" unique_id=1602306978 instance=ExtResource("3_7erfn")]
+[node name="VBoxContainer" type="VBoxContainer" parent="UI" unique_id=1386372107]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="HUD" parent="UI/VBoxContainer" unique_id=1602306978 instance=ExtResource("3_7erfn")]
+layout_mode = 2
+
+[node name="DashboardPanel" parent="UI/VBoxContainer" unique_id=41419043 instance=ExtResource("4_aqvhb")]
+layout_mode = 2
 
 [node name="CombinedMenu" parent="UI" unique_id=1927334450 instance=ExtResource("9_g5dh2")]
+visible = false
+anchors_preset = -1
+anchor_top = 0.2
 
 [node name="Settings" parent="UI" unique_id=721209956 instance=ExtResource("7_d54ay")]
 visible = false

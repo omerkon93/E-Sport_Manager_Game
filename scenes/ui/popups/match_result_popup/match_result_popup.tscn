@@ -1,0 +1,46 @@
+[gd_scene format=3 uid="uid://bopnptqpnowb3"]
+
+[ext_resource type="Script" uid="uid://c83lyn5som8sh" path="res://scenes/ui/popups/match_result_popup/match_result_popup.gd" id="1_cjbgj"]
+
+[node name="MatchResultPopup" type="Control" unique_id=1347960117]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_cjbgj")
+money_resource = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=886966504]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer" unique_id=66122927]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer" unique_id=82842206]
+layout_mode = 2
+
+[node name="TitleLabel" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=539248981]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="ScoreLabel" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=82845485]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="RewardLabel" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=613995302]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="CloseButton" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=894311913]
+unique_name_in_owner = true
+layout_mode = 2
+text = "X"
+
+[connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/CloseButton" to="." method="_on_close_button_pressed"]

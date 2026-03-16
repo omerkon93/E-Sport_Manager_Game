@@ -1,8 +1,11 @@
 [gd_scene format=3 uid="uid://onv2rqhpafe5"]
 
 [ext_resource type="Script" uid="uid://ngy8n5fs2fhl" path="res://scenes/ui/screens/combined_menu/dashboard_panel/dashboard_panel.gd" id="1_1ny11"]
+[ext_resource type="PackedScene" uid="uid://bopnptqpnowb3" path="res://scenes/ui/popups/match_result_popup/match_result_popup.tscn" id="2_emv7l"]
 [ext_resource type="PackedScene" uid="uid://dbxp2tgigvw2i" path="res://scenes/ui/screens/combined_menu/dashboard_panel/sections/quests_section_ui.tscn" id="2_jcvta"]
+[ext_resource type="PackedScene" uid="uid://dt7oud6brxudn" path="res://scenes/ui/screens/uncertain/roster_section_ui.tscn" id="2_qil6l"]
 [ext_resource type="PackedScene" uid="uid://dwx0cuggwqqml" path="res://scenes/ui/screens/combined_menu/dashboard_panel/sections/research_section_ui.tscn" id="3_31bfp"]
+[ext_resource type="Resource" uid="uid://bvh50s1f6ad4x" path="res://game_data/entities/teams/my_first_team.tres" id="3_kkx8v"]
 [ext_resource type="PackedScene" uid="uid://dl5bau0ngudy7" path="res://scenes/ui/screens/combined_menu/dashboard_panel/sections/bills_section_ui.tscn" id="4_kxvrf"]
 
 [node name="DashboardPanel" type="PanelContainer" unique_id=41419043]
@@ -13,6 +16,10 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("1_1ny11")
+match_popup_scene = ExtResource("2_emv7l")
+my_team = ExtResource("3_kkx8v")
+enemy_team = ExtResource("3_kkx8v")
+metadata/_edit_use_anchors_ = true
 
 [node name="MarginContainer" type="MarginContainer" parent="." unique_id=1057703009]
 layout_mode = 2
@@ -25,6 +32,14 @@ theme_override_constants/margin_bottom = 10
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=1268939865]
 layout_mode = 2
 mouse_filter = 2
+
+[node name="RosterSectionUI" parent="MarginContainer/VBoxContainer" unique_id=1161452960 instance=ExtResource("2_qil6l")]
+unique_name_in_owner = true
+layout_mode = 2
+metadata/_tab_index = 2
+
+[node name="HSeparator3" type="HSeparator" parent="MarginContainer/VBoxContainer" unique_id=197143724]
+layout_mode = 2
 
 [node name="QuestsSection" parent="MarginContainer/VBoxContainer" unique_id=1438552532 instance=ExtResource("2_jcvta")]
 layout_mode = 2
@@ -40,3 +55,18 @@ layout_mode = 2
 
 [node name="BillsSection" parent="MarginContainer/VBoxContainer" unique_id=292039700 instance=ExtResource("4_kxvrf")]
 layout_mode = 2
+size_flags_horizontal = 1
+
+[node name="PlayMatchButton" type="Button" parent="." unique_id=1214227697]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "play"
+
+[node name="AdvanceWeekButton" type="Button" parent="." unique_id=821040498]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 4
+text = "next week"

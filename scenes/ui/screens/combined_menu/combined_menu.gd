@@ -1,10 +1,12 @@
 extends Control
 class_name CombinedMenu
 
+
 # --- NODES ---
 @onready var tab_container: TabContainer = %TabContainer
 @onready var actions_tab_node: ActionsMenu = %Actions
 @onready var shop_tab_node: ShopMenu = %Shop
+@onready var dashboard_panel: PanelContainer = %DashboardPanel
 
 const NEW_INDICATOR: String = " (!)"
 

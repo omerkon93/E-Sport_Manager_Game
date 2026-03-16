@@ -3,6 +3,10 @@
 [ext_resource type="Script" uid="uid://oc4emrjodugn" path="res://scenes/ui/screens/combined_menu/dashboard_panel/sections/bills_section_ui.gd" id="1_qc3bl"]
 
 [node name="BillsSectionUI" type="VBoxContainer" unique_id=292039700]
+offset_right = 112.0
+offset_bottom = 214.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
 script = ExtResource("1_qc3bl")
 
 [node name="TitleLabel" type="Label" parent="." unique_id=418245616]
