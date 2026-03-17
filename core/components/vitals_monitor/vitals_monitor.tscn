@@ -1,6 +1,6 @@
-[gd_scene load_steps=2 format=3 uid="uid://dog2repln5wfg"]
+[gd_scene format=3 uid="uid://dog2repln5wfg"]
 
 [ext_resource type="Script" uid="uid://rrsq2phyilch" path="res://core/components/vitals_monitor/vitals_monitor.gd" id="1_njlwm"]
 
-[node name="VitalsMonitor" type="Node"]
+[node name="VitalsMonitor" type="Node" unique_id=685603537]
 script = ExtResource("1_njlwm")

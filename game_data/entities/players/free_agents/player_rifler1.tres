@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="ESportPlayer" format=3 uid="uid://pu7o3ih7i64q"]
+
+[ext_resource type="Script" uid="uid://s8g4vr2wd2ld" path="res://core/definitions/entities/esport_player.gd" id="1_2h71w"]
+
+[resource]
+script = ExtResource("1_2h71w")
+real_name = "Ben Smith"
+alias = "Smithing"
+age = 18
+preferred_role = 3
+aim = 84
+reflexes = 53
+game_sense = 36
+teamwork = 59
+market_value = 100
+hiring_cost = 20
+metadata/_custom_type_script = "uid://s8g4vr2wd2ld"

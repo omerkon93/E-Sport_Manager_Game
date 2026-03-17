@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="ESportPlayer" format=3 uid="uid://dcd5fdwmj8im0"]
+
+[ext_resource type="Script" uid="uid://s8g4vr2wd2ld" path="res://core/definitions/entities/esport_player.gd" id="1_ka6x1"]
+
+[resource]
+script = ExtResource("1_ka6x1")
+real_name = "Miky Wayen"
+alias = "HeadShot"
+aim = 77
+reflexes = 92
+game_sense = 46
+teamwork = 30
+metadata/_custom_type_script = "uid://s8g4vr2wd2ld"

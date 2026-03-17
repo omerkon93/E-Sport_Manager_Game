@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://c42li4sivc6rb"]
 
-[ext_resource type="Script" uid="uid://cqrb0s2f8v4hc" path="res://scenes/ui/screens/uncertain/player_roster_row.gd" id="1_j4xup"]
+[ext_resource type="Script" uid="uid://cqrb0s2f8v4hc" path="res://scenes/ui/screens/combined_menu/dashboard_panel/sections/items/player_roster_row.gd" id="1_j4xup"]
+[ext_resource type="PackedScene" uid="uid://bfpcoipsdfboo" path="res://scenes/ui/widgets/vital_display/player_vital_display.tscn" id="2_g58k1"]
 
 [node name="PlayerRosterRow" type="PanelContainer" unique_id=1043887541]
 anchors_preset = 15
@@ -19,33 +20,52 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 text = "namr"
+text_overrun_behavior = 1
 
 [node name="RoleLabel" type="Label" parent="HBoxContainer" unique_id=677357035]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 text = "role"
+text_overrun_behavior = 1
 
 [node name="AimLabel" type="Label" parent="HBoxContainer" unique_id=1745313981]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 text = "aim"
+text_overrun_behavior = 1
 
 [node name="SenseLabel" type="Label" parent="HBoxContainer" unique_id=210705638]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 text = "sense"
+text_overrun_behavior = 1
 
 [node name="TeamworkLabel" type="Label" parent="HBoxContainer" unique_id=78245120]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 text = "teamwork"
+text_overrun_behavior = 1
+
+[node name="EnergyDisplay" parent="HBoxContainer" unique_id=708812145 instance=ExtResource("2_g58k1")]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="FocusDisplay" parent="HBoxContainer" unique_id=1354341484 instance=ExtResource("2_g58k1")]
+unique_name_in_owner = true
+layout_mode = 2
+vital_type = 103
 
 [node name="TrainButton" type="Button" parent="HBoxContainer" unique_id=760257865]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
+size_flags_vertical = 4
 text = "Train Aim ($100)"
+
+[node name="SwapButton" type="Button" parent="HBoxContainer" unique_id=1292107520]
+unique_name_in_owner = true
+layout_mode = 2

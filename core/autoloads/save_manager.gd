@@ -26,16 +26,16 @@ func _ready() -> void:
 # ==============================================================================
 func save_game() -> void:
 	print("Saving game to Slot ", current_slot_id, "...")
-	
+		
 	var save_data = {
 		"version": "1.1",
 		"timestamp": Time.get_unix_time_from_system(),
 		"currency": CurrencyManager.get_save_data(),
-		"vitals": VitalManager.get_save_data() if VitalManager else {},
+		"team": GameManager.get_save_data(),
+		"market": MarketManager.get_save_data(),
 		"settings": SettingsManager.get_save_data(),
 		"progression": ProgressionManager.get_save_data(),
 		"research": ResearchManager.get_save_data() if ResearchManager else {},
-		"time": TimeManager.get_save_data() if TimeManager and TimeManager.has_method("get_save_data") else {}
 	}
 	
 	var path = get_save_path(current_slot_id)
@@ -66,12 +66,10 @@ func load_game(slot_id: int = -1, send_signal: bool = true) -> void:
 		print("Loading save from Slot ", current_slot_id, "...")
 		
 		if data.has("currency"): CurrencyManager.load_save_data(data.currency)
-		if data.has("vitals") and VitalManager.has_method("load_save_data"): 
-			VitalManager.load_save_data(data.vitals)
+		if data.has("team"): GameManager.load_save_data(data.team)
+		if data.has("market"): MarketManager.load_save_data(data.market)
 		if data.has("settings"): SettingsManager.load_save_data(data.settings)
 		if data.has("progression"): ProgressionManager.load_save_data(data.progression)
-		
-		# --- NEW: Load Research and Time! ---
 		if data.has("research") and ResearchManager: ResearchManager.load_save_data(data.research)
 		if data.has("time") and TimeManager and TimeManager.has_method("load_save_data"): TimeManager.load_save_data(data.time)
 		

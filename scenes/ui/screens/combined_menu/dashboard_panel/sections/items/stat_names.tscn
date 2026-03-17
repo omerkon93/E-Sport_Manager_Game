@@ -1,0 +1,39 @@
+[gd_scene format=3 uid="uid://cnrh1vjaqglxh"]
+
+[node name="StatNames" type="HBoxContainer" unique_id=240749179]
+size_flags_vertical = 4
+
+[node name="Name" type="Label" parent="." unique_id=667398927]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Name"
+
+[node name="Position" type="Label" parent="." unique_id=1170280987]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Position"
+
+[node name="Aim" type="Label" parent="." unique_id=140979816]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Aim"
+
+[node name="Sense" type="Label" parent="." unique_id=1664317703]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Sense"
+
+[node name="Teamwork" type="Label" parent="." unique_id=846251996]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Teamwork"
+
+[node name="Vital" type="Label" parent="." unique_id=1946924137]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Energy"
+
+[node name="Train" type="Label" parent="." unique_id=342720434]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Train"

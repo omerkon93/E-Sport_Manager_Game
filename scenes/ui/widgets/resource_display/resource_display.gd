@@ -44,11 +44,11 @@ func _setup_vital(def: VitalDefinition) -> void:
 	_id = def.type
 	
 	value_label.add_theme_color_override("font_color", def.display_color)
-	VitalManager.vital_changed.connect(_on_vital_changed)
+	#VitalManager.vital_changed.connect(_on_vital_changed)
 	
-	var current = VitalManager.get_current(_id)
-	var max_v = VitalManager.get_max(_id)
-	_update_display(current, max_v, false)
+	#var current = VitalManager.get_current(_id)
+	#var max_v = VitalManager.get_max(_id)
+	#_update_display(current, max_v, false)
 
 # --- EVENT HANDLERS ---
 func _on_currency_changed(type: int, amount: float) -> void:

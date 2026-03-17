@@ -1,0 +1,45 @@
+[gd_scene format=3 uid="uid://dt7oud6brxudn"]
+
+[ext_resource type="Script" uid="uid://cixsxxqp6eiqd" path="res://scenes/ui/screens/combined_menu/dashboard_panel/sections/roster_section_ui.gd" id="1_whvb2"]
+[ext_resource type="PackedScene" uid="uid://c42li4sivc6rb" path="res://scenes/ui/screens/combined_menu/dashboard_panel/sections/items/player_roster_row.tscn" id="2_4mfgy"]
+[ext_resource type="PackedScene" uid="uid://cnrh1vjaqglxh" path="res://scenes/ui/screens/combined_menu/dashboard_panel/sections/items/stat_names.tscn" id="3_8iiwd"]
+
+[node name="RosterSectionUI" type="VBoxContainer" unique_id=1161452960]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 62.0
+grow_horizontal = 2
+size_flags_horizontal = 3
+script = ExtResource("1_whvb2")
+player_row_scene = ExtResource("2_4mfgy")
+
+[node name="ActiveTitleLabel" type="Label" parent="." unique_id=2037186260]
+layout_mode = 2
+text = "Active Roster:"
+
+[node name="StatNames" parent="." unique_id=240749179 instance=ExtResource("3_8iiwd")]
+layout_mode = 2
+
+[node name="HSeparator" type="HSeparator" parent="." unique_id=1642791011]
+layout_mode = 2
+
+[node name="ActiveList" type="VBoxContainer" parent="." unique_id=1032518826]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="HSeparator3" type="HSeparator" parent="." unique_id=151074893]
+layout_mode = 2
+
+[node name="BenchTitleLabel" type="Label" parent="." unique_id=852719981]
+layout_mode = 2
+text = "Bench Roster:"
+
+[node name="StatNames2" parent="." unique_id=446986749 instance=ExtResource("3_8iiwd")]
+layout_mode = 2
+
+[node name="HSeparator2" type="HSeparator" parent="." unique_id=688238911]
+layout_mode = 2
+
+[node name="BenchList" type="VBoxContainer" parent="." unique_id=1139135852]
+unique_name_in_owner = true
+layout_mode = 2

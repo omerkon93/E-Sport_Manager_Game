@@ -1,7 +1,7 @@
 extends Node2D
 
 # Update the reference path to your new CombinedMenu
-@onready var combined_menu: CombinedMenu = $UI/CombinedMenu
+@onready var combined_menu: CombinedMenu = %CombinedMenu
 
 func _ready() -> void:
 	# Optional: Set the starting tab index

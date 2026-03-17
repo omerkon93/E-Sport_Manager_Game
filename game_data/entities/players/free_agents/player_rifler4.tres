@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="ESportPlayer" format=3 uid="uid://d0gqpajo0d3x8"]
+
+[ext_resource type="Script" uid="uid://s8g4vr2wd2ld" path="res://core/definitions/entities/esport_player.gd" id="1_qqgjr"]
+
+[resource]
+script = ExtResource("1_qqgjr")
+real_name = "Chap kopler"
+alias = "GoodChap"
+age = 27
+preferred_role = 3
+aim = 64
+reflexes = 25
+game_sense = 69
+teamwork = 99
+market_value = 420
+hiring_cost = 450
+metadata/_custom_type_script = "uid://s8g4vr2wd2ld"

@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="ESportPlayer" format=3 uid="uid://ddlcwejuvlk87"]
+
+[ext_resource type="Script" uid="uid://s8g4vr2wd2ld" path="res://core/definitions/entities/esport_player.gd" id="1_wphec"]
+
+[resource]
+script = ExtResource("1_wphec")
+real_name = "Rob Miller"
+alias = "RobingKills"
+preferred_role = 2
+aim = 71
+reflexes = 48
+game_sense = 82
+teamwork = 61
+market_value = 100
+hiring_cost = 220
+metadata/_custom_type_script = "uid://s8g4vr2wd2ld"

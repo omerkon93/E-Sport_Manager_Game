@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="ESportPlayer" format=3 uid="uid://dubsxawswi4kg"]
+
+[ext_resource type="Script" uid="uid://s8g4vr2wd2ld" path="res://core/definitions/entities/esport_player.gd" id="1_1u0i2"]
+
+[resource]
+script = ExtResource("1_1u0i2")
+real_name = "Steve Uzek"
+alias = "Sneakyfker"
+age = 17
+preferred_role = 4
+aim = 62
+reflexes = 67
+game_sense = 98
+teamwork = 35
+market_value = 500
+hiring_cost = 500
+metadata/_custom_type_script = "uid://s8g4vr2wd2ld"

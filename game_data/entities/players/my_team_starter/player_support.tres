@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="ESportPlayer" format=3 uid="uid://ca1wgqplbhy4e"]
+
+[ext_resource type="Script" uid="uid://s8g4vr2wd2ld" path="res://core/definitions/entities/esport_player.gd" id="1_25ojx"]
+
+[resource]
+script = ExtResource("1_25ojx")
+real_name = "Tomas Exiba"
+alias = "HappyCamper"
+age = 18
+preferred_role = 3
+aim = 36
+reflexes = 25
+game_sense = 85
+teamwork = 89
+market_value = 500
+hiring_cost = 500
+metadata/_custom_type_script = "uid://s8g4vr2wd2ld"

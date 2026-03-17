@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="ESportPlayer" format=3 uid="uid://bv8e45r435brc"]
+
+[ext_resource type="Script" uid="uid://s8g4vr2wd2ld" path="res://core/definitions/entities/esport_player.gd" id="1_g7yt0"]
+
+[resource]
+script = ExtResource("1_g7yt0")
+real_name = "Mark Puller"
+alias = "MaxBrain"
+age = 27
+preferred_role = 2
+aim = 45
+reflexes = 33
+game_sense = 89
+teamwork = 89
+market_value = 500
+hiring_cost = 500
+metadata/_custom_type_script = "uid://s8g4vr2wd2ld"

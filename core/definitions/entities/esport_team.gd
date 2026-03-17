@@ -11,11 +11,10 @@ extends Resource
 @export_group("Roster")
 # This array holds our custom ESportPlayer resources. 
 # For CS:GO, you'll want to keep the active roster capped at 5 in your UI logic.
-@export var active_roster: Array[ESportPlayer] = []
+@export var active_roster: Array[ESportPlayer] = [null, null, null, null, null]
 
-# (Optional for MVP, but good for the future)
-@export var benched_players: Array[ESportPlayer] = []
-
+# NEW: A place to put newly hired players or benched teammates!
+@export var bench: Array[ESportPlayer] = []
 
 ## 📊 Match-Day Helper Functions
 # These functions make your Match Simulation incredibly easy to write.
@@ -45,3 +44,39 @@ func get_team_teamwork() -> int:
 ## Calculates a single "Power Score" for the simplest MVP match resolution
 func get_overall_power() -> int:
 	return get_team_aim() + get_team_game_sense() + get_team_teamwork()
+
+# --- ROSTER MANAGEMENT ---
+
+## Moves an active player to the bench, leaving an empty slot (null) behind
+func bench_player(player: ESportPlayer) -> void:
+	var idx = active_roster.find(player)
+	if idx != -1:
+		active_roster[idx] = null # Leave the slot open!
+		bench.append(player)
+		print(player.alias + " was sent to the bench.")
+
+## Moves a benched player into the first available empty active slot
+func sub_in_player(player: ESportPlayer) -> bool:
+	var empty_idx = active_roster.find(null)
+	
+	if empty_idx != -1:
+		bench.erase(player)
+		active_roster[empty_idx] = player
+		print(player.alias + " was subbed into the active roster!")
+		return true
+	else:
+		print("Cannot sub in: Active roster is full! Bench someone first.")
+		return false
+
+## Checks if the active roster is completely full and ready for a match
+func is_match_ready() -> bool:
+	# 1. The array MUST be exactly 5 slots long
+	if active_roster.size() != 5:
+		return false
+		
+	# 2. None of those 5 slots can be empty (null)
+	if active_roster.has(null):
+		return false
+		
+	# If it survives those checks, the team is ready!
+	return true

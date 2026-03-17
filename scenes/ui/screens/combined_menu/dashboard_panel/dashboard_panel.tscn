@@ -3,10 +3,15 @@
 [ext_resource type="Script" uid="uid://ngy8n5fs2fhl" path="res://scenes/ui/screens/combined_menu/dashboard_panel/dashboard_panel.gd" id="1_1ny11"]
 [ext_resource type="PackedScene" uid="uid://bopnptqpnowb3" path="res://scenes/ui/popups/match_result_popup/match_result_popup.tscn" id="2_emv7l"]
 [ext_resource type="PackedScene" uid="uid://dbxp2tgigvw2i" path="res://scenes/ui/screens/combined_menu/dashboard_panel/sections/quests_section_ui.tscn" id="2_jcvta"]
-[ext_resource type="PackedScene" uid="uid://dt7oud6brxudn" path="res://scenes/ui/screens/uncertain/roster_section_ui.tscn" id="2_qil6l"]
+[ext_resource type="PackedScene" uid="uid://dt7oud6brxudn" path="res://scenes/ui/screens/combined_menu/dashboard_panel/sections/roster_section_ui.tscn" id="2_qil6l"]
 [ext_resource type="PackedScene" uid="uid://dwx0cuggwqqml" path="res://scenes/ui/screens/combined_menu/dashboard_panel/sections/research_section_ui.tscn" id="3_31bfp"]
-[ext_resource type="Resource" uid="uid://bvh50s1f6ad4x" path="res://game_data/entities/teams/my_first_team.tres" id="3_kkx8v"]
+[ext_resource type="Resource" uid="uid://lbpattm84dgm" path="res://game_data/entities/teams/enemy_team.tres" id="3_jssym"]
+[ext_resource type="Script" uid="uid://derwj2ijevwkr" path="res://core/definitions/stats/vitals_definition.gd" id="4_jssym"]
 [ext_resource type="PackedScene" uid="uid://dl5bau0ngudy7" path="res://scenes/ui/screens/combined_menu/dashboard_panel/sections/bills_section_ui.tscn" id="4_kxvrf"]
+[ext_resource type="Resource" uid="uid://cdr1jgug886xp" path="res://game_data/game_resources/vitals/energy.tres" id="5_mtkf2"]
+[ext_resource type="Resource" uid="uid://cr4gfrls3tnnl" path="res://game_data/game_resources/vitals/fullness.tres" id="6_rr4n2"]
+[ext_resource type="Resource" uid="uid://da0f2jq336o1" path="res://game_data/game_resources/vitals/focus.tres" id="7_rwcju"]
+[ext_resource type="PackedScene" uid="uid://b3b6157guhp7h" path="res://scenes/ui/widgets/live_match_viewer/live_match_viewer.tscn" id="8_mtkf2"]
 
 [node name="DashboardPanel" type="PanelContainer" unique_id=41419043]
 anchors_preset = 15
@@ -17,9 +22,9 @@ grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("1_1ny11")
 match_popup_scene = ExtResource("2_emv7l")
-my_team = ExtResource("3_kkx8v")
-enemy_team = ExtResource("3_kkx8v")
-metadata/_edit_use_anchors_ = true
+enemy_team = ExtResource("3_jssym")
+vital_definitions = Array[ExtResource("4_jssym")]([ExtResource("5_mtkf2"), ExtResource("6_rr4n2"), ExtResource("7_rwcju")])
+live_viewer_scene = ExtResource("8_mtkf2")
 
 [node name="MarginContainer" type="MarginContainer" parent="." unique_id=1057703009]
 layout_mode = 2
@@ -43,12 +48,32 @@ layout_mode = 2
 
 [node name="QuestsSection" parent="MarginContainer/VBoxContainer" unique_id=1438552532 instance=ExtResource("2_jcvta")]
 layout_mode = 2
+size_flags_vertical = 4
 
 [node name="HSeparator2" type="HSeparator" parent="MarginContainer/VBoxContainer" unique_id=95728414]
 layout_mode = 2
 
 [node name="ResearchSection" parent="MarginContainer/VBoxContainer" unique_id=696280825 instance=ExtResource("3_31bfp")]
 layout_mode = 2
+size_flags_vertical = 4
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=1392494185]
+layout_mode = 2
+size_flags_vertical = 8
+
+[node name="PlayMatchButton" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=1214227697]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "play"
+
+[node name="AdvanceWeekButton" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=821040498]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 4
+text = "next week"
 
 [node name="HSeparator" type="HSeparator" parent="MarginContainer/VBoxContainer" unique_id=880766104]
 layout_mode = 2
@@ -56,17 +81,3 @@ layout_mode = 2
 [node name="BillsSection" parent="MarginContainer/VBoxContainer" unique_id=292039700 instance=ExtResource("4_kxvrf")]
 layout_mode = 2
 size_flags_horizontal = 1
-
-[node name="PlayMatchButton" type="Button" parent="." unique_id=1214227697]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-text = "play"
-
-[node name="AdvanceWeekButton" type="Button" parent="." unique_id=821040498]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 8
-size_flags_vertical = 4
-text = "next week"
