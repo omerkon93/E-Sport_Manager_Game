@@ -33,17 +33,16 @@ func _on_resource_text_requested(pos: Vector2, type: int, amount: float, is_curr
 	var icon = def.text_icon
 	var color = def.display_color
 	
-	# Format the text (e.g., "+50 ⚡" or "-10 $")
-	var prefix = "+" if amount > 0 else ""
-	var amount_str = str(int(amount))
+	var prefix = "+" if amount > 0 else "-"
+	var amount_str = str(abs(int(amount))) # abs() makes -50 into 50
 	
 	# Combine into a single string for the floating text instance
 	var final_text = ""
 	if is_currency:
-		# e.g., +$50
+		# Output: -$50
 		final_text = "%s%s%s" % [prefix, icon, amount_str]
 	else:
-		# e.g., +50 ⚡
+		# Output: -50 ⚡
 		final_text = "%s%s %s" % [prefix, amount_str, icon]
 	
 	_on_floating_text_requested(pos, final_text, color)

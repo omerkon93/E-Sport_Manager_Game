@@ -87,7 +87,10 @@ static func try_hire_agent(agent: ESportPlayer, team: ESportTeam, money_type: in
 	
 	# 4. Handle Acquisition (CRITICAL: Duplicate the Resource!)
 	var hired_agent = agent.duplicate(true) 
-	team.bench.append(hired_agent)      
+	
+	hired_agent.set_meta("original_path", agent.resource_path)
+	
+	team.bench.append(hired_agent)  
 	
 	# 5. Handle Subscriptions
 	if hired_agent.salary_subscription:

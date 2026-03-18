@@ -11,8 +11,11 @@ func _ready():
 	
 	var base_team = load("res://game_data/entities/teams/my_first_team.tres")
 	if base_team:
-		# duplicate(true) creates a deep copy, so your base file stays pure!
 		my_team = base_team.duplicate(true) 
+		
+		for i in range(base_team.active_roster.size()):
+			if base_team.active_roster[i] != null:
+				my_team.active_roster[i].set_meta("original_path", base_team.active_roster[i].resource_path)
 	else:
 		push_error("GameManager: Could not load the team!")
 
@@ -44,20 +47,28 @@ func load_save_data(data: Dictionary) -> void:
 
 func _serialize_player(player: ESportPlayer) -> Dictionary:
 	if player == null: return {}
+	
+	var path_to_save = player.resource_path
+	if path_to_save == "" and player.has_meta("original_path"):
+		path_to_save = player.get_meta("original_path")
+		
 	return {
-		"path": player.resource_path, # We need the file path to load them back!
+		"path": path_to_save, 
 		"aim": player.aim,
 		"energy": player.current_energy,
 		"focus": player.current_focus
 	}
 
 func _deserialize_player(data: Dictionary) -> ESportPlayer:
-	if data.is_empty() or not data.has("path"): return null
+	if data.is_empty() or not data.has("path") or data["path"] == "": 
+		return null
 	
 	var base_player = load(data["path"]) as ESportPlayer
 	if base_player:
-		# Duplicate the player before applying saved upgrades
 		var instanced_player = base_player.duplicate(true)
+		
+		instanced_player.set_meta("original_path", data["path"])
+		
 		instanced_player.aim = data.get("aim", instanced_player.aim)
 		instanced_player.current_energy = data.get("energy", instanced_player.current_energy)
 		instanced_player.current_focus = data.get("focus", instanced_player.current_focus)

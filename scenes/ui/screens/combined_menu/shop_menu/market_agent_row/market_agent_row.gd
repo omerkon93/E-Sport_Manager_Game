@@ -1,36 +1,55 @@
 extends PanelContainer
 
-@onready var name_label: Label = %NameLabel
+# 1. Grab our new reusable component!
+@onready var stats_display: PlayerStatsDisplay = %PlayerStatsDisplay
+
 @onready var hire_button: Button = %HireButton
+@onready var hire_rich_text: RichTextLabel = %HireRichText
+@onready var anim_component: AnimationComponent = $AnimationComponent 
 
 var agent_data: ESportPlayer
+var _is_bought: bool = false 
+
+func _ready() -> void:
+	SignalBus.game_currency_changed.connect(_on_global_money_changed)
+
+func _on_global_money_changed(_type: int, _amount: float) -> void:
+	if agent_data == null or _is_bought: return
+	var can_afford = CurrencyManager.has_enough_currency(CurrencyDefinition.CurrencyType.MONEY, agent_data.hiring_cost)
+	hire_button.disabled = not can_afford
 
 func setup_agent(agent: ESportPlayer) -> void:
 	agent_data = agent
-	name_label.text = agent.alias
-	hire_button.text = "Hire ($%d)" % agent.hiring_cost
 	
-	# Optional: Disable the button if you can't afford them!
+	# 2. Draw all the stats instantly!
+	stats_display.setup_display(agent)
+	
+	hire_button.text = "" 
+	var money_def = CurrencyManager.get_definition(CurrencyDefinition.CurrencyType.MONEY)
+	if money_def:
+		hire_rich_text.text = "Hire (%s)" % money_def.format_loss(agent.hiring_cost)
+	else:
+		hire_rich_text.text = "Hire ($%d)" % agent.hiring_cost
+	
 	hire_button.disabled = not CurrencyManager.has_enough_currency(CurrencyDefinition.CurrencyType.MONEY, agent.hiring_cost)
 	
-	# Connect the button
 	if not hire_button.pressed.is_connected(_on_hire_pressed):
 		hire_button.pressed.connect(_on_hire_pressed)
 
 func _on_hire_pressed() -> void:
-	# 1. Check if the global team loaded properly
-	if GameManager.my_team == null:
-		push_error("Cannot hire: No active team found in GameManager!")
-		return
+	if GameManager.my_team == null: return
 		
-	# 2. Try to buy the player! (We use type 0 or whatever your MONEY enum is)
-	# I'm assuming MONEY is 0 or you have it in an Enum. Replace '0' with your actual Money ID if different!
-	var money_id = CurrencyDefinition.CurrencyType.MONEY if "CurrencyType" in CurrencyDefinition else 0
+	var success = TransactionManager.try_hire_agent(agent_data, GameManager.my_team, CurrencyDefinition.CurrencyType.MONEY)
 	
-	if MarketManager.try_hire_agent(agent_data, GameManager.my_team, money_id):
-		# 3. Disable the button so they can't double-click it
+	if success:
 		hire_button.disabled = true
-		hire_button.text = "Hired!"
+		hire_rich_text.text = "Hired!"
+		_is_bought = true
 		
-		# 4. Trick the shop into refreshing so the hired player disappears from the list
-		CurrencyManager.currency_changed.emit(money_id, 0)
+		var spawn_pos = get_global_mouse_position()
+		SignalBus.request_resource_text.emit(spawn_pos, CurrencyDefinition.CurrencyType.MONEY, -agent_data.hiring_cost, true)
+		
+		if anim_component: anim_component.play_fade_out_and_free()
+		else: queue_free() 
+	else:
+		if anim_component: anim_component.play_shake()

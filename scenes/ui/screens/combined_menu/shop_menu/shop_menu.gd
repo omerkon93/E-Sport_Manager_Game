@@ -23,14 +23,13 @@ class_name ShopMenu
 # LIFECYCLE
 # ==============================================================================
 func _ready() -> void:
-	# Connect to all relevant progression and economy changes
 	ProgressionManager.upgrade_leveled_up.connect(func(_id, _l): _rebuild_ui())
 	ProgressionManager.flag_changed.connect(func(_id, _v): _rebuild_ui())
-	CurrencyManager.currency_changed.connect(func(_t, _a): _rebuild_ui())
-	
+
 	visibility_changed.connect(func(): if visible: _rebuild_ui())
-	
-	_rebuild_ui()
+
+	if visible:
+		_rebuild_ui()
 
 # ==============================================================================
 # UI BUILDING

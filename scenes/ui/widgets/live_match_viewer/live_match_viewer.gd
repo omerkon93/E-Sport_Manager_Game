@@ -46,6 +46,4 @@ func _on_round_played(round_num: int, winner_name: String, log_text: String, sco
 func _on_match_finished(_results: Dictionary) -> void:
 	# The match is over! Wait one second so the player can read the final kill...
 	await get_tree().create_timer(1.5).timeout
-	
-	# ...then delete this viewer from the screen so the Results Popup can show up!
 	queue_free()

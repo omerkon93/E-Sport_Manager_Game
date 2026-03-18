@@ -78,6 +78,46 @@ func play_live_match(team_a: ESportTeam, team_b: ESportTeam) -> void:
 	match_finished.emit(final_results)
 
 # ==============================================================================
+# QUICK SIM MATCH (Instant Resolution)
+# ==============================================================================
+## Call this function to instantly resolve a match without UI delays or signals.
+func quick_simulate_match(team_a: ESportTeam, team_b: ESportTeam) -> Dictionary:
+	var score_a = 0
+	var score_b = 0
+	
+	# 1. Use the exact same power calculation as the live match
+	var power_a = _calculate_team_power(team_a)
+	var power_b = _calculate_team_power(team_b)
+	var total_power = power_a + power_b
+	
+	# 2. Run the 24-round loop instantly (No timers, no signals!)
+	for current_round in range(1, MAX_ROUNDS + 1):
+		var roll = randf() * total_power
+		
+		if roll <= power_a:
+			score_a += 1
+		else:
+			score_b += 1
+			
+		# First to 13 wins the match
+		if score_a >= 13 or score_b >= 13:
+			break
+			
+	# 3. Package the results using the EXACT same dictionary structure 
+	# as your live match, so your Popup script doesn't have to change!
+	var final_results = {
+		"team_a": team_a,
+		"team_b": team_b,
+		"score_a": score_a,
+		"score_b": score_b,
+		"winner": team_a if score_a > score_b else team_b,
+		"player_won": score_a > score_b 
+	}
+	
+	print("⚡ Quick Sim Complete! Winner: ", final_results.winner.team_name, " (", score_a, "-", score_b, ")")
+	return final_results
+	
+# ==============================================================================
 # HELPER MATH
 # ==============================================================================
 func _calculate_team_power(team: ESportTeam) -> float:

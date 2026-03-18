@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cixsxxqp6eiqd" path="res://scenes/ui/screens/combined_menu/dashboard_panel/sections/roster_section_ui.gd" id="1_whvb2"]
 [ext_resource type="PackedScene" uid="uid://c42li4sivc6rb" path="res://scenes/ui/screens/combined_menu/dashboard_panel/sections/items/player_roster_row.tscn" id="2_4mfgy"]
-[ext_resource type="PackedScene" uid="uid://cnrh1vjaqglxh" path="res://scenes/ui/screens/combined_menu/dashboard_panel/sections/items/stat_names.tscn" id="3_8iiwd"]
+[ext_resource type="PackedScene" uid="uid://bxjmbr25a74fl" path="res://scenes/ui/screens/combined_menu/player_stats_display.tscn" id="3_qwiel"]
 
 [node name="RosterSectionUI" type="VBoxContainer" unique_id=1161452960]
 anchors_preset = 10
@@ -17,8 +17,28 @@ player_row_scene = ExtResource("2_4mfgy")
 layout_mode = 2
 text = "Active Roster:"
 
-[node name="StatNames" parent="." unique_id=240749179 instance=ExtResource("3_8iiwd")]
+[node name="ActivePlayerStatsDisplay" parent="." unique_id=103468743 instance=ExtResource("3_qwiel")]
 layout_mode = 2
+
+[node name="EnergyLabel" type="Label" parent="ActivePlayerStatsDisplay" unique_id=1113403571]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Energy:"
+
+[node name="FocusLabel" type="Label" parent="ActivePlayerStatsDisplay" unique_id=1328384499]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Focus:"
+
+[node name="TrainLabel" type="Label" parent="ActivePlayerStatsDisplay" unique_id=1757821057]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Train:"
+
+[node name="BenchLabel" type="Label" parent="ActivePlayerStatsDisplay" unique_id=1034590843]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Bench:"
 
 [node name="HSeparator" type="HSeparator" parent="." unique_id=1642791011]
 layout_mode = 2
@@ -34,8 +54,28 @@ layout_mode = 2
 layout_mode = 2
 text = "Bench Roster:"
 
-[node name="StatNames2" parent="." unique_id=446986749 instance=ExtResource("3_8iiwd")]
+[node name="BenchPlayerStatsDisplay" parent="." unique_id=1078373006 instance=ExtResource("3_qwiel")]
 layout_mode = 2
+
+[node name="EnergyLabel" type="Label" parent="BenchPlayerStatsDisplay" unique_id=859596461]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Energy:"
+
+[node name="FocusLabel" type="Label" parent="BenchPlayerStatsDisplay" unique_id=1301063149]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Focus:"
+
+[node name="TrainLabel" type="Label" parent="BenchPlayerStatsDisplay" unique_id=1908730074]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Train:"
+
+[node name="SubInLabel" type="Label" parent="BenchPlayerStatsDisplay" unique_id=492855599]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Sub-in:"
 
 [node name="HSeparator2" type="HSeparator" parent="." unique_id=688238911]
 layout_mode = 2

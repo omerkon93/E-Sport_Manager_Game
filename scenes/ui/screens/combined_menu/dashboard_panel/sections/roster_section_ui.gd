@@ -1,4 +1,4 @@
-extends VBoxContainer # Or whatever your root node is!
+extends VBoxContainer
 
 @export var player_row_scene: PackedScene
 

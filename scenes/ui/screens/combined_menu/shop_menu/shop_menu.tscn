@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dnssq07erf3q5" path="res://scenes/ui/screens/combined_menu/shop_menu/shop_menu.gd" id="1_3b8rw"]
 [ext_resource type="PackedScene" uid="uid://bf3d60xcuqrwy" path="res://scenes/ui/screens/combined_menu/shop_menu/market_agent_row/market_agent_row.tscn" id="3_fwosp"]
+[ext_resource type="PackedScene" uid="uid://bxjmbr25a74fl" path="res://scenes/ui/screens/combined_menu/player_stats_display.tscn" id="4_l60rr"]
 [ext_resource type="PackedScene" uid="uid://dn2stxn2gia2u" path="res://scenes/ui/screens/combined_menu/shop_menu/shop_item_button/shop_item_button.tscn" id="4_sjk1b"]
 
 [node name="ShopMenu" type="Control" unique_id=598056843 node_paths=PackedStringArray("consumable_grid", "knowledge_grid", "skill_grid", "agent_grid")]
@@ -66,13 +67,12 @@ layout_mode = 2
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/TabContainer/AgentsList/VBoxContainer" unique_id=1994423410]
 layout_mode = 2
 
-[node name="NameLabel" type="Label" parent="MarginContainer/VBoxContainer/TabContainer/AgentsList/VBoxContainer/HBoxContainer" unique_id=526651959]
+[node name="PlayerStatsDisplay" parent="MarginContainer/VBoxContainer/TabContainer/AgentsList/VBoxContainer/HBoxContainer" unique_id=103468743 instance=ExtResource("4_l60rr")]
 layout_mode = 2
-size_flags_horizontal = 3
-text = "Player Name:"
 
 [node name="Hire" type="Label" parent="MarginContainer/VBoxContainer/TabContainer/AgentsList/VBoxContainer/HBoxContainer" unique_id=1440275127]
 layout_mode = 2
+size_flags_horizontal = 3
 text = "Hire:"
 
 [node name="Agents" type="ScrollContainer" parent="MarginContainer/VBoxContainer/TabContainer/AgentsList/VBoxContainer" unique_id=1897400674]

@@ -80,3 +80,18 @@ func spawn_floating_text(text: String, color: Color = Color.WHITE) -> void:
 	pos.y += randf_range(-random_offset_range, random_offset_range)
 	
 	SignalBus.request_floating_text.emit(pos, text, color)
+
+@export_group("Fade Settings")
+@export var fade_duration: float = 0.3
+
+# ==============================================================================
+# 5. FADE OUT & FREE (Success/Remove)
+# ==============================================================================
+func play_fade_out_and_free() -> void:
+	if not target_control: return
+	
+	_kill_active_tween()
+	_active_tween = create_tween()
+	
+	_active_tween.tween_property(target_control, "modulate:a", 0.0, fade_duration)
+	_active_tween.tween_callback(target_control.queue_free)

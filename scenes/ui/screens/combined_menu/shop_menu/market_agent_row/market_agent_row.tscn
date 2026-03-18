@@ -1,6 +1,8 @@
 [gd_scene format=3 uid="uid://bf3d60xcuqrwy"]
 
 [ext_resource type="Script" uid="uid://b25bcmvt4whgm" path="res://scenes/ui/screens/combined_menu/shop_menu/market_agent_row/market_agent_row.gd" id="1_h42ol"]
+[ext_resource type="PackedScene" uid="uid://bxjmbr25a74fl" path="res://scenes/ui/screens/combined_menu/player_stats_display.tscn" id="2_6tmav"]
+[ext_resource type="PackedScene" uid="uid://b3t87otrm8e5y" path="res://core/components/animation_component/animation_component.tscn" id="2_us16k"]
 
 [node name="MarketAgentRow" type="PanelContainer" unique_id=1946849082]
 anchors_preset = 15
@@ -8,20 +10,36 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
 script = ExtResource("1_h42ol")
+metadata/_edit_use_anchors_ = true
 
 [node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=1933400963]
 layout_mode = 2
 
-[node name="NameLabel" type="Label" parent="HBoxContainer" unique_id=1433009243]
+[node name="PlayerStatsDisplay" parent="HBoxContainer" unique_id=103468743 instance=ExtResource("2_6tmav")]
 unique_name_in_owner = true
 layout_mode = 2
-size_flags_horizontal = 3
-text = "test"
 
 [node name="HireButton" type="Button" parent="HBoxContainer" unique_id=836310028]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_vertical = 4
 text = "test"
+
+[node name="HireRichText" type="RichTextLabel" parent="HBoxContainer/HireButton" unique_id=757938423]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+bbcode_enabled = true
+fit_content = true
+
+[node name="AnimationComponent" parent="." unique_id=1179300170 node_paths=PackedStringArray("target_control") instance=ExtResource("2_us16k")]
+unique_name_in_owner = true
+target_control = NodePath("..")

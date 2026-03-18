@@ -1,0 +1,47 @@
+[gd_scene format=3 uid="uid://bxjmbr25a74fl"]
+
+[ext_resource type="Script" uid="uid://dla2a08bu0pbi" path="res://scenes/ui/screens/combined_menu/player_stats_display.gd" id="1_rri8x"]
+
+[node name="PlayerStatsDisplay" type="HBoxContainer" unique_id=103468743]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+script = ExtResource("1_rri8x")
+
+[node name="NameLabel" type="Label" parent="." unique_id=590389292]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Name:"
+text_overrun_behavior = 1
+
+[node name="RoleLabel" type="Label" parent="." unique_id=969940148]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Role:"
+text_overrun_behavior = 1
+
+[node name="AimLabel" type="Label" parent="." unique_id=1719759205]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Aim:"
+text_overrun_behavior = 1
+
+[node name="SenseLabel" type="Label" parent="." unique_id=1853638054]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Sense:"
+text_overrun_behavior = 1
+
+[node name="TeamworkLabel" type="Label" parent="." unique_id=857967538]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Teamwork:"
+text_overrun_behavior = 1

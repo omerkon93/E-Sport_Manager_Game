@@ -7,6 +7,10 @@ extends Node
 @warning_ignore("unused_signal")
 signal request_floating_text(position: Vector2, text: String, color: Color)
 
+## Emitted to spawn floating text (e.g., "+10 Energy" over a player)
+@warning_ignore("unused_signal")
+signal request_resource_text(pos: Vector2, type: int, amount: float, is_currency: bool)
+
 ## Emitted to send a string to the on-screen console or notification log
 @warning_ignore("unused_signal")
 signal message_logged(text: String, color: Color)
