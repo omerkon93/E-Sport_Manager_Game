@@ -1,0 +1,72 @@
+[gd_scene format=3 uid="uid://b6newlnyw3q2f"]
+
+[ext_resource type="Script" uid="uid://clffd252nx8tc" path="res://scenes/ui/screens/uncertain/dialogue_ui.gd" id="1_kvlrj"]
+[ext_resource type="Texture2D" uid="uid://p0j5q5hi4cep" path="res://icon.svg" id="2_bv8g3"]
+
+[node name="DialogueSystem" type="CanvasLayer" unique_id=1713413739]
+layer = 100
+script = ExtResource("1_kvlrj")
+
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=72907720]
+custom_minimum_size = Vector2(0, 150)
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer" unique_id=2120616694]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+mouse_filter = 2
+theme_override_constants/separation = 10
+
+[node name="Portrait" type="TextureRect" parent="PanelContainer/HBoxContainer" unique_id=1951241522]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+mouse_filter = 2
+texture = ExtResource("2_bv8g3")
+expand_mode = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/HBoxContainer" unique_id=1638958210]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+theme_override_constants/separation = 10
+
+[node name="NameLabel" type="Label" parent="PanelContainer/HBoxContainer/VBoxContainer" unique_id=2069451321]
+layout_mode = 2
+text = "test"
+
+[node name="TextLabel" type="RichTextLabel" parent="PanelContainer/HBoxContainer/VBoxContainer" unique_id=867770447]
+custom_minimum_size = Vector2(600, 80)
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 2
+text = "some text"
+
+[node name="OptionList" type="VBoxContainer" parent="PanelContainer/HBoxContainer" unique_id=828501933]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Button" type="Button" parent="PanelContainer/HBoxContainer/OptionList" unique_id=2013957724]
+layout_mode = 2
+
+[node name="Button2" type="Button" parent="PanelContainer/HBoxContainer/OptionList" unique_id=480086183]
+layout_mode = 2
+
+[node name="Button3" type="Button" parent="PanelContainer/HBoxContainer/OptionList" unique_id=541179183]
+layout_mode = 2
+
+[node name="Button4" type="Button" parent="PanelContainer/HBoxContainer/OptionList" unique_id=1009279787]
+layout_mode = 2
+
+[node name="NextButton" type="Button" parent="PanelContainer/HBoxContainer" unique_id=278105475]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+text = "▼"

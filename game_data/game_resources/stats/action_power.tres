@@ -1,9 +1,0 @@
-[gd_resource type="Resource" script_class="StatDefinition" format=3 uid="uid://4fxnqrsupp34"]
-
-[ext_resource type="Script" uid="uid://d10ci54nkut38" path="res://core/definitions/stats/stat_definition.gd" id="1_jiep2"]
-
-[resource]
-script = ExtResource("1_jiep2")
-stat_type = 201
-display_name = "Action Power"
-metadata/_custom_type_script = "uid://d10ci54nkut38"

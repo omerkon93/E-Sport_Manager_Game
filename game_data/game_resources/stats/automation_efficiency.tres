@@ -1,9 +1,0 @@
-[gd_resource type="Resource" script_class="StatDefinition" format=3 uid="uid://blfvy28hu3fip"]
-
-[ext_resource type="Script" uid="uid://d10ci54nkut38" path="res://core/definitions/stats/stat_definition.gd" id="1_1p8ys"]
-
-[resource]
-script = ExtResource("1_1p8ys")
-stat_type = 205
-display_name = "Automation Efficiency"
-metadata/_custom_type_script = "uid://d10ci54nkut38"

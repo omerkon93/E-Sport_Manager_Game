@@ -5,7 +5,6 @@ extends Node
 # ==============================================================================
 signal currency_changed(type: CurrencyDefinition.CurrencyType, new_amount: float)
 
-
 # ==============================================================================
 # DATA STORAGE
 # ==============================================================================
@@ -15,6 +14,8 @@ var _currencies: Dictionary = {}
 # Static Config: Mapping [CurrencyDefinition.CurrencyType] -> [CurrencyDefinition]
 var _definitions: Dictionary = {} 
 
+func _ready():
+	add_to_group("persist")
 
 # ==============================================================================
 # INITIALIZATION

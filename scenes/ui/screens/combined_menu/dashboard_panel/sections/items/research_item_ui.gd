@@ -8,17 +8,17 @@ class_name ResearchItemUI
 
 var tech_id: String = ""
 
-func setup(item: GameItem, current_time: float, total_time: float) -> void:
-	tech_id = item.id
-	title_label.text = "Researching: " + item.display_name
-	progress_bar.max_value = total_time
-	progress_bar.value = current_time
-	
-	var remaining_minutes = int(total_time - current_time)
-	time_label.text = TimeManager.format_duration_in_hours(remaining_minutes) + " left"
-	
-	if info_button:
-		info_button.setup(item.display_name, item.description)
+#func setup(item: GameItem, current_time: float, total_time: float) -> void:
+	#tech_id = item.id
+	#title_label.text = "Researching: " + item.display_name
+	#progress_bar.max_value = total_time
+	#progress_bar.value = current_time
+	#
+	#var remaining_minutes = int(total_time - current_time)
+	#time_label.text = TimeManager.format_duration_in_hours(remaining_minutes) + " left"
+	#
+	#if info_button:
+		#info_button.setup(item.display_name, item.description)
 
 func update_progress(current_minutes: float, total_minutes: float) -> void:
 	progress_bar.max_value = total_minutes

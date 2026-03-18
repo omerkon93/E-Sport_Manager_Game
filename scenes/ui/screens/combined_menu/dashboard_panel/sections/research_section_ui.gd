@@ -3,12 +3,12 @@ class_name ResearchSectionUI
 
 @export var research_item_scene: PackedScene
 @onready var research_list: VBoxContainer = %ResearchList
-@onready var empty_state_label: Label = %EmptyStateLabel # <--- ADD THIS
+@onready var empty_state_label: Label = %EmptyStateLabel
 
 func _ready() -> void:
-	ResearchManager.research_started.connect(_on_research_started)
-	ResearchManager.research_progressed.connect(_on_research_progressed)
-	ResearchManager.research_finished.connect(_on_research_finished)
+	#ResearchManager.research_started.connect(_on_research_started)
+	#ResearchManager.research_progressed.connect(_on_research_progressed)
+	#ResearchManager.research_finished.connect(_on_research_finished)
 	
 	# Check the state immediately when the game loads
 	_update_empty_state()
@@ -29,18 +29,18 @@ func _update_empty_state() -> void:
 
 # --- SIGNAL CALLBACKS ---
 
-func _on_research_started(item_id: String, duration: int) -> void:
-	# It already looks up the item here!
-	var item = ItemManager.find_item_by_id(item_id)
-	if not item: return # Safety check
-	
-	var ui_node = research_item_scene.instantiate() as ResearchItemUI
-	research_list.add_child(ui_node)
-	
-	# Pass the whole GameItem object!
-	ui_node.setup(item, 0.0, float(duration))
-	
-	_update_empty_state()
+#func _on_research_started(item_id: String, duration: int) -> void:
+	## It already looks up the item here!
+	#var item = ItemManager.find_item_by_id(item_id)
+	#if not item: return # Safety check
+	#
+	#var ui_node = research_item_scene.instantiate() as ResearchItemUI
+	#research_list.add_child(ui_node)
+	#
+	## Pass the whole GameItem object!
+	#ui_node.setup(item, 0.0, float(duration))
+	#
+	#_update_empty_state()
 
 func _on_research_progressed(item_id: String, remaining: int) -> void:
 	for child in research_list.get_children():

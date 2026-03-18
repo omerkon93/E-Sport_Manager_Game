@@ -2,8 +2,8 @@ extends Resource
 class_name QuestData
 
 @export var id: String = "quest_01"
-@export var title: String = "Helpdesk Hero"
-@export_multiline var description: String = "Clear out the morning queue."
+@export var title: String = "Rookie Scout"
+@export_multiline var description: String = "Sign your first free agent to the bench."
 
 @export_group("Unlock Conditions")
 @export var required_story_flags: Array[StoryFlag] = []

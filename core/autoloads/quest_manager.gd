@@ -20,14 +20,12 @@ var all_quests: Array[QuestData] = []
 # ==============================================================================
 # LIFECYCLE (Unchanged)
 # ==============================================================================
+# In QuestManager.gd _ready():
 func _ready() -> void:
 	_load_quests()
-	if ActionManager.has_signal("action_triggered"):
-		ActionManager.action_triggered.connect(_on_action_triggered)
-	if ProgressionManager.has_signal("flag_changed"):
-		ProgressionManager.flag_changed.connect(_on_flag_changed)
-	if TimeManager and TimeManager.has_signal("day_started"):
-		TimeManager.day_started.connect(_on_day_started)
+	SignalBus.action_performed.connect(_on_action_triggered)
+	SignalBus.story_flag_changed.connect(_on_flag_changed)
+	SignalBus.game_time_day_started.connect(_on_day_started)
 
 func reset() -> void:
 	active_quests.clear()
@@ -164,41 +162,14 @@ func _check_quest_completion(quest: QuestData) -> void:
 	# If we survived both loops, the quest is done!
 	_complete_quest(quest)
 
+# In QuestManager.gd _complete_quest():
 func _complete_quest(quest: QuestData) -> void:
 	active_quests.erase(quest.id)
 	completed_quests[quest.id] = true
 	
-	quest_completed.emit(quest) 
 	print("✅ Quest Completed: ", quest.title)
 	
-	if SignalBus.has_signal("message_logged"):
-		SignalBus.message_logged.emit("Quest Completed: " + quest.title, Color.GREEN)
-
-	# ==========================================
-	# PAYOUT REWARDS
-	# ==========================================
-	
-	# A. Currencies (Now beautifully simple!)
-	for currency in quest.reward_currencies:
-		var amt = quest.reward_currencies[currency]
-		if amt > 0:
-			CurrencyManager.add_currency(currency.type, amt)
-			SignalBus.message_logged.emit("Earned " + str(amt) + " " + currency.display_name, Color.GOLD)
-
-	# B. Story Flags
-	for flag in quest.reward_story_flags:
-		if flag:
-			ProgressionManager.set_flag(flag, true)
-
-	# ==========================================
-	# CHECK FOR FOLLOW-UP QUESTS
-	# ==========================================
-	for next_quest in all_quests:
-		for prereq in next_quest.prerequisite_quests:
-			if prereq and prereq.id == quest.id:
-				if _can_activate_quest(next_quest):
-					_activate_quest(next_quest)
-				break
+	quest_completed.emit(quest)
 
 # ==============================================================================
 # HELPERS & SAVE DATA

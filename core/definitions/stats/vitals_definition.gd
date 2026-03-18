@@ -22,21 +22,17 @@ enum VitalType {
 
 # --- FORMATTING HELPERS ---
 
-## Used for the Shop (e.g., "[color=#FFA500]10 🍔[/color]")
+## Used for the Shop (e.g., "[color=#FFA500]10 ⚡[/color]")
 func format_cost(amount: float) -> String:
 	var hex = display_color.to_html(false)
-	return "[color=#%s]%s %s[/color]" % [hex, _format_num(amount), text_icon]
+	return "[color=#%s]%s %s[/color]" % [hex, NumberFormatter.format_value(amount), text_icon]
 
-## Used for Action Button Costs (e.g., "[color=#FFA500]-10 🍔[/color]")
+## Used for Action Button Costs (e.g., "[color=#FFA500]-10 ⚡[/color]")
 func format_loss(amount: float) -> String:
 	var hex = display_color.to_html(false)
-	return "[color=#%s]-%s %s[/color]" % [hex, _format_num(amount), text_icon]
+	return "[color=#%s]-%s %s[/color]" % [hex, NumberFormatter.format_value(amount), text_icon]
 
-## Used for Rewards (e.g., "[color=#FFA500]+10 🍔[/color]")
+## Used for Rewards (e.g., "[color=#FFA500]+10 ⚡[/color]")
 func format_gain(amount: float) -> String:
 	var hex = display_color.to_html(false)
-	return "[color=#%s]+%s %s[/color]" % [hex, _format_num(amount), text_icon]
-
-func _format_num(amount: float) -> String:
-	var is_whole = is_equal_approx(amount, roundf(amount))
-	return str(int(amount)) if is_whole else "%.1f" % amount
+	return "[color=#%s]+%s %s[/color]" % [hex, NumberFormatter.format_value(amount), text_icon]

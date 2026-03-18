@@ -22,7 +22,7 @@ func _ready() -> void:
 	CurrencyManager.currency_changed.connect(func(_type, _amount): roster_section_ui.update_roster_display(GameManager.my_team))
 	GameManager.roster_updated.connect(func(): roster_section_ui.update_roster_display(GameManager.my_team))
 	
-	SubscriptionManager.subscribe(preload("res://game_data/items/subscription/sub_salary_test.tres"))
+	SubscriptionManager.subscribe(preload("res://game_data/subscriptions/sub_salary_test.tres"))
 
 func _on_play_match_button_pressed() -> void:
 	# --- THE HARD STOP ---

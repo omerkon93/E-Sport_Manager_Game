@@ -22,7 +22,8 @@ var seen_items: Dictionary = {}
 # ==============================================================================
 # LIFECYCLE
 # ==============================================================================
-func _ready() -> void:
+func _ready():
+	add_to_group("persist")
 	_load_milestones()
 	_connect_signals()
 
@@ -32,24 +33,9 @@ func reset() -> void:
 	seen_items.clear()
 
 func _connect_signals() -> void:
-	if CurrencyManager:
-		CurrencyManager.currency_changed.connect(_on_currency_changed)
-	
-	if VitalManager and VitalManager.has_signal("vital_changed"):
-		VitalManager.vital_changed.connect(_on_vital_changed)
-
-	if TimeManager:
-		TimeManager.time_updated.connect(_on_time_updated)
-		TimeManager.day_started.connect(func(_d): _check_all_milestones())
-
-	if ResearchManager and ResearchManager.has_signal("research_started"):
-		ResearchManager.research_started.connect(_on_research_started)
-	
-	if ResearchManager and ResearchManager.has_signal("research_finished"):
-		ResearchManager.research_finished.connect(_on_research_finished)
-	
-	if ItemManager.has_signal("consumable_purchased"):
-		ItemManager.consumable_purchased.connect(_on_consumable_purchased)
+	SignalBus.game_currency_changed.connect(_on_currency_changed)
+	SignalBus.game_vital_changed.connect(_on_vital_changed)
+	SignalBus.game_time_updated.connect(_on_time_updated)
 
 func _load_milestones() -> void:
 	var files = _get_all_files_recursive(MILESTONE_PATH)
@@ -61,7 +47,7 @@ func _load_milestones() -> void:
 				
 	print("🏆 ProgressionManager: Loaded %d milestones." % all_milestones.size())
 	if all_milestones.is_empty():
-		push_error("ProgressionManager: No milestones found in: " + MILESTONE_PATH)
+		push_warning("ProgressionManager: No milestones found in: " + MILESTONE_PATH)
 
 # --- HELPER: Digs through all subfolders ---
 func _get_all_files_recursive(path: String) -> Array[String]:
@@ -94,10 +80,10 @@ func _on_vital_changed(type: int, _current: float, _max: float) -> void:
 		if m.vital_amount > 0 and m.required_vital == type:
 			_evaluate_milestone(m)
 
-func _on_upgrade_leveled_internal(id: String, _level: int) -> void:
-	for m in all_milestones:
-		if m.required_item != null and m.required_item.id == id:
-			_evaluate_milestone(m)
+#func _on_upgrade_leveled_internal(id: String, _level: int) -> void:
+	#for m in all_milestones:
+		#if m.required_item != null and m.required_item.id == id:
+			#_evaluate_milestone(m)
 
 func _on_time_updated(_day: int, _hour: int, _minute: int) -> void:
 	if _minute == 0:
@@ -105,25 +91,19 @@ func _on_time_updated(_day: int, _hour: int, _minute: int) -> void:
 			if m.min_day != -1:
 				_evaluate_milestone(m)
 
-func _on_research_started(id: String, _duration: int) -> void:
-	for m in all_milestones:
-		# Did they start the specific item, OR does this milestone just want ANY research?
-		if m.any_research_started or (m.required_started_research != null and m.required_started_research.id == id):
-			# Pass the exact context so the evaluator knows this is a legitimate event!
-			_evaluate_milestone(m, "research_started")
-
-func _on_research_finished(id: String) -> void:
-	for m in all_milestones:
-		# Did they finish the specific item, OR does this milestone just want ANY research done?
-		if m.any_research_finished or (m.required_finished_research != null and m.required_finished_research.id == id):
-			# Pass the exact context so the evaluator knows this is a legitimate event!
-			_evaluate_milestone(m, "research_finished")
-
-func _on_consumable_purchased(item_id: String) -> void:
-	for m in all_milestones:
-		if m.required_item != null and m.required_item.id == item_id:
-			# Pass a specific context so the evaluator knows this is a transient event
-			_evaluate_milestone(m, "consumable_purchased")
+#func _on_research_started(id: String, _duration: int) -> void:
+	#for m in all_milestones:
+		## Did they start the specific item, OR does this milestone just want ANY research?
+		#if m.any_research_started or (m.required_started_research != null and m.required_started_research.id == id):
+			## Pass the exact context so the evaluator knows this is a legitimate event!
+			#_evaluate_milestone(m, "research_started")
+#
+#func _on_research_finished(id: String) -> void:
+	#for m in all_milestones:
+		## Did they finish the specific item, OR does this milestone just want ANY research done?
+		#if m.any_research_finished or (m.required_finished_research != null and m.required_finished_research.id == id):
+			## Pass the exact context so the evaluator knows this is a legitimate event!
+			#_evaluate_milestone(m, "research_finished")
 
 func _check_all_milestones() -> void:
 	for m in all_milestones:
@@ -139,18 +119,18 @@ func _evaluate_milestone(m: Milestone, event_context: String = "") -> void:
 	if get_flag(m.target_flag): return 
 	
 	# --- THE SAFETY CATCH (UPDATED) ---
-	if m.currency_amount <= 0 and m.vital_amount <= 0 and m.min_day == -1 and m.required_item == null and m.required_started_research == null and not m.any_research_started and m.required_finished_research == null and not m.any_research_finished:
-		return
+	#if m.currency_amount <= 0 and m.vital_amount <= 0 and m.min_day == -1 and m.required_item == null and m.required_started_research == null and not m.any_research_started and m.required_finished_research == null and not m.any_research_finished:
+		#return
 
 	# --- EVENT CHECK (UPDATED) ---
 	# If this milestone relies on a one-time event, it MUST fail passive checks unless context matches!
-	if m.any_research_started or m.required_started_research != null:
-		if event_context != "research_started":
-			return
-			
-	if m.any_research_finished or m.required_finished_research != null:
-		if event_context != "research_finished":
-			return
+	#if m.any_research_started or m.required_started_research != null:
+		#if event_context != "research_started":
+			#return
+			#
+	#if m.any_research_finished or m.required_finished_research != null:
+		#if event_context != "research_finished":
+			#return
 
 	# --- A. Currency Check ---
 	if m.currency_amount > 0:
@@ -179,22 +159,6 @@ func _evaluate_milestone(m: Milestone, event_context: String = "") -> void:
 		else:
 			if current_total < target_total: return
 
-	# --- D. Item Check ---
-	if m.required_item != null:
-		# 1. Did we just buy a consumable? (Our new bypass)
-		var is_consumable_event = (event_context == "consumable_purchased")
-		
-		# 2. Do we permanently own this upgrade? (Your existing native check)
-		var has_upgrade = get_upgrade_level(m.required_item.id) > 0
-		
-		# 3. If EITHER is true, the requirement is met!
-		var has_item = has_upgrade or is_consumable_event
-		
-		if m.item_must_be_missing:
-			if has_item: return # Fails if they HAVE the item
-		else:
-			if not has_item: return # Fails if they DON'T have the item
-
 	# If it survives all checks above, it means valid requirements were met!
 	unlock_milestone(m.target_flag, m.notification_text)
 
@@ -219,7 +183,6 @@ func increment_upgrade_level(id: String, amount: int = 1) -> void:
 	var new_level = current + amount
 	upgrade_levels[id] = new_level
 	upgrade_leveled_up.emit(id, new_level)
-	_on_upgrade_leveled_internal(id, new_level)
 
 func get_flag(key) -> bool:
 	var id = _resolve_key(key)
@@ -252,6 +215,14 @@ func mark_item_as_seen(id: String) -> void:
 		item_seen.emit(id)
 		# Note: We rely on Auto-Save to persist this to disk
 
+## Evaluates a StoryFlagRequirement resource to see if the player passes it.
+func is_requirement_met(req: StoryFlagRequirement) -> bool:
+	if not req or not req.required_flag: 
+		return true # If there's no requirement slotted, they pass by default!
+		
+	# We check our internal dictionary to see if the flag matches what the requirement wants
+	return get_flag(req.required_flag.id) == req.required_value
+	
 # ==============================================================================
 # PERSISTENCE
 # ==============================================================================
@@ -259,8 +230,7 @@ func get_save_data() -> Dictionary:
 	return {
 		"upgrades": upgrade_levels.duplicate(),
 		"flags": story_flags.duplicate(),
-		"seen_items": seen_items.duplicate(),
-		"quests": QuestManager.get_save_data()
+		"seen_items": seen_items.duplicate()
 	}
 
 func load_save_data(data: Dictionary) -> void:

@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://bfpcoipsdfboo"]
 
 [ext_resource type="Script" uid="uid://d3obga0d7o6yr" path="res://scenes/ui/widgets/vital_display/player_vital_display.gd" id="1_cf2wm"]
-[ext_resource type="PackedScene" uid="uid://dsjxbnco6r66i" path="res://scenes/ui/widgets/info_popup_button/info_popup_button.tscn" id="3_p0r02"]
+[ext_resource type="PackedScene" uid="uid://dsjxbnco6r66i" path="res://scenes/ui/popups/info_popup_button/info_popup_button.tscn" id="3_p0r02"]
 
 [node name="PlayerVitalDisplay" type="PanelContainer" unique_id=708812145]
 custom_minimum_size = Vector2(80, 0)

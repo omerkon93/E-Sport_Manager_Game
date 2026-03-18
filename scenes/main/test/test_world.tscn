@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://dos7ukivhojbo" path="res://scenes/ui/screens/hud_menu/hud.tscn" id="3_7erfn"]
 [ext_resource type="PackedScene" uid="uid://bxo11gelgnitj" path="res://scenes/ui/screens/settings_menu/settings_menu.tscn" id="7_d54ay"]
 [ext_resource type="PackedScene" uid="uid://dwyyyo58piqom" path="res://scenes/ui/screens/combined_menu/combined_menu.tscn" id="9_g5dh2"]
-[ext_resource type="PackedScene" uid="uid://ceyxvo0p4ysyx" path="res://scenes/ui/popups/study_action_popup/study_action_popup.tscn" id="13_c22xf"]
+[ext_resource type="PackedScene" uid="uid://ceyxvo0p4ysyx" path="res://scenes/ui/popups/study_action_popup_need_refactor/study_action_popup.tscn" id="13_c22xf"]
 [ext_resource type="PackedScene" uid="uid://d0t8s1r88d46i" path="res://scenes/ui/popups/item_info_popup/item_info_popup.tscn" id="14_rprny"]
 
 [node name="TestWorld" type="Node2D" unique_id=1004633402]

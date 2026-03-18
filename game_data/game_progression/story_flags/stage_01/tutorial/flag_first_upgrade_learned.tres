@@ -1,8 +1,0 @@
-[gd_resource type="Resource" script_class="StoryFlag" format=3 uid="uid://cticgn8s220nl"]
-
-[ext_resource type="Script" uid="uid://cwsq8isjkr33d" path="res://core/definitions/story/story_flag.gd" id="1_tmbg3"]
-
-[resource]
-script = ExtResource("1_tmbg3")
-id = "flag_first_upgrade"
-metadata/_custom_type_script = "uid://cwsq8isjkr33d"

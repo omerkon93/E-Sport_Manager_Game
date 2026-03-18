@@ -6,14 +6,15 @@ signal roster_updated
 # This holds the global reference to your team!
 var my_team: ESportTeam
 
-func _ready() -> void:
-	# Load your team right when the game starts.
-	# ⚠️ IMPORTANT: Update this path to exactly where your team .tres file is located!
-	my_team = load("res://game_data/entities/teams/my_first_team.tres")
+func _ready():
+	add_to_group("persist")
 	
-	
-	if my_team == null:
-		push_error("GameManager: Could not load the team! Check the file path.")
+	var base_team = load("res://game_data/entities/teams/my_first_team.tres")
+	if base_team:
+		# duplicate(true) creates a deep copy, so your base file stays pure!
+		my_team = base_team.duplicate(true) 
+	else:
+		push_error("GameManager: Could not load the team!")
 
 # --- SAVE / LOAD LOGIC ---
 func get_save_data() -> Dictionary:
@@ -53,11 +54,13 @@ func _serialize_player(player: ESportPlayer) -> Dictionary:
 func _deserialize_player(data: Dictionary) -> ESportPlayer:
 	if data.is_empty() or not data.has("path"): return null
 	
-	# Load the original file
-	var player = load(data["path"]) as ESportPlayer
-	if player:
-		# Apply the saved upgrades and vitals!
-		player.aim = data.get("aim", player.aim)
-		player.current_energy = data.get("energy", player.current_energy)
-		player.current_focus = data.get("focus", player.current_focus)
-	return player
+	var base_player = load(data["path"]) as ESportPlayer
+	if base_player:
+		# Duplicate the player before applying saved upgrades
+		var instanced_player = base_player.duplicate(true)
+		instanced_player.aim = data.get("aim", instanced_player.aim)
+		instanced_player.current_energy = data.get("energy", instanced_player.current_energy)
+		instanced_player.current_focus = data.get("focus", instanced_player.current_focus)
+		return instanced_player
+		
+	return null

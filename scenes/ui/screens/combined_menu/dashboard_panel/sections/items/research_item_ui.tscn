@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://bkotj26uisfhp"]
 
 [ext_resource type="Script" uid="uid://yf12wikyq7ar" path="res://scenes/ui/screens/combined_menu/dashboard_panel/sections/items/research_item_ui.gd" id="1_ita4v"]
-[ext_resource type="PackedScene" uid="uid://dsjxbnco6r66i" path="res://scenes/ui/widgets/info_popup_button/info_popup_button.tscn" id="2_2dos0"]
+[ext_resource type="PackedScene" uid="uid://dsjxbnco6r66i" path="res://scenes/ui/popups/info_popup_button/info_popup_button.tscn" id="2_2dos0"]
 
 [node name="ResearchItemUI" type="PanelContainer" unique_id=1809950337]
 custom_minimum_size = Vector2(120, 60)

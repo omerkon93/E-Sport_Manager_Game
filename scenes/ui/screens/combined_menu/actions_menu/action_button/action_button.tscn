@@ -1,14 +1,13 @@
 [gd_scene format=3 uid="uid://idg5ajfqohrb"]
 
 [ext_resource type="Script" uid="uid://bfhdr6pllvdob" path="res://scenes/ui/screens/combined_menu/actions_menu/action_button/action_button.gd" id="1_eh05r"]
-[ext_resource type="Resource" uid="uid://cwc0t0g303r5u" path="res://game_data/actions/player_actions/career/work_001_junhelpdesk.tres" id="2_77re4"]
 [ext_resource type="PackedScene" uid="uid://b3t87otrm8e5y" path="res://core/components/animation_component/animation_component.tscn" id="2_aa0hu"]
 [ext_resource type="PackedScene" uid="uid://rpsmp7qml63x" path="res://core/components/cost_component/cost_component.tscn" id="3_hlq6p"]
 [ext_resource type="PackedScene" uid="uid://ci5gf3i2xpxe5" path="res://core/components/reward_component/reward_component.tscn" id="4_0hr7k"]
 [ext_resource type="PackedScene" uid="uid://bisxuota8wv3p" path="res://core/components/message_component/message_component.tscn" id="5_e4x4h"]
 [ext_resource type="PackedScene" uid="uid://7sibx1jnc6bo" path="res://core/components/streak_component/streak_component.tscn" id="6_q48mf"]
 [ext_resource type="PackedScene" uid="uid://bttvheqo3yfwq" path="res://core/components/notification_indicator_component/notification_indicator_component.tscn" id="7_sxbij"]
-[ext_resource type="PackedScene" uid="uid://dsjxbnco6r66i" path="res://scenes/ui/widgets/info_popup_button/info_popup_button.tscn" id="9_4ybk2"]
+[ext_resource type="PackedScene" uid="uid://dsjxbnco6r66i" path="res://scenes/ui/popups/info_popup_button/info_popup_button.tscn" id="9_4ybk2"]
 
 [sub_resource type="FontVariation" id="FontVariation_aa0hu"]
 
@@ -30,7 +29,6 @@ grow_vertical = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 script = ExtResource("1_eh05r")
-action_data = ExtResource("2_77re4")
 cost_component = NodePath("Components/CostComponent")
 reward_component = NodePath("Components/RewardComponent")
 message_component = NodePath("Components/MessageComponent")

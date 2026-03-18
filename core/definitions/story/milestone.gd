@@ -36,22 +36,15 @@ class_name Milestone
 ## [br]If false, requirement is met AFTER this time (Wait).
 @export var time_is_deadline: bool = false
 
-@export_group("Item Requirements")
-## The specific GameItem the player must own/unlock.
-@export var required_item: GameItem
-
-## If true, the requirement is met if the player DOES NOT have this item.
-@export var item_must_be_missing: bool = false
-
 @export_group("Research Requirements")
 ## Triggers the moment this specific item starts being researched.
-@export var required_started_research: GameItem
+#@export var required_started_research: GameItem
 
 ## Triggers the moment ANY research begins.
 @export var any_research_started: bool = false
 
 ## Triggers the moment this specific item FINISHES being researched.
-@export var required_finished_research: GameItem
+#@export var required_finished_research: GameItem
 
 ## Triggers the moment ANY research FINISHES.
 @export var any_research_finished: bool = false

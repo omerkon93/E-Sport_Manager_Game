@@ -1,8 +1,0 @@
-[gd_resource type="Resource" script_class="StoryFlag" format=3 uid="uid://crc77flqrix3p"]
-
-[ext_resource type="Script" uid="uid://cwsq8isjkr33d" path="res://core/definitions/story/story_flag.gd" id="1_ta40j"]
-
-[resource]
-script = ExtResource("1_ta40j")
-id = "flag_cert_comptia_aplus"
-metadata/_custom_type_script = "uid://cwsq8isjkr33d"

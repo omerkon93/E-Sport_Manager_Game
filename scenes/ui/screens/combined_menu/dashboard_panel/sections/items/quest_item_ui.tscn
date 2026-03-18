@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://b1tuc03bg4ec6"]
 
 [ext_resource type="Script" uid="uid://bfpchxh35y0gr" path="res://scenes/ui/screens/combined_menu/dashboard_panel/sections/items/quest_item_ui.gd" id="1_wgbur"]
-[ext_resource type="PackedScene" uid="uid://dsjxbnco6r66i" path="res://scenes/ui/widgets/info_popup_button/info_popup_button.tscn" id="2_cggte"]
+[ext_resource type="PackedScene" uid="uid://dsjxbnco6r66i" path="res://scenes/ui/popups/info_popup_button/info_popup_button.tscn" id="2_cggte"]
 
 [node name="QuestItemUI" type="PanelContainer" unique_id=479369799]
 custom_minimum_size = Vector2(100, 60)

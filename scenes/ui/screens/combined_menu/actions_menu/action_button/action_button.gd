@@ -239,7 +239,7 @@ func _on_upgrade_leveled(id: String, _lvl: int) -> void:
 	if not action_data: 
 		return
 		
-	var upgraded_item = ItemManager.find_item_by_id(id)
+	#var upgraded_item = ItemManager.find_item_by_id(id)
 	
-	if upgraded_item != null and upgraded_item.target_action == action_data:
-		_load_data_into_components()
+	#if upgraded_item != null and upgraded_item.target_action == action_data:
+		#_load_data_into_components()

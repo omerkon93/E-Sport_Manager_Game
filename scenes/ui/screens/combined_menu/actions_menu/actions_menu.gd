@@ -7,7 +7,6 @@ class_name ActionsMenu
 @export_category("Grids")
 @export var career_grid: GridContainer
 @export var survival_grid: GridContainer
-@export var spiritual_grid: GridContainer
 
 const NEW_INDICATOR: String = " (!)"
 
@@ -48,8 +47,6 @@ func _rebuild_ui() -> void:
 				_create_action_button(action, career_grid)
 			ActionData.ActionCategory.SURVIVAL:
 				_create_action_button(action, survival_grid)
-			ActionData.ActionCategory.SPIRITUAL:
-				_create_action_button(action, spiritual_grid)
 			_:
 				_create_action_button(action, career_grid)
 	
@@ -61,14 +58,12 @@ func _update_tab_titles() -> void:
 	# Scan data to see what is visible/new
 	var status_career = _get_category_status(ActionData.ActionCategory.CAREER)
 	var status_survival = _get_category_status(ActionData.ActionCategory.SURVIVAL)
-	var status_spiritual = _get_category_status(ActionData.ActionCategory.SPIRITUAL)
 	
 	_apply_tab_state(career_grid, status_career.has_items, status_career.has_new)
 	_apply_tab_state(survival_grid, status_survival.has_items, status_survival.has_new)
-	_apply_tab_state(spiritual_grid, status_spiritual.has_items, status_spiritual.has_new)
 
 	# --- NEW: Bubble the notification up to the Main Menu Tab! ---
-	var any_new_actions = status_career.has_new or status_survival.has_new or status_spiritual.has_new
+	var any_new_actions = status_career.has_new or status_survival.has_new
 	_apply_tab_state(self, true, any_new_actions)
 
 # --- HELPERS ---
@@ -131,5 +126,5 @@ func _create_action_button(data: ActionData, container: GridContainer) -> void:
 	elif btn.has_method("setup"): btn.setup(data)
 
 func _clear_all_grids() -> void:
-	for g in [career_grid, survival_grid, spiritual_grid]:
+	for g in [career_grid, survival_grid]:
 		if g: for c in g.get_children(): c.queue_free()

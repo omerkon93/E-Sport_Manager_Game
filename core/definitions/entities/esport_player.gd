@@ -24,35 +24,45 @@ enum PlayerRole { ENTRY_FRAGGER, AWPER, IGL, SUPPORT, LURKER }
 @export var hiring_cost: int = 50000
 @export var popularity: int = 15
 @export var contract_length_weeks: int = 52
-
-# This hooks directly into your existing subscription system!
-# When you hire the player, you add this subscription to the SubscriptionManager.
-# When you fire them, you remove it.
 @export var salary_subscription: Resource
 
 ## ❤️ Vitals (Dynamic Stats)
 @export_group("Vitals")
-
 signal vital_changed(vital_type: int, current: float, max_val: float)
 
 @export var max_morale: float = 100.0
-@export var current_moral: float = 100.0
+@export var current_morale: float = 100.0
 
 @export var max_energy: float = 100.0
-@export var current_energy: float = 100.0:
-	set(value):
-		current_energy = clampf(value, 0.0, max_energy)
-		vital_changed.emit(VitalDefinition.VitalType.ENERGY, current_energy, max_energy)
-		
-@export var max_focus: float = 100.0 # Using Focus as "Morale"
+@export var current_energy: float = 100.0
+
+@export var max_focus: float = 100.0 
 @export var current_focus: float = 100.0
 
-## A helper function specifically for the player to change their own vitals
+# --- THE SINGLE SOURCE OF TRUTH ---
 func change_vital(type: VitalDefinition.VitalType, amount: float) -> void:
+	var current_val = 0.0
+	var max_val = 0.0
+	
 	if type == VitalDefinition.VitalType.ENERGY:
 		current_energy = clampf(current_energy + amount, 0.0, max_energy)
-		vital_changed.emit(type, current_energy, max_energy)
+		current_val = current_energy
+		max_val = max_energy
 		
 	elif type == VitalDefinition.VitalType.FOCUS:
 		current_focus = clampf(current_focus + amount, 0.0, max_focus)
-		vital_changed.emit(type, current_focus, max_focus)
+		current_val = current_focus
+		max_val = max_focus
+
+	# 1. Local emission (for a specific player's UI card)
+	vital_changed.emit(type, current_val, max_val)
+	
+	# 2. Global emission (so the global Progression/Quest systems can hear it!)
+	if SignalBus.has_signal("game_vital_changed"):
+		SignalBus.game_vital_changed.emit(type, current_val, max_val)
+
+## Helper function used by TransactionManager
+func has_enough_vital(type: VitalDefinition.VitalType, amount: float) -> bool:
+	if type == VitalDefinition.VitalType.ENERGY: return current_energy >= amount
+	if type == VitalDefinition.VitalType.FOCUS: return current_focus >= amount
+	return false

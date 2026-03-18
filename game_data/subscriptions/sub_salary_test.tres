@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="SubscriptionItem" format=3 uid="uid://bkbqgk5ckyavt"]
+
+[ext_resource type="Script" uid="uid://butbb2b0ry0dj" path="res://core/definitions/items/subscription_item.gd" id="1_3cxsv"]
+
+[resource]
+script = ExtResource("1_3cxsv")
+id = "sub_salary_test"
+display_name = "Weekly Salary"
+metadata/_custom_type_script = "uid://butbb2b0ry0dj"

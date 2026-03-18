@@ -1,8 +1,0 @@
-[gd_resource type="Resource" script_class="StoryFlag" format=3 uid="uid://kwb5055m8yyb"]
-
-[ext_resource type="Script" uid="uid://cwsq8isjkr33d" path="res://core/definitions/story/story_flag.gd" id="1_64auf"]
-
-[resource]
-script = ExtResource("1_64auf")
-id = "unlock_consumables"
-metadata/_custom_type_script = "uid://cwsq8isjkr33d"

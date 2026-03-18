@@ -14,7 +14,7 @@ class_name DialogueOption
 
 @export_category("Unlock Conditions")
 ## Optional: The GameItem upgrade required for this option to be visible (e.g., Active Directory Basics). Leave empty if it is always available.
-@export var required_upgrade: GameItem 
+#@export var required_upgrade: GameItem 
 
 ## Optional: A specific StoryFlag required for this option to be visible. Leave empty if no story event is needed.
 @export var required_story_flag: StoryFlag

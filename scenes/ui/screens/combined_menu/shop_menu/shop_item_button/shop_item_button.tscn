@@ -2,14 +2,13 @@
 
 [ext_resource type="Script" uid="uid://b88g2xp6ppl2t" path="res://scenes/ui/screens/combined_menu/shop_menu/shop_item_button/shop_item_button.gd" id="1_tii4b"]
 [ext_resource type="PackedScene" uid="uid://bttvheqo3yfwq" path="res://core/components/notification_indicator_component/notification_indicator_component.tscn" id="2_6ttyu"]
-[ext_resource type="Resource" uid="uid://bnvr0weqfl0tw" path="res://game_data/items/knowledge/cert_comptia_aplus.tres" id="2_o4vki"]
-[ext_resource type="PackedScene" uid="uid://dsjxbnco6r66i" path="res://scenes/ui/widgets/info_popup_button/info_popup_button.tscn" id="3_25sff"]
+[ext_resource type="PackedScene" uid="uid://dsjxbnco6r66i" path="res://scenes/ui/popups/info_popup_button/info_popup_button.tscn" id="3_25sff"]
 
 [sub_resource type="FontVariation" id="FontVariation_uyq1s"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o4vki"]
 
-[node name="ShopItemButton" type="MarginContainer" unique_id=452865651 node_paths=PackedStringArray("notification_indicator")]
+[node name="ShopItemButton" type="MarginContainer" unique_id=452865651]
 custom_minimum_size = Vector2(300, 120)
 anchors_preset = 14
 anchor_top = 0.5
@@ -22,8 +21,6 @@ grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
 script = ExtResource("1_tii4b")
-upgrade_resource = ExtResource("2_o4vki")
-notification_indicator = NodePath("NotificationIndicatorComponent")
 
 [node name="MarginContainer" type="MarginContainer" parent="." unique_id=1673436092]
 layout_mode = 2

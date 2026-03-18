@@ -27,7 +27,7 @@ func _on_visibility_changed() -> void:
 func _update_tabs() -> void:
 	if not tab_container: return
 	_set_tab_notification(actions_tab_node, _has_new_content_in_actions())
-	_set_tab_notification(shop_tab_node, _has_new_content_in_shop())
+	#_set_tab_notification(shop_tab_node, _has_new_content_in_shop())
 
 func _set_tab_notification(tab_node: Control, is_new: bool) -> void:
 	if not tab_node: return
@@ -51,11 +51,11 @@ func _has_new_content_in_actions() -> bool:
 				return true
 	return false
 
-func _has_new_content_in_shop() -> bool:
-	for item in ItemManager.available_items:
-		if ProgressionManager.is_item_new(item.id) and _is_shop_item_unlocked(item):
-			return true
-	return false
+#func _has_new_content_in_shop() -> bool:
+	#for item in ItemManager.available_items:
+		#if ProgressionManager.is_item_new(item.id) and _is_shop_item_unlocked(item):
+			#return true
+	#return false
 
 # --- HELPER: SHOP UNLOCK LOGIC ---
 func _is_shop_item_unlocked(item) -> bool:

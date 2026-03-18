@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://0l7u6ixqngpi" path="res://scenes/ui/widgets/resource_display/resource_display.gd" id="1_ng5p0"]
 [ext_resource type="Resource" uid="uid://cdr1jgug886xp" path="res://game_data/game_resources/vitals/energy.tres" id="3_6p6o2"]
-[ext_resource type="PackedScene" uid="uid://dsjxbnco6r66i" path="res://scenes/ui/widgets/info_popup_button/info_popup_button.tscn" id="4_orccg"]
+[ext_resource type="PackedScene" uid="uid://dsjxbnco6r66i" path="res://scenes/ui/popups/info_popup_button/info_popup_button.tscn" id="4_orccg"]
 
 [node name="ResourceDisplay" type="PanelContainer" unique_id=708812145]
 custom_minimum_size = Vector2(80, 0)

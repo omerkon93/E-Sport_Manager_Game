@@ -37,23 +37,23 @@ func _ready() -> void:
 # ==============================================================================
 func _rebuild_ui() -> void:
 	# Clear out the old buttons to prevent duplicates
-	_clear_container(knowledge_grid)
-	_clear_container(skill_grid)
-	_clear_container(consumable_grid)
+	#_clear_container(knowledge_grid)
+	#_clear_container(skill_grid)
+	#_clear_container(consumable_grid)
 	_clear_container(agent_grid)
 	
 	# 1. Build Standard Shop Items
-	if shop_button_scene:
-		for item in ItemManager.available_items:
-			var target_grid: Container = null
-			
-			match item.item_type:
-				GameItem.ItemType.KNOWLEDGE: target_grid = knowledge_grid
-				GameItem.ItemType.SKILL: target_grid = skill_grid
-				GameItem.ItemType.CONSUMABLE: target_grid = consumable_grid
-			
-			if target_grid:
-				_try_add_item_button(item, target_grid)
+	#if shop_button_scene:
+		#for item in ItemManager.available_items:
+			#var target_grid: Container = null
+			#
+			#match item.item_type:
+				#GameItem.ItemType.KNOWLEDGE: target_grid = knowledge_grid
+				#GameItem.ItemType.SKILL: target_grid = skill_grid
+				#GameItem.ItemType.CONSUMABLE: target_grid = consumable_grid
+			#
+			#if target_grid:
+				#_try_add_item_button(item, target_grid)
 
 	# 2. Build Free Agents (Recruitment Market)
 	if agent_button_scene and agent_grid:
@@ -70,39 +70,6 @@ func _try_add_agent_button(agent: ESportPlayer, container: Container) -> void:
 	# Pass the data to your custom agent button so it can display the UI
 	if btn.has_method("setup_agent"):
 		btn.setup_agent(agent)
-
-func _try_add_item_button(item: GameItem, container: Container) -> void:
-	var is_unlocked = true
-	var locked_reason = ""
-	
-	# Check Story Flags
-	for flag in item.story_flags_requirement:
-		if flag:
-			var is_flag_met = ProgressionManager.get_flag(flag.id)
-			if not is_flag_met:
-				is_unlocked = false
-				locked_reason = flag.display_name if flag.display_name != "" else flag.id.capitalize()
-				break
-
-	var current_lvl = ProgressionManager.get_upgrade_level(item.id)
-	var is_owned = item.item_type != GameItem.ItemType.CONSUMABLE and current_lvl >= 1
-
-	# FILTER VISIBILITY
-	if not is_unlocked and not show_locked: return
-	if is_owned and not show_purchased: return
-
-	# Create the Button
-	var btn = shop_button_scene.instantiate()
-	container.add_child(btn)
-	btn.upgrade_resource = item 
-	
-	# Presentation for Locked/Owned
-	if not is_unlocked:
-		if btn.has_node("Button"): btn.get_node("Button").disabled = true
-		btn.modulate = Color(0.4, 0.4, 0.4, 0.8) 
-		btn.tooltip_text = "Locked: Requires " + locked_reason
-	elif is_owned:
-		btn.modulate = Color(0.5, 1.0, 0.5, 1.0)
 
 # ==============================================================================
 # TAB MANAGEMENT & HELPERS

@@ -1,9 +1,0 @@
-[gd_resource type="Resource" script_class="StatDefinition" format=3 uid="uid://bdv150sbyc1e"]
-
-[ext_resource type="Script" uid="uid://d10ci54nkut38" path="res://core/definitions/stats/stat_definition.gd" id="1_t3qoh"]
-
-[resource]
-script = ExtResource("1_t3qoh")
-stat_type = 203
-display_name = "Action Energy Efficiency"
-metadata/_custom_type_script = "uid://d10ci54nkut38"

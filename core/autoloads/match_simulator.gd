@@ -12,6 +12,10 @@ const ROUND_DELAY_SECONDS = 1.0
 
 var skip_requested: bool = false
 
+func _ready() -> void:
+	SignalBus.start_match_requested.connect(play_live_match)
+	SignalBus.skip_match_requested.connect(func(): skip_requested = true)
+
 # ==============================================================================
 # ASYNC MATCH LOOP
 # ==============================================================================
