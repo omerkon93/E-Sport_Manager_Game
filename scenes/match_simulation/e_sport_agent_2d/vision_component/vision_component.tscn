@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://co4isaf3nofs7"]
+
+[ext_resource type="Script" uid="uid://c826y67r7ejmt" path="res://scenes/match_simulation/e_sport_agent_2d/vision_component/vision_component.gd" id="1_g4s0y"]
+
+[node name="VisionComponent" type="Area2D" unique_id=1576280400]
+collision_layer = 0
+collision_mask = 17
+script = ExtResource("1_g4s0y")
+
+[node name="LineOfSightRay" type="RayCast2D" parent="." unique_id=1450249631]
+target_position = Vector2(0, 0)
+collision_mask = 19
+hit_from_inside = true

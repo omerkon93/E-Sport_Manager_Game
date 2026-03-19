@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="WeaponData" format=3 uid="uid://btdr16o6e5uci"]
+
+[ext_resource type="Script" uid="uid://rn0l1d40goqn" path="res://core/definitions/weapons/weapon_data.gd" id="1_qxsy5"]
+
+[resource]
+script = ExtResource("1_qxsy5")
+weapon_name = "DESERT_EAGLE"
+fire_rate = 0.45
+accuracy_multiplier = 1.1

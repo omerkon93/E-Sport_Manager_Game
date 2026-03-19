@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="WeaponData" format=3 uid="uid://cuo1fss0hxn0l"]
+
+[ext_resource type="Script" uid="uid://rn0l1d40goqn" path="res://core/definitions/weapons/weapon_data.gd" id="1_ebka5"]
+
+[resource]
+script = ExtResource("1_ebka5")
+weapon_name = "MAC-10"
+fire_rate = 0.1
+accuracy_multiplier = 0.6
+mobility = 1.1

@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://cp1pdc0exmm0d"]
+
+[ext_resource type="Script" uid="uid://b3sl71do8g0rp" path="res://scenes/match_simulation/interactables/polygon_circle.gd" id="1_ixnj5"]
+[ext_resource type="Script" uid="uid://cf58oyjlr8411" path="res://scenes/match_simulation/interactables/thrown_flashbang/thrown_flashbang.gd" id="1_iyqj2"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_iyqj2"]
+radius = 5.0
+
+[node name="ThrownFlashbang" type="CharacterBody2D" unique_id=2032595048]
+collision_layer = 32
+collision_mask = 0
+script = ExtResource("1_iyqj2")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1376575256]
+shape = SubResource("CircleShape2D_iyqj2")
+
+[node name="Polygon2D" type="Polygon2D" parent="." unique_id=168678629]
+color = Color(0.46963003, 0.5127158, 0.82040936, 1)
+script = ExtResource("1_ixnj5")
+radius = 5.0
+segments = 10

@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://s1ioa71ujeci"]
+
+[ext_resource type="Script" uid="uid://dpwti0ad2kqkj" path="res://scenes/match_simulation/e_sport_agent_2d/movement_component/movement_component.gd" id="1_j86bp"]
+
+[node name="MovementComponent" type="Node" unique_id=1112150953]
+script = ExtResource("1_j86bp")

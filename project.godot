@@ -54,8 +54,18 @@ folder_colors={
 "res://assets/": "green",
 "res://core/": "red",
 "res://game_data/": "orange",
-"res://scenes/": "yellow"
+"res://scenes/": "yellow",
+"res://utility/": "gray"
 }
+
+[layer_names]
+
+2d_physics/layer_1="Agent"
+2d_physics/layer_2="Wall"
+2d_physics/layer_3="Location"
+2d_physics/layer_4="Interactables"
+2d_physics/layer_5="VisionBlockers"
+2d_physics/layer_6="Projectiles"
 
 [rendering]
 

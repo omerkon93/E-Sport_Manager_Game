@@ -11,7 +11,8 @@
 [ext_resource type="Resource" uid="uid://cdr1jgug886xp" path="res://game_data/game_resources/vitals/energy.tres" id="5_mtkf2"]
 [ext_resource type="Resource" uid="uid://cr4gfrls3tnnl" path="res://game_data/game_resources/vitals/fullness.tres" id="6_rr4n2"]
 [ext_resource type="Resource" uid="uid://da0f2jq336o1" path="res://game_data/game_resources/vitals/focus.tres" id="7_rwcju"]
-[ext_resource type="PackedScene" uid="uid://b3b6157guhp7h" path="res://scenes/ui/widgets/live_match_viewer/live_match_viewer.tscn" id="8_mtkf2"]
+[ext_resource type="PackedScene" uid="uid://dbnjd4kpmom0s" path="res://scenes/match_simulation/match_arena/match_arena_2d.tscn" id="8_mtkf2"]
+[ext_resource type="PackedScene" uid="uid://bkm48j6841ppk" path="res://scenes/match_simulation/match_arena/match_hud/match_hud.tscn" id="9_rr4n2"]
 
 [node name="DashboardPanel" type="PanelContainer" unique_id=41419043]
 anchors_preset = 15
@@ -25,6 +26,7 @@ match_popup_scene = ExtResource("2_emv7l")
 enemy_team = ExtResource("3_jssym")
 vital_definitions = Array[ExtResource("4_jssym")]([ExtResource("5_mtkf2"), ExtResource("6_rr4n2"), ExtResource("7_rwcju")])
 live_viewer_scene = ExtResource("8_mtkf2")
+match_hud_scene = ExtResource("9_rr4n2")
 
 [node name="MarginContainer" type="MarginContainer" parent="." unique_id=1057703009]
 layout_mode = 2

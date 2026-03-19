@@ -12,7 +12,7 @@
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_edj1p"]
 bg_color = Color(0.16409835, 0.16409835, 0.16409835, 0.90000004)
 
-[node name="HUD" type="PanelContainer" unique_id=652665641]
+[node name="MenuHUD" type="PanelContainer" unique_id=652665641]
 anchors_preset = 10
 anchor_right = 1.0
 offset_bottom = 31.0

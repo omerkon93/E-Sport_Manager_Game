@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://cts3cstw2nxe3"]
+
+[ext_resource type="Script" uid="uid://dd1no1xy73kwn" path="res://scenes/match_simulation/interactables/bomb/planted_bomb.gd" id="1_184sh"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wiivv"]
+size = Vector2(10, 10)
+
+[node name="PlantedBomb" type="Area2D" unique_id=127482613]
+script = ExtResource("1_184sh")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1755187938]
+shape = SubResource("RectangleShape2D_wiivv")
+
+[node name="Polygon2D" type="Polygon2D" parent="." unique_id=1718060346]
+polygon = PackedVector2Array(5, 5, 5, -5, -5, -5, -5, 5)
+uv = PackedVector2Array(-105, -32, -58, -43, -42, 5, -117, 35)

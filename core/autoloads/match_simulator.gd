@@ -1,147 +1,382 @@
 extends Node
-# Make sure this script is set as an Autoload in Project Settings!
 
-# --- SIGNALS ---
 signal match_started(team_a_name: String, team_b_name: String)
 signal round_played(round_num: int, winner_name: String, log_text: String, score_a: int, score_b: int)
 signal match_finished(final_results: Dictionary)
+signal kill_feed_event(killer_name: String, victim_name: String, killer_is_team_a: bool)
 
-# --- MATCH SETTINGS ---
 const MAX_ROUNDS = 24
-const ROUND_DELAY_SECONDS = 1.0
-
+const MAX_WINS = 13
 var skip_requested: bool = false
 
+# --- 2D SCENES ---
+# Update these paths if your scenes are saved in a different folder!
+const AGENT_SCENE = preload("res://scenes/match_simulation/e_sport_agent_2d/e_sport_agent_2d.tscn")
+const DROPPED_BOMB_SCENE = preload("res://scenes/match_simulation/interactables/bomb/dropped_bomb.tscn")
+const PLANTED_BOMB_SCENE = preload("res://scenes/match_simulation/interactables/bomb/planted_bomb.tscn")
+const WEAPON_PATHS = ["res://game_data/weapons/"]
+
+# --- LIVE MATCH TRACKING ---
+var current_arena: MatchArena2D
+var active_team_a: ESportTeam
+var active_team_b: ESportTeam
+
+var score_a: int = 0
+var score_b: int = 0
+var current_round: int = 1
+
+var living_team_a: Array[ESportAgent2D] = []
+var living_team_b: Array[ESportAgent2D] = []
+
+var is_bomb_planted: bool = false
+var c4_timer: float = 0.0
+const C4_DETONATION_TIME: float = 40.0
+var is_round_over: bool = false
+
+var armory: Dictionary = {}
+var all_weapons: Dictionary = {}
+
 func _ready() -> void:
-	SignalBus.start_match_requested.connect(play_live_match)
-	SignalBus.skip_match_requested.connect(func(): skip_requested = true)
+	# 1. Automatically scan and load all WeaponData resources
+	_scan_for_weapons()
+	
+	# 2. Map the loaded weapons to our specific Roles!
+	_assign_weapons_to_roles()
+
+func _process(delta: float) -> void:
+	if is_bomb_planted:
+		c4_timer -= delta
+		if c4_timer <= 0:
+			_detonate_bomb()
 
 # ==============================================================================
-# ASYNC MATCH LOOP
+# AUTO-LOADER
 # ==============================================================================
-## Call this function from your UI to start the live match!
-func play_live_match(team_a: ESportTeam, team_b: ESportTeam) -> void:
-	# Reset the flag at the start of every match
+func _scan_for_weapons() -> void:
+	for path in WEAPON_PATHS:
+		_load_dir_recursive(path)
+	print("🔫 MatchSimulator: Automatically loaded %d weapons." % all_weapons.size())
+
+func _load_dir_recursive(path: String) -> void:
+	var dir = DirAccess.open(path)
+	if dir == null:
+		print("❌ MatchSimulator Error: Could not open path: ", path)
+		return
+		
+	# 1. Grab all files in this folder automatically!
+	for file_name in dir.get_files():
+		if file_name.ends_with(".tres") or file_name.ends_with(".res"):
+			var full_path = path + "/" + file_name
+			var resource = load(full_path)
+			
+			if resource is WeaponData:
+				all_weapons[resource.weapon_name.to_upper()] = resource
+				
+	# 2. Recursively dig into all sub-folders automatically!
+	for dir_name in dir.get_directories():
+		_load_dir_recursive(path + "/" + dir_name)
+
+# ==============================================================================
+# ROLE MAPPING
+# ==============================================================================
+func _assign_weapons_to_roles() -> void:
+	# We use .get() here. If a weapon file is missing, it safely falls back to a blank WeaponData!
+	var fallback_weapon = WeaponData.new()
+	
+	# Try to find the AK-47 to use as our absolute baseline default
+	var default_rifle = all_weapons.get("AK-47", fallback_weapon)
+	
+	armory["DEFAULT"] = default_rifle
+	armory["AWPER"] = all_weapons.get("AWP", default_rifle)
+	armory["ENTRY"] = all_weapons.get("MAC-10", default_rifle)
+	armory["SUPPORT"] = all_weapons.get("M4A4", default_rifle)
+
+# ==============================================================================
+# LIVE 2D MATCH LOOP
+# ==============================================================================
+func play_live_match(arena_instance: MatchArena2D, team_a: ESportTeam, team_b: ESportTeam) -> void:
 	skip_requested = false
+	current_arena = arena_instance
+	active_team_a = team_a
+	active_team_b = team_b
+	
+	score_a = 0
+	score_b = 0
+	current_round = 1
 	
 	match_started.emit(team_a.team_name, team_b.team_name)
+	print("⚔️ 2D MATCH START: ", team_a.team_name, " vs ", team_b.team_name)
 	
-	var score_a = 0
-	var score_b = 0
+	_start_new_round()
+
+func _start_new_round() -> void:
+	print("=======================================")
+	print("🏁 STARTING ROUND ", current_round, " (Score: ", score_a, " - ", score_b, ")")
 	
-	# 1. Calculate Team Power (MVP Math: Just combining Aim stats)
-	var power_a = _calculate_team_power(team_a)
-	var power_b = _calculate_team_power(team_b)
-	var total_power = power_a + power_b
+	living_team_a.clear()
+	living_team_b.clear()
+	is_bomb_planted = false
+	is_round_over = false 
 	
-	print("⚔️ MATCH START: ", team_a.team_name, " vs ", team_b.team_name)
 	
-	# 2. Play the rounds one by one!
-	for current_round in range(1, MAX_ROUNDS + 1):
-		# Roll a random number to see who wins the round based on their stats
-		var roll = randf() * total_power
-		var round_winner_name = ""
-		var play_by_play = ""
+	# Ask the "dumb" map for its locations
+	var strategy = [
+		current_arena.site_a.global_position, 
+		current_arena.site_a.global_position, 
+		current_arena.mid.global_position, 
+		current_arena.site_b.global_position, 
+		current_arena.site_b.global_position
+	]
+	
+	# Spawn Team A (CT)
+	for i in range(5):
+		var player_data = active_team_a.active_roster[i] if active_team_a.active_roster.size() > i else null
+		_spawn_single_agent(player_data, true, strategy[i], false)
 		
-		if roll <= power_a:
+	# Spawn Team B (T)
+	for i in range(5):
+		var player_data = active_team_b.active_roster[i] if active_team_b.active_roster.size() > i else null
+		var give_bomb = (i == 0)
+		_spawn_single_agent(player_data, false, strategy[i], give_bomb)
+
+func _spawn_single_agent(player_data: ESportPlayer, is_team_a: bool, target_waypoint: Vector2, give_bomb: bool) -> void:
+	var agent = AGENT_SCENE.instantiate() as ESportAgent2D
+	current_arena.add_child(agent) 
+	
+	agent.global_position = current_arena.get_random_spawn_position(is_team_a)
+	
+	# Determine what gun to give them based on their Role!
+	var assigned_weapon = armory.get("DEFAULT")
+	
+	if player_data != null:
+		var role_string: String
+		
+		# NOTE: Change 'Role' below to match the exact name of the enum inside your ESportPlayer script!
+		role_string = ESportPlayer.PlayerRole.keys()[player_data.preferred_role].to_upper()
+			
+		if armory.has(role_string):
+			assigned_weapon = armory[role_string]
+	
+	# Pass the weapon into the setup!
+	agent.setup_agent(player_data, is_team_a, target_waypoint, give_bomb, assigned_weapon)
+	
+	agent.agent_died.connect(_on_agent_died)
+	agent.bomb_planted.connect(_on_bomb_planted)
+	agent.bomb_dropped.connect(_on_bomb_dropped)
+	agent.bomb_defused.connect(_on_bomb_defused)
+	
+	if is_team_a: living_team_a.append(agent)
+	else: living_team_b.append(agent)
+
+# ==============================================================================
+# BOMB & WIN CONDITIONS
+# ==============================================================================
+func _on_bomb_planted(plant_position: Vector2) -> void:
+	is_bomb_planted = true
+	c4_timer = C4_DETONATION_TIME
+	print("⏱️ C4 Armed! 40 seconds to detonation.")
+	
+	if PLANTED_BOMB_SCENE:
+		var visual_bomb = PLANTED_BOMB_SCENE.instantiate()
+		current_arena.add_child(visual_bomb)
+		visual_bomb.global_position = plant_position
+		visual_bomb.add_to_group("planted_bombs")
+		
+	for agent in living_team_a:
+		if is_instance_valid(agent): agent.retake_site(plant_position)
+	for agent in living_team_b:
+		if is_instance_valid(agent): agent.retake_site(plant_position)
+
+func _on_bomb_dropped(drop_position: Vector2) -> void:
+	if DROPPED_BOMB_SCENE:
+		print("📢 MATCH COMMAND: Bomb dropped! Ordering Ts to retrieve it.")
+		
+		# 1. Spawn the physical bomb in the world
+		var dropped_bomb = DROPPED_BOMB_SCENE.instantiate()
+		current_arena.add_child(dropped_bomb)
+		dropped_bomb.global_position = drop_position
+		dropped_bomb.add_to_group("dropped_bombs")
+		
+		# 2. Loop through the agents in the arena to give the order
+		for agent in current_arena.get_children():
+			if agent is ESportAgent2D and not agent.is_queued_for_deletion():
+				# Assuming 'is_team_a' == false means they are Terrorists
+				if not agent.is_team_a: 
+					agent.retrieve_dropped_bomb(drop_position)
+
+func _on_bomb_defused() -> void:
+	is_bomb_planted = false
+	print("🛡️ Team A successfully defused the bomb!")
+	_end_round(true)
+
+func _detonate_bomb() -> void:
+	is_bomb_planted = false
+	print("💥 KABOOM! The bomb detonated!")
+	_end_round(false)
+
+func _on_agent_died(victim: ESportAgent2D, killer: ESportAgent2D) -> void:
+	# 1. Remove them from the living arrays
+	var was_team_a = victim.is_team_a
+	if was_team_a: living_team_a.erase(victim)
+	else: living_team_b.erase(victim)
+	
+	# 2. Figure out the names! (Fallback to "Unknown" if data is missing)
+	var victim_name = victim.agent_data.alias if victim.agent_data else "Unknown"
+	var killer_name = "The Zone"
+	var killer_is_team_a = false
+	
+	if is_instance_valid(killer):
+		killer_name = killer.agent_data.alias if killer.agent_data else "Unknown"
+		killer_is_team_a = killer.is_team_a
+		
+	# 3. Shout the kill to the HUD!
+	kill_feed_event.emit(killer_name, victim_name, killer_is_team_a)
+		
+	_check_round_over()
+
+func _check_round_over() -> void:
+	if living_team_a.is_empty() and not living_team_b.is_empty():
+		_end_round(false)
+	elif living_team_b.is_empty() and not living_team_a.is_empty():
+		if not is_bomb_planted: _end_round(true)
+	else:
+		# --- NEW: CLUTCH DETECTION ---
+		# If the round is still going, check if anyone is the last player alive!
+		if living_team_a.size() == 1 and not is_round_over:
+			_assign_clutch_waypoint(living_team_a[0], living_team_b)
+			
+		if living_team_b.size() == 1 and not is_round_over:
+			_assign_clutch_waypoint(living_team_b[0], living_team_a)
+
+func _assign_clutch_waypoint(clutch_agent: ESportAgent2D, enemy_team_array: Array) -> void:
+	# 1. If the bomb is already planted, our existing retake_site() logic handles this!
+	if is_bomb_planted: return
+	
+	# 2. Check for a dropped bomb
+	var dropped_bombs = get_tree().get_nodes_in_group("dropped_bombs")
+	
+	if not clutch_agent.is_team_a:
+		# T-Side Logic: If I have the bomb, keep going to the site to plant it!
+		if clutch_agent.is_carrying_bomb: return 
+		
+		# T-Side Logic: If the bomb is on the ground, I MUST go recover it!
+		if dropped_bombs.size() > 0:
+			clutch_agent.clutch_sweep(dropped_bombs[0].global_position)
+			return
+	else:
+		# CT-Side Logic: If the bomb is dropped, I should go guard it to stop the Ts from getting it!
+		if dropped_bombs.size() > 0:
+			clutch_agent.clutch_sweep(dropped_bombs[0].global_position)
+			return
+
+	# 3. If there is no bomb action, hunt down the nearest remaining enemy!
+	if enemy_team_array.size() > 0:
+		var nearest_enemy = enemy_team_array[0]
+		var shortest_dist = clutch_agent.global_position.distance_to(nearest_enemy.global_position)
+		
+		for enemy in enemy_team_array:
+			if is_instance_valid(enemy):
+				var dist = clutch_agent.global_position.distance_to(enemy.global_position)
+				if dist < shortest_dist:
+					nearest_enemy = enemy
+					shortest_dist = dist
+					
+		if is_instance_valid(nearest_enemy):
+			clutch_agent.clutch_sweep(nearest_enemy.global_position)
+
+func _end_round(team_a_won) -> void:
+	if is_round_over: return
+	
+	is_round_over = true
+	is_bomb_planted = false
+	
+	var winner_name = ""
+	if team_a_won != null:
+		if team_a_won:
 			score_a += 1
-			round_winner_name = team_a.team_name
-			play_by_play = _generate_kill_feed(team_a, team_b)
+			winner_name = active_team_a.team_name
+			print("🏆 ", winner_name, " wins Round ", current_round, "!")
 		else:
 			score_b += 1
-			round_winner_name = team_b.team_name
-			play_by_play = _generate_kill_feed(team_b, team_a)
+			winner_name = active_team_b.team_name
+			print("🏆 ", winner_name, " wins Round ", current_round, "!")
 			
-		# Broadcast the round result to the UI!
-		round_played.emit(current_round, round_winner_name, play_by_play, score_a, score_b)
-		print("[Round ", current_round, "] ", play_by_play, " | Score: ", score_a, " - ", score_b)
+	round_played.emit(current_round, winner_name, "Round Complete!", score_a, score_b)
+	
+	if score_a >= MAX_WINS or score_b >= MAX_WINS:
+		_end_match()
+		return
 		
-		# Check for a winner (First to 13 wins in a 24 round match!)
-		if score_a >= 13 or score_b >= 13:
-			break
+	current_round += 1
+	await get_tree().create_timer(2.0).timeout
+	_cleanup_and_restart()
+
+func _cleanup_and_restart() -> void:
+	for agent in living_team_a:
+		if is_instance_valid(agent): agent.queue_free()
+	for agent in living_team_b:
+		if is_instance_valid(agent): agent.queue_free()
 		
-		# If skip is requested, it ignores this and instantly runs the next loop.
-		if not skip_requested:
-			await get_tree().create_timer(ROUND_DELAY_SECONDS).timeout
+	for bomb in get_tree().get_nodes_in_group("dropped_bombs"):
+		if is_instance_valid(bomb): bomb.queue_free()
+	for bomb in get_tree().get_nodes_in_group("planted_bombs"):
+		if is_instance_valid(bomb): bomb.queue_free()
 		
-	## 3. Match is over! Wrap up the results.
+	for smoke in get_tree().get_nodes_in_group("smoke_clouds"):
+		if is_instance_valid(smoke): smoke.queue_free()
+	for nade in get_tree().get_nodes_in_group("thrown_smokes"):
+		if is_instance_valid(nade): nade.queue_free()
+	for flash in get_tree().get_nodes_in_group("thrown_flashes"):
+		if is_instance_valid(flash): flash.queue_free()
+		
+	_start_new_round()
+
+func _end_match() -> void:
+	print("=======================================")
+	print("🎉 MATCH FINISHED! FINAL SCORE: ", score_a, " - ", score_b)
+	
 	var final_results = {
-		"team_a": team_a,
-		"team_b": team_b,
+		"team_a": active_team_a,
+		"team_b": active_team_b,
 		"score_a": score_a,
 		"score_b": score_b,
-		"winner": team_a if score_a > score_b else team_b,
-		"player_won": score_a > score_b #
+		"winner": active_team_a if score_a > score_b else active_team_b,
+		"player_won": score_a > score_b 
 	}
-	
-	print("🏆 MATCH OVER! Winner: ", final_results.winner.team_name)
 	match_finished.emit(final_results)
 
 # ==============================================================================
 # QUICK SIM MATCH (Instant Resolution)
 # ==============================================================================
-## Call this function to instantly resolve a match without UI delays or signals.
 func quick_simulate_match(team_a: ESportTeam, team_b: ESportTeam) -> Dictionary:
-	var score_a = 0
-	var score_b = 0
+	var sim_score_a = 0
+	var sim_score_b = 0
 	
-	# 1. Use the exact same power calculation as the live match
 	var power_a = _calculate_team_power(team_a)
 	var power_b = _calculate_team_power(team_b)
 	var total_power = power_a + power_b
 	
-	# 2. Run the 24-round loop instantly (No timers, no signals!)
-	for current_round in range(1, MAX_ROUNDS + 1):
-		var roll = randf() * total_power
-		
-		if roll <= power_a:
-			score_a += 1
+	for i in range(1, MAX_ROUNDS + 1):
+		if randf() * total_power <= power_a:
+			sim_score_a += 1
 		else:
-			score_b += 1
+			sim_score_b += 1
 			
-		# First to 13 wins the match
-		if score_a >= 13 or score_b >= 13:
+		if sim_score_a >= MAX_WINS or sim_score_b >= MAX_WINS:
 			break
 			
-	# 3. Package the results using the EXACT same dictionary structure 
-	# as your live match, so your Popup script doesn't have to change!
-	var final_results = {
+	return {
 		"team_a": team_a,
 		"team_b": team_b,
-		"score_a": score_a,
-		"score_b": score_b,
-		"winner": team_a if score_a > score_b else team_b,
-		"player_won": score_a > score_b 
+		"score_a": sim_score_a,
+		"score_b": sim_score_b,
+		"winner": team_a if sim_score_a > sim_score_b else team_b,
+		"player_won": sim_score_a > sim_score_b 
 	}
 	
-	print("⚡ Quick Sim Complete! Winner: ", final_results.winner.team_name, " (", score_a, "-", score_b, ")")
-	return final_results
-	
-# ==============================================================================
-# HELPER MATH
-# ==============================================================================
 func _calculate_team_power(team: ESportTeam) -> float:
 	var total_power = 0.0
 	for player in team.active_roster:
 		if player != null:
-			# We can factor in Energy/Focus here later!
 			total_power += player.aim 
-	return max(total_power, 1.0) # Prevent division by zero
-
-func _generate_kill_feed(winning_team: ESportTeam, losing_team: ESportTeam) -> String:
-	# Pick a random player from the winning team to be the MVP of the round
-	var killer = winning_team.active_roster.pick_random()
-	var victim = losing_team.active_roster.pick_random()
-	
-	var k_name = killer.alias if killer else "Someone"
-	var v_name = victim.alias if victim else "an enemy"
-	
-	# MVP Flavor text!
-	var events = [
-		"%s gets a quick entry frag on %s!",
-		"%s clutches a 1v2, finishing off %s.",
-		"%s holds the angle and drops %s.",
-		"A massive tactical play allows %s to flank %s!"
-	]
-	
-	return events.pick_random() % [k_name, v_name]
+	return max(total_power, 1.0)

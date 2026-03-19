@@ -1,0 +1,84 @@
+[gd_scene format=3 uid="uid://dbnjd4kpmom0s"]
+
+[ext_resource type="Script" uid="uid://b060wxubeyflc" path="res://scenes/match_simulation/match_arena/match_arena_2d.gd" id="1_fr0va"]
+[ext_resource type="Script" uid="uid://bt2gfbd8pp04q" path="res://scenes/match_simulation/match_arena/spectator_camera/spectator_camera.gd" id="3_1f282"]
+[ext_resource type="PackedScene" uid="uid://bghax761bplq" path="res://scenes/match_simulation/match_arena/map_zone/map_zone.tscn" id="3_gwh25"]
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_10c88"]
+vertices = PackedVector2Array(1458.6875, 711.35156, 1258.6875, 700.59375, 1230.3203, 637.25, 1321.4531, 582.3594, 948.28906, 423.21875, 1007.8594, 576.8906, 867.47656, 557.10156, 863.5781, 544.8281, 1169.7109, 794.3906, 1205.5625, 876.97656, 824.40625, 440.77344, 773.2969, 171.07813, 1778.9375, 882.8906, 1334.9609, 878.2578, 1463.6328, 722.6328, 1411.6484, 297.14844, 1774.0469, 34.960938, 467.8125, 497.6797, 543.28125, 402.78125, 461.8125, 231.27344, 535.6719, 168.90625, 1010.10156, 785.46094, 608.28125, 876.0078, 778.3906, 834.6875, 1097.8672, 209.46094, 518.64844, 776.40625, 468.5703, 756.2969, 471.53906, 693.77344, 656.35156, 689.21094, 601.3281, 782.6797, 489.9922, 875.64844, 29.757813, 873.0469, 200.89844, 776.7969, 742.0078, 670.52344, 9.2421875, 28.039063, 206.10156, 195.52344, 677.35156, 837.21875)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(4, 3, 5, 6, 7), PackedInt32Array(8, 2, 1, 9), PackedInt32Array(4, 7, 10, 11), PackedInt32Array(12, 13, 14), PackedInt32Array(15, 16, 12, 14, 0), PackedInt32Array(3, 15, 0), PackedInt32Array(10, 7, 17, 18), PackedInt32Array(18, 17, 19, 20), PackedInt32Array(21, 8, 9, 22, 23), PackedInt32Array(24, 4, 11), PackedInt32Array(25, 26, 27, 28, 29), PackedInt32Array(25, 30, 31, 32, 26), PackedInt32Array(21, 23, 33, 6, 5), PackedInt32Array(16, 15, 24), PackedInt32Array(34, 16, 24, 11), PackedInt32Array(34, 11, 20), PackedInt32Array(34, 20, 19, 35), PackedInt32Array(31, 34, 35, 32), PackedInt32Array(29, 28, 36, 22), PackedInt32Array(3, 2, 5), PackedInt32Array(22, 36, 23)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(1784, 25, 1789, 893, 1313.8969, 888.0511, 1452, 721, 1266, 711, 1213, 887, 599, 886, 592, 792, 526, 787, 497.50284, 885.69934, 20, 883, -1, 18), PackedVector2Array(216, 207, 211, 766, 459, 747, 462, 684, 665, 679, 686, 827, 766, 825, 731, 667, 856, 554, 458.00436, 506.59314, 452, 240), PackedVector2Array(1315.2434, 568.84186, 1399, 304, 1102, 221, 963.5536, 418.85663), PackedVector2Array(553, 394, 812, 429, 765, 181, 546, 179), PackedVector2Array(1217, 644, 1018, 590, 1020, 776, 1163, 784)])
+
+[node name="MatchArena2D" type="Node2D" unique_id=788467565]
+script = ExtResource("1_fr0va")
+
+[node name="Background" type="ColorRect" parent="." unique_id=1039417425]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.18000486, 0.18000486, 0.18000486, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="Outline" type="Polygon2D" parent="Background" unique_id=484419305]
+position = Vector2(4, -28)
+color = Color(0.5931336, 0.59313357, 0.59313357, 1)
+polygon = PackedVector2Array(9, 24, 28, 907, -59, 939, -65, -34, 15, -42, 1993, -29, 1985, 1002, 44, 1045, 27, 877, 1781, 886, 1779, 32)
+
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="." unique_id=1419689874]
+unique_name_in_owner = true
+position = Vector2(4, -28)
+navigation_polygon = SubResource("NavigationPolygon_10c88")
+
+[node name="Polygon2D" type="Polygon2D" parent="NavigationRegion2D" unique_id=911822719]
+color = Color(0.89492244, 0.89492244, 0.8949224, 1)
+polygon = PackedVector2Array(208, 198, 458, 232, 464, 499, 862, 546, 865, 557, 739, 670, 776, 832, 679, 835, 657, 686, 467, 692, 465, 751, 203, 772)
+
+[node name="Polygon2D2" type="Polygon2D" parent="NavigationRegion2D" unique_id=1255483010]
+color = Color(0.89492244, 0.89492244, 0.8949224, 1)
+polygon = PackedVector2Array(537, 171, 772, 172, 822, 438, 546, 401)
+
+[node name="Polygon2D3" type="Polygon2D" parent="NavigationRegion2D" unique_id=1118552579]
+color = Color(0.89492244, 0.89492244, 0.8949224, 1)
+polygon = PackedVector2Array(1100, 213, 1407, 299, 1320, 581, 954, 422)
+
+[node name="Polygon2D4" type="Polygon2D" parent="NavigationRegion2D" unique_id=313346767]
+color = Color(0.89492244, 0.89492244, 0.8949224, 1)
+polygon = PackedVector2Array(1010, 581, 1226, 639, 1169, 792, 1012, 782)
+
+[node name="Polygon2D5" type="Polygon2D" parent="NavigationRegion2D" unique_id=1517646058]
+color = Color(0.89492244, 0.89492244, 0.8949224, 1)
+polygon = PackedVector2Array(1261, 703, 1457, 714, 1462, 724, 1331, 880, 1209, 877)
+
+[node name="Polygon2D6" type="Polygon2D" parent="NavigationRegion2D" unique_id=649866750]
+color = Color(0.89492244, 0.89492244, 0.8949224, 1)
+polygon = PackedVector2Array(520, 780, 599, 784, 606, 889, 488, 892)
+
+[node name="SpawnPoints" type="Node" parent="." unique_id=388406169]
+
+[node name="TeamASpawn" type="Marker2D" parent="SpawnPoints" unique_id=980894136]
+unique_name_in_owner = true
+position = Vector2(125, 464)
+
+[node name="TeamBSpawn" type="Marker2D" parent="SpawnPoints" unique_id=833231666]
+unique_name_in_owner = true
+position = Vector2(1680, 509)
+
+[node name="Waypoints" type="Node" parent="." unique_id=455665850]
+
+[node name="SiteA" parent="Waypoints" unique_id=203613237 instance=ExtResource("3_gwh25")]
+unique_name_in_owner = true
+position = Vector2(896, 750)
+
+[node name="SiteB" parent="Waypoints" unique_id=1313241056 instance=ExtResource("3_gwh25")]
+unique_name_in_owner = true
+position = Vector2(958, 81)
+
+[node name="Mid" parent="Waypoints" unique_id=497985554 instance=ExtResource("3_gwh25")]
+unique_name_in_owner = true
+position = Vector2(804, 461)
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1204714302]
+position = Vector2(883, 430)
+script = ExtResource("3_1f282")

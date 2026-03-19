@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://qcch5hauit04"]
+
+[ext_resource type="Script" uid="uid://b7xno1wathuja" path="res://scenes/match_simulation/interactables/bomb/dropped_bomb.gd" id="1_ktjo3"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ktjo3"]
+size = Vector2(10, 10)
+
+[node name="DroppedBomb" type="Area2D" unique_id=1360192392]
+collision_layer = 8
+script = ExtResource("1_ktjo3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=252211887]
+shape = SubResource("RectangleShape2D_ktjo3")
+
+[node name="Polygon2D" type="Polygon2D" parent="." unique_id=1298373270]
+polygon = PackedVector2Array(5, 5, 5, -5, -5, -5, -5, 5)
+uv = PackedVector2Array(-105, -32, -58, -43, -42, 5, -117, 35)

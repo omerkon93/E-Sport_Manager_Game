@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://cj62ouk55ljq4"]
+
+[ext_resource type="Script" uid="uid://onv4cncq8rvi" path="res://scenes/match_simulation/interactables/smoke_grenade/smoke_cloud.gd" id="1_dw5ow"]
+[ext_resource type="Script" uid="uid://b3sl71do8g0rp" path="res://scenes/match_simulation/interactables/polygon_circle.gd" id="1_u4uc2"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_u4uc2"]
+radius = 50.0
+
+[node name="SmokeCloud" type="StaticBody2D" unique_id=703557382]
+collision_layer = 16
+collision_mask = 0
+script = ExtResource("1_dw5ow")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=825085774]
+shape = SubResource("CircleShape2D_u4uc2")
+
+[node name="Polygon2D" type="Polygon2D" parent="." unique_id=682376563]
+color = Color(0.24115604, 0.24115604, 0.24115604, 1)
+script = ExtResource("1_u4uc2")
+radius = 50.0

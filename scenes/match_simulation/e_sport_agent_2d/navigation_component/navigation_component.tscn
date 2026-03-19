@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://boil4plfifyp3"]
+
+[ext_resource type="Script" uid="uid://vld5gb1asu7u" path="res://scenes/match_simulation/e_sport_agent_2d/navigation_component/navigation_component.gd" id="1_mr6qt"]
+
+[node name="NavigationComponent" type="NavigationAgent2D" unique_id=1121225415]
+script = ExtResource("1_mr6qt")

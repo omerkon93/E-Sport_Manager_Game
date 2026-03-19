@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="WeaponData" format=3 uid="uid://ct7opsyqmvdcy"]
+
+[ext_resource type="Script" uid="uid://rn0l1d40goqn" path="res://core/definitions/weapons/weapon_data.gd" id="1_bgewk"]
+
+[resource]
+script = ExtResource("1_bgewk")
+weapon_name = "M4A4"
+fire_rate = 0.25
+accuracy_multiplier = 1.05
+mobility = 0.95

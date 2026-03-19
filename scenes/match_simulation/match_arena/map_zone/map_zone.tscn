@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://bghax761bplq"]
+
+[ext_resource type="Script" uid="uid://b3sl71do8g0rp" path="res://scenes/match_simulation/interactables/polygon_circle.gd" id="1_c8en4"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_c8en4"]
+radius = 60.0
+
+[node name="MapZone" type="Area2D" unique_id=203613237]
+collision_layer = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1768934798]
+shape = SubResource("CircleShape2D_c8en4")
+
+[node name="Polygon2D" type="Polygon2D" parent="." unique_id=1758473325]
+color = Color(0.24514171, 0.47542846, 0.99999756, 0.33800003)
+uv = PackedVector2Array(-75, -47, 68, -42, 89, 70, -77.04901, 52, -53, -46, -50, -48)
+internal_vertex_count = 2
+script = ExtResource("1_c8en4")
+radius = 60.0

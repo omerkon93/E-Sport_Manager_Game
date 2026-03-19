@@ -5,6 +5,7 @@ extends PanelContainer
 @export var enemy_team: ESportTeam         
 @export var vital_definitions: Array[VitalDefinition]
 @export var live_viewer_scene: PackedScene
+@export var match_hud_scene: PackedScene
 
 @onready var roster_section_ui: VBoxContainer = %RosterSectionUI
 @onready var play_match_button: Button = %PlayMatchButton
@@ -29,36 +30,50 @@ func _ready() -> void:
 	
 	SubscriptionManager.subscribe(preload("res://game_data/subscriptions/sub_salary_test.tres"))
 	
-	# Run the reset immediately when the game boots!
 	_validate_match_button()
 
 # ==============================================================================
 # LIVE MATCH (With Viewer)
 # ==============================================================================
 func _on_play_match_button_pressed() -> void:
-	if GameManager.my_team == null or not GameManager.my_team.is_match_ready():
-		push_warning("Match blocked: Team is not ready!")
-		return
-
-	if enemy_team == null or match_popup_scene == null:
-		push_warning("Missing resources for match simulation!")
+	if GameManager.my_team == null or not GameManager.my_team.is_match_ready(): return
+	
+	if live_viewer_scene == null or match_hud_scene == null:
+		push_error("Missing scenes! Assign the Map and HUD in the inspector.")
 		return
 		
 	_disable_match_buttons("Playing Live...")
 	
-	var viewer_instance = null
-	if live_viewer_scene:
-		viewer_instance = live_viewer_scene.instantiate()
-		add_child(viewer_instance)
+	# 1. HIDE THE DASHBOARD! This stops the UI from bleeding through.
+	# We need to hide the top-level parent (CombinedMenu) so everything disappears.
+	var root_menu = owner if owner else self
+	root_menu.hide()
 	
-	MatchSimulator.play_live_match(GameManager.my_team, enemy_team)
+	var arena_instance = live_viewer_scene.instantiate()
+	var hud_instance = match_hud_scene.instantiate()
+	
+	if not arena_instance is MatchArena2D:
+		push_error("Assigned scene is NOT a MatchArena2D!")
+		arena_instance.queue_free()
+		hud_instance.queue_free()
+		root_menu.show() 
+		_validate_match_button()
+		return
+		
+	# 2. ADD TO THE ROOT! This frees the map from the UI's layout rules.
+	get_tree().root.add_child(arena_instance)
+	get_tree().root.add_child(hud_instance) 
+	
+	MatchSimulator.play_live_match(arena_instance, GameManager.my_team, enemy_team)
+	
 	var match_results = await MatchSimulator.match_finished
 	
-	# --- NEW: Wait for the viewer to delete itself before showing the popup! ---
-	if is_instance_valid(viewer_instance):
-		await viewer_instance.tree_exited
-	# ---------------------------------------------------------------------------
+	# 3. Destroy both when the match is over!
+	arena_instance.queue_free()
+	hud_instance.queue_free()
 	
+	# 4. SHOW THE DASHBOARD AGAIN!
+	root_menu.show()
 	_show_results_and_cleanup(match_results)
 
 # ==============================================================================
@@ -75,10 +90,6 @@ func _on_play_now_button_pressed() -> void:
 		
 	_disable_match_buttons("Simulating...")
 	
-	# Notice: No Live Viewer is instantiated here!
-	
-	# Call a synchronous/instant simulation function instead of the live one.
-	# (You will need to ensure this function exists in MatchSimulator!)
 	var match_results = MatchSimulator.quick_simulate_match(GameManager.my_team, enemy_team)
 	
 	_show_results_and_cleanup(match_results)
@@ -96,7 +107,6 @@ func _show_results_and_cleanup(match_results) -> void:
 	_validate_match_button()
 
 func _disable_match_buttons(text: String) -> void:
-	# A quick helper so we don't have to write this twice!
 	play_match_button.disabled = true
 	play_now_button.disabled = true
 	play_match_button.text = text
@@ -115,22 +125,14 @@ func _validate_match_button() -> void:
 		play_now_button.text = "Roster Incomplete!"
 
 func _on_advance_week_button_pressed() -> void:
-	# 7 days * 24 hours * 60 minutes
 	var minutes_in_week: int = 10080
-	
 	print("⏳ Advancing time by one week...")
-	
-	# This automatically triggers your SubscriptionManager to pay salaries!
 	TimeManager.advance_time(minutes_in_week)
-	
-	# Recover the players after a rest
 	VitalManager.process_weekly_recovery(GameManager.my_team)
 	
-	# MVP Rest Mechanic
 	if GameManager.my_team != null:
 		for player in GameManager.my_team.active_roster:
 			if player != null:
 				print(player.alias + " is fully rested for the next week.")
-				# Future: Hook into your VitalsManager here to reset stress/energy
 				
 	print("✅ Week complete!")
