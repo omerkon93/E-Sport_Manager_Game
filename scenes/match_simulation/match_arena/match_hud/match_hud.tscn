@@ -1,9 +1,11 @@
 [gd_scene format=3 uid="uid://bkm48j6841ppk"]
 
 [ext_resource type="Script" uid="uid://byq6hryiq7g5b" path="res://scenes/match_simulation/match_arena/match_hud/match_hud.gd" id="1_5btfs"]
+[ext_resource type="PackedScene" uid="uid://b2mn3tvbd3x5j" path="res://scenes/match_simulation/match_arena/match_hud/player_hud_panel.tscn" id="2_xrdji"]
 
 [node name="MatchHUD" type="CanvasLayer" unique_id=764580942]
 script = ExtResource("1_5btfs")
+player_panel_scene = ExtResource("2_xrdji")
 
 [node name="MarginContainer" type="MarginContainer" parent="." unique_id=1751396603]
 anchors_preset = 10
@@ -21,11 +23,19 @@ layout_mode = 2
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=308553089]
 layout_mode = 2
 
-[node name="TeamALabel" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=1478217833]
+[node name="TeamA" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=716014137]
+layout_mode = 2
+
+[node name="TeamALabel" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/TeamA" unique_id=1478217833]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 6
 text = "TeamALabel"
+
+[node name="TeamARoster" type="HBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/TeamA" unique_id=1462734122]
+unique_name_in_owner = true
+layout_mode = 2
+metadata/_edit_use_anchors_ = true
 
 [node name="RoundLabel" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=600716660]
 unique_name_in_owner = true
@@ -33,11 +43,18 @@ layout_mode = 2
 size_flags_horizontal = 6
 text = "RoundLabel"
 
-[node name="TeamBLabel" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=1527112768]
+[node name="TeamB" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=1226360429]
+layout_mode = 2
+
+[node name="TeamBLabel" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/TeamB" unique_id=1527112768]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 6
 text = "TeamBLabel"
+
+[node name="TeamBRoster" type="HBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/TeamB" unique_id=1678487551]
+unique_name_in_owner = true
+layout_mode = 2
 
 [node name="BombTimerLabel" type="Label" parent="MarginContainer/VBoxContainer" unique_id=2120869990]
 unique_name_in_owner = true

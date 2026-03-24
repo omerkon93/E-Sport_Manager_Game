@@ -4,7 +4,6 @@
 [ext_resource type="Script" uid="uid://bbfwomm3k5l4v" path="res://scenes/ui/screens/combined_menu/combined_menu.gd" id="1_n7u7p"]
 [ext_resource type="PackedScene" uid="uid://bymtdvkh5wiit" path="res://scenes/ui/screens/combined_menu/shop_menu/shop_menu.tscn" id="2_n7u7p"]
 [ext_resource type="PackedScene" uid="uid://onv2rqhpafe5" path="res://scenes/ui/screens/combined_menu/dashboard_panel/dashboard_panel.tscn" id="5_he5gf"]
-[ext_resource type="PackedScene" uid="uid://bkm48j6841ppk" path="res://scenes/match_simulation/match_arena/match_hud/match_hud.tscn" id="5_wagyw"]
 
 [node name="CombinedMenu" type="Control" unique_id=1927334450]
 layout_mode = 3
@@ -33,23 +32,22 @@ size_flags_vertical = 3
 [node name="TabContainer" type="TabContainer" parent="HBoxContainer/MarginContainer" unique_id=2065250152]
 unique_name_in_owner = true
 layout_mode = 2
-current_tab = 2
-
-[node name="Actions" parent="HBoxContainer/MarginContainer/TabContainer" unique_id=772517719 instance=ExtResource("1_edv8t")]
-unique_name_in_owner = true
-visible = false
-layout_mode = 2
-metadata/_tab_index = 0
-
-[node name="Shop" parent="HBoxContainer/MarginContainer/TabContainer" unique_id=598056843 instance=ExtResource("2_n7u7p")]
-unique_name_in_owner = true
-visible = false
-layout_mode = 2
-metadata/_tab_index = 1
+current_tab = 0
 
 [node name="DashboardPanel" parent="HBoxContainer/MarginContainer/TabContainer" unique_id=41419043 instance=ExtResource("5_he5gf")]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
-match_hud_scene = ExtResource("5_wagyw")
+metadata/_tab_index = 0
+
+[node name="Actions" parent="HBoxContainer/MarginContainer/TabContainer" unique_id=772517719 instance=ExtResource("1_edv8t")]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+metadata/_tab_index = 1
+
+[node name="Shop" parent="HBoxContainer/MarginContainer/TabContainer" unique_id=598056843 instance=ExtResource("2_n7u7p")]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
 metadata/_tab_index = 2

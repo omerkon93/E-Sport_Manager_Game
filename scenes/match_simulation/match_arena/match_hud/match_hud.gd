@@ -5,6 +5,11 @@ class_name MatchHUD
 @onready var round_label: Label = %RoundLabel
 @onready var team_b_label: Label = %TeamBLabel
 @onready var bomb_timer_label: Label = %BombTimerLabel
+@onready var team_a_roster: HBoxContainer = %TeamARoster
+@onready var team_b_roster: HBoxContainer = %TeamBRoster
+
+
+@export var player_panel_scene: PackedScene
 
 # Grab our new Kill Feed container!
 @onready var kill_feed_container: VBoxContainer = %KillFeedContainer
@@ -15,8 +20,11 @@ func _ready() -> void:
 	team_b_label.add_theme_color_override("font_color", Color(0.8, 0.2, 0.2)) 
 	round_label.add_theme_font_size_override("font_size", 24)
 	
-	# --- NEW: Listen for the global kill feed events! ---
+	MatchSimulator.round_played.connect(_on_round_played) # Reusing this for now, but better to have a specific 'round_started' signal
 	MatchSimulator.kill_feed_event.connect(_on_kill_feed_event)
+	
+	# For immediate setup on round 1:
+	MatchSimulator.round_started.connect(_build_rosters)
 
 func _process(_delta: float) -> void:
 	# 1. Safely grab team names (fallback to "Team A/B" if null)
@@ -69,3 +77,35 @@ func _on_kill_feed_event(killer_name: String, victim_name: String, killer_is_tea
 	tween.tween_interval(3.0) # Wait 3 seconds
 	tween.tween_property(kill_label, "modulate:a", 0.0, 1.0) # Fade alpha to 0 over 1 second
 	tween.tween_callback(kill_label.queue_free) # Delete the label
+
+func _on_round_played(round_num: int, winner_name: String, log_text: String, score_a: int, score_b: int) -> void:
+	print("📺 HUD: Round over! Winner: ", winner_name)
+	
+	# Optional: Clear the kill feed instantly when the round ends
+	for child in kill_feed_container.get_children():
+		child.queue_free()
+		
+# ==============================================================================
+# ROSTER OVERLAY
+# ==============================================================================
+func _build_rosters() -> void:
+	
+	print("📺 HUD: Building rosters! CTs alive: ", MatchSimulator.living_team_a.size(), " | Ts alive: ", MatchSimulator.living_team_b.size())
+	# 1. Clear out any old panels from the previous round
+	for child in team_a_roster.get_children(): child.queue_free()
+	for child in team_b_roster.get_children(): child.queue_free()
+		
+	# 2. Build Team A (CT)
+	for agent in MatchSimulator.living_team_a:
+		var panel = player_panel_scene.instantiate() as PlayerHUDPanel
+		team_a_roster.add_child(panel)
+		panel.setup(agent)
+		
+	# 3. Build Team B (T)
+	for agent in MatchSimulator.living_team_b:
+		var panel = player_panel_scene.instantiate() as PlayerHUDPanel
+		team_b_roster.add_child(panel)
+		panel.setup(agent)
+		
+		# Optional: Flip the T-side UI to align right!
+		panel.size_flags_horizontal = Control.SIZE_SHRINK_END

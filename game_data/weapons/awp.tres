@@ -5,6 +5,7 @@
 [resource]
 script = ExtResource("1_4mymj")
 weapon_name = "AWP"
+base_damage = 115.0
 fire_rate = 1.5
 accuracy_multiplier = 1.3
 mobility = 0.6

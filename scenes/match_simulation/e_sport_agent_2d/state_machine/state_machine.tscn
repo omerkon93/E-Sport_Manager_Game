@@ -1,6 +1,0 @@
-[gd_scene format=3 uid="uid://xrfn8flxy27y"]
-
-[ext_resource type="Script" uid="uid://cf4fk4dbclf1r" path="res://scenes/match_simulation/e_sport_agent_2d/state_machine/state_machine.gd" id="1_vmc7o"]
-
-[node name="StateMachine" type="Node" unique_id=2020249725]
-script = ExtResource("1_vmc7o")

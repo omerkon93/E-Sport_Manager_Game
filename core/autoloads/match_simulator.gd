@@ -4,6 +4,7 @@ signal match_started(team_a_name: String, team_b_name: String)
 signal round_played(round_num: int, winner_name: String, log_text: String, score_a: int, score_b: int)
 signal match_finished(final_results: Dictionary)
 signal kill_feed_event(killer_name: String, victim_name: String, killer_is_team_a: bool)
+signal round_started()
 
 const MAX_ROUNDS = 24
 const MAX_WINS = 13
@@ -11,7 +12,7 @@ var skip_requested: bool = false
 
 # --- 2D SCENES ---
 # Update these paths if your scenes are saved in a different folder!
-const AGENT_SCENE = preload("res://scenes/match_simulation/e_sport_agent_2d/e_sport_agent_2d.tscn")
+const AGENT_SCENE = preload("res://scenes/match_simulation/esport_agent_2d/esport_agent_2d.tscn")
 const DROPPED_BOMB_SCENE = preload("res://scenes/match_simulation/interactables/bomb/dropped_bomb.tscn")
 const PLANTED_BOMB_SCENE = preload("res://scenes/match_simulation/interactables/bomb/planted_bomb.tscn")
 const WEAPON_PATHS = ["res://game_data/weapons/"]
@@ -94,6 +95,9 @@ func _assign_weapons_to_roles() -> void:
 # ==============================================================================
 # LIVE 2D MATCH LOOP
 # ==============================================================================
+# ==============================================================================
+# LIVE 2D MATCH LOOP
+# ==============================================================================
 func play_live_match(arena_instance: MatchArena2D, team_a: ESportTeam, team_b: ESportTeam) -> void:
 	skip_requested = false
 	current_arena = arena_instance
@@ -107,6 +111,10 @@ func play_live_match(arena_instance: MatchArena2D, team_a: ESportTeam, team_b: E
 	match_started.emit(team_a.team_name, team_b.team_name)
 	print("⚔️ 2D MATCH START: ", team_a.team_name, " vs ", team_b.team_name)
 	
+	# Wait for the NavigationServer to finish booting up! ---
+	await get_tree().physics_frame
+	await get_tree().physics_frame # Waiting two frames guarantees 100% safety
+	
 	_start_new_round()
 
 func _start_new_round() -> void:
@@ -119,51 +127,72 @@ func _start_new_round() -> void:
 	is_round_over = false 
 	
 	
-	# Ask the "dumb" map for its locations
-	var strategy = [
-		current_arena.site_a.global_position, 
-		current_arena.site_a.global_position, 
-		current_arena.mid.global_position, 
-		current_arena.site_b.global_position, 
-		current_arena.site_b.global_position
-	]
+	# Clean up the Arena's angle dictionary from the last round!
+	current_arena.reset_angles()
+	
+	# --- TACTICAL STRATEGIES ---
+	# CT Side: Standard 2-1-2 Split
+	var ct_strategy = ["A", "A", "Mid", "B", "B"]
+	
+	# T Side: "Rush B!" (All 5 players run to B)
+	var t_strategy = ["B", "B", "B", "B", "B"]
 	
 	# Spawn Team A (CT)
 	for i in range(5):
 		var player_data = active_team_a.active_roster[i] if active_team_a.active_roster.size() > i else null
-		_spawn_single_agent(player_data, true, strategy[i], false)
+		# We now pass the string ("A", "Mid", etc) and the index 'i'
+		_spawn_single_agent(player_data, true, ct_strategy[i], false, i)
 		
 	# Spawn Team B (T)
 	for i in range(5):
 		var player_data = active_team_b.active_roster[i] if active_team_b.active_roster.size() > i else null
 		var give_bomb = (i == 0)
-		_spawn_single_agent(player_data, false, strategy[i], give_bomb)
-
-func _spawn_single_agent(player_data: ESportPlayer, is_team_a: bool, target_waypoint: Vector2, give_bomb: bool) -> void:
-	var agent = AGENT_SCENE.instantiate() as ESportAgent2D
-	current_arena.add_child(agent) 
+		_spawn_single_agent(player_data, false, t_strategy[i], give_bomb, i)
 	
-	agent.global_position = current_arena.get_random_spawn_position(is_team_a)
+	round_started.emit()
+
+
+func _spawn_single_agent(player_data: ESportPlayer, is_team_a: bool, target_site: String, give_bomb: bool, player_index: int) -> void:	
+	# 1. Instantiate the agent FIRST so they exist in memory
+	var agent = AGENT_SCENE.instantiate() as ESportAgent2D
+	current_arena.add_child(agent)
+	
+	# 2. Put them at their specific, fixed spawn point!
+	agent.global_position = current_arena.get_fixed_spawn_position(is_team_a, player_index)
+	
+	# 3. Ask the Arena where this agent should go
+	var target_waypoint: Vector2
+	
+	if is_team_a:
+		# CTs always claim hiding spots and defensive angles
+		target_waypoint = current_arena.claim_defensive_angle(target_site, agent)
+	else:
+		if give_bomb:
+			# ONLY the bomb carrier pushes the exact center (Area2D) to plant!
+			target_waypoint = current_arena.get_site_center(target_site)
+			print("💣 PLANTER: ", agent.name, " is pushing to the center of ", target_site)
+		else:
+			# The rest of the T-side pushes up to take defensive cover angles
+			target_waypoint = current_arena.claim_defensive_angle(target_site, agent)
+			print("🛡️ ENTRY: ", agent.name, " is taking a cover angle at ", target_site)
 	
 	# Determine what gun to give them based on their Role!
 	var assigned_weapon = armory.get("DEFAULT")
 	
 	if player_data != null:
-		var role_string: String
-		
-		# NOTE: Change 'Role' below to match the exact name of the enum inside your ESportPlayer script!
-		role_string = ESportPlayer.PlayerRole.keys()[player_data.preferred_role].to_upper()
-			
+		var role_string: String = ESportPlayer.PlayerRole.keys()[player_data.preferred_role].to_upper()
 		if armory.has(role_string):
 			assigned_weapon = armory[role_string]
 	
-	# Pass the weapon into the setup!
+	# Pass all the data into the agent's setup
 	agent.setup_agent(player_data, is_team_a, target_waypoint, give_bomb, assigned_weapon)
 	
+	# Connect signals
 	agent.agent_died.connect(_on_agent_died)
 	agent.bomb_planted.connect(_on_bomb_planted)
 	agent.bomb_dropped.connect(_on_bomb_dropped)
 	agent.bomb_defused.connect(_on_bomb_defused)
+	agent.bomb_picked_up.connect(_on_bomb_picked_up)
 	
 	if is_team_a: living_team_a.append(agent)
 	else: living_team_b.append(agent)
@@ -176,16 +205,21 @@ func _on_bomb_planted(plant_position: Vector2) -> void:
 	c4_timer = C4_DETONATION_TIME
 	print("⏱️ C4 Armed! 40 seconds to detonation.")
 	
+	# 1. Spawn the visual bomb (already have this)
 	if PLANTED_BOMB_SCENE:
 		var visual_bomb = PLANTED_BOMB_SCENE.instantiate()
 		current_arena.add_child(visual_bomb)
 		visual_bomb.global_position = plant_position
 		visual_bomb.add_to_group("planted_bombs")
 		
+	# 2. Tell the CTs to BEGIN THE RETAKE
+	# Instead of just running to the site center, we tell them to GATHER at the entrance.
+	var retake_entry_point = _get_closest_entry_point(plant_position)
+	
 	for agent in living_team_a:
-		if is_instance_valid(agent): agent.retake_site(plant_position)
-	for agent in living_team_b:
-		if is_instance_valid(agent): agent.retake_site(plant_position)
+		if is_instance_valid(agent):
+			# New command: Prepare for retake
+			agent.prepare_retake(retake_entry_point, plant_position)
 
 func _on_bomb_dropped(drop_position: Vector2) -> void:
 	if DROPPED_BOMB_SCENE:
@@ -214,6 +248,28 @@ func _detonate_bomb() -> void:
 	print("💥 KABOOM! The bomb detonated!")
 	_end_round(false)
 
+# ==============================================================================
+# BOMB RECOVERY & PUSH LOGIC
+# ==============================================================================
+func _on_bomb_picked_up(new_carrier: ESportAgent2D) -> void:
+	var carrier_name = new_carrier.agent_data.alias if new_carrier.agent_data else "Unknown"
+	print("📢 MATCH COMMAND: Bomb recovered by ", carrier_name, ". Issuing new site push!")
+	
+	# 1. Decide which site to push (For now, let's just pick Site A, 
+	# but you can upgrade this later to pick the closest site or safest site)
+	var target_site = current_arena.site_a.global_position 
+	
+	# 2. Issue new orders to all living T-Side agents
+	for agent in living_team_b:
+		if is_instance_valid(agent):
+			if agent == new_carrier:
+				# The new carrier's sole purpose is to reach the site and trigger StatePlant
+				agent.push_site_with_bomb(target_site)
+			else:
+				# The rest of the team needs to cancel their retrieval state 
+				# and either escort the carrier or push the site
+				agent.escort_carrier(target_site)
+
 func _on_agent_died(victim: ESportAgent2D, killer: ESportAgent2D) -> void:
 	# 1. Remove them from the living arrays
 	var was_team_a = victim.is_team_a
@@ -233,6 +289,21 @@ func _on_agent_died(victim: ESportAgent2D, killer: ESportAgent2D) -> void:
 	kill_feed_event.emit(killer_name, victim_name, killer_is_team_a)
 		
 	_check_round_over()
+
+func _get_closest_entry_point(bomb_pos: Vector2) -> Vector2:
+	# 1. Realistically, you could add "EntryMarkers" to your Arena scene and find the closest one.
+	# 2. For now, let's just pick a point between the bomb and the CT Spawn!
+	var spawn_a_pos = current_arena.team_a_spawn.global_position
+	
+	# Get direction from bomb to CT spawn
+	var dir_to_spawn = bomb_pos.direction_to(spawn_a_pos)
+	
+	# Set a "Gather Point" 300 pixels back from the bomb
+	var gather_point = bomb_pos + (dir_to_spawn * 300.0)
+	
+	# Make sure the gather point is actually walkable
+	var nav_map_rid = get_tree().root.get_world_2d().navigation_map
+	return NavigationServer2D.map_get_closest_point(nav_map_rid, gather_point)
 
 func _check_round_over() -> void:
 	if living_team_a.is_empty() and not living_team_b.is_empty():
