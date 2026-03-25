@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://dt7oud6brxudn"]
 
-[ext_resource type="Script" uid="uid://cixsxxqp6eiqd" path="res://scenes/ui/screens/combined_menu/dashboard_panel/sections/roster_section_ui.gd" id="1_whvb2"]
-[ext_resource type="PackedScene" uid="uid://c42li4sivc6rb" path="res://scenes/ui/screens/combined_menu/dashboard_panel/sections/items/player_roster_row.tscn" id="2_4mfgy"]
+[ext_resource type="Script" uid="uid://cixsxxqp6eiqd" path="res://scenes/ui/screens/combined_menu/dashboard_panel/sections/roster_section/roster_section_ui.gd" id="1_whvb2"]
+[ext_resource type="PackedScene" uid="uid://c42li4sivc6rb" path="res://scenes/ui/screens/combined_menu/dashboard_panel/sections/roster_section/player_roster_row.tscn" id="2_4mfgy"]
 [ext_resource type="PackedScene" uid="uid://bxjmbr25a74fl" path="res://scenes/ui/screens/combined_menu/player_stats_display.tscn" id="3_qwiel"]
 
 [node name="RosterSectionUI" type="VBoxContainer" unique_id=1161452960]

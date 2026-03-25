@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://dwx0cuggwqqml"]
 
-[ext_resource type="Script" uid="uid://b1t13ojjiieas" path="res://scenes/ui/screens/combined_menu/dashboard_panel/sections/research_section_ui.gd" id="1_wg0qf"]
-[ext_resource type="PackedScene" uid="uid://bkotj26uisfhp" path="res://scenes/ui/screens/combined_menu/dashboard_panel/sections/items/research_item_ui.tscn" id="2_oginr"]
+[ext_resource type="Script" uid="uid://b1t13ojjiieas" path="res://scenes/ui/screens/combined_menu/dashboard_panel/sections/research_section/research_section_ui.gd" id="1_wg0qf"]
+[ext_resource type="PackedScene" uid="uid://bkotj26uisfhp" path="res://scenes/ui/screens/combined_menu/dashboard_panel/sections/research_section/research_item_ui.tscn" id="2_oginr"]
 
 [node name="ResearchSectionUI" type="VBoxContainer" unique_id=696280825]
 size_flags_horizontal = 3

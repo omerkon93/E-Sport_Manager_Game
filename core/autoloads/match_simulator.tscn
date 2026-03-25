@@ -1,0 +1,28 @@
+[gd_scene format=3 uid="uid://b5fumvl3wy4sb"]
+
+[ext_resource type="Script" uid="uid://ceas2vqx452xv" path="res://core/autoloads/match_simulator.gd" id="1_1r5vt"]
+[ext_resource type="PackedScene" uid="uid://dbf3x0cyt1osu" path="res://scenes/match_simulation/esport_agent_2d/esport_agent_2d.tscn" id="2_f5rj2"]
+[ext_resource type="Script" uid="uid://cwcu0bvjnh0vg" path="res://core/autoloads/match_armory.gd" id="2_o3j82"]
+[ext_resource type="PackedScene" uid="uid://qcch5hauit04" path="res://scenes/match_simulation/interactables/bomb/dropped_bomb.tscn" id="3_fuots"]
+[ext_resource type="Script" uid="uid://d1bis2yolk02h" path="res://core/autoloads/match_stats.gd" id="3_rp2gg"]
+[ext_resource type="PackedScene" uid="uid://cts3cstw2nxe3" path="res://scenes/match_simulation/interactables/bomb/planted_bomb.tscn" id="4_le4m8"]
+[ext_resource type="PackedScene" uid="uid://dsf0yrpvolm12" path="res://scenes/match_simulation/interactables/smoke_grenade/thrown_smoke.tscn" id="5_lj01o"]
+[ext_resource type="PackedScene" uid="uid://cp1pdc0exmm0d" path="res://scenes/match_simulation/interactables/thrown_flashbang/thrown_flashbang.tscn" id="6_2eiej"]
+[ext_resource type="Script" uid="uid://di1u6m8igbb5u" path="res://core/autoloads/match_economy.gd" id="7_le4m8"]
+
+[node name="MatchSimulator" type="Node" unique_id=2096396389]
+script = ExtResource("1_1r5vt")
+agent_scene = ExtResource("2_f5rj2")
+dropped_bomb_scene = ExtResource("3_fuots")
+planted_bomb_scene = ExtResource("4_le4m8")
+smoke_scene = ExtResource("5_lj01o")
+flash_scene = ExtResource("6_2eiej")
+
+[node name="MatchArmory" type="Node" parent="." unique_id=1239950255]
+script = ExtResource("2_o3j82")
+
+[node name="MatchStats" type="Node" parent="." unique_id=874295265]
+script = ExtResource("3_rp2gg")
+
+[node name="MatchEconomy" type="Node" parent="." unique_id=1444596276]
+script = ExtResource("7_le4m8")

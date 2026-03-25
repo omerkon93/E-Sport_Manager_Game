@@ -9,6 +9,7 @@ signal bomb_dropped(drop_position: Vector2)
 signal bomb_planted(plant_position: Vector2) # Called from StatePlant
 @warning_ignore("unused_signal")
 signal bomb_defused() # Called from StateDefuse
+signal grenade_thrown(grenade_type: String, thrower: Node2D, target_pos: Vector2)
 
 # --- Components ---
 @export_group("Components")
@@ -16,6 +17,11 @@ signal bomb_defused() # Called from StateDefuse
 @export var nav_component: NavigationComponent
 @export var movement_component: MovementComponent
 @export var state_machine: StateMachine
+
+@export_group("Inventory")
+var smokes_count: int = 0
+var flashes_count: int = 0
+var is_flashed: bool = false # We will use this later to lower their aim!
 
 # --- Visuals & Data ---
 @onready var visual_polygon: Polygon2D = %Polygon2D
@@ -96,6 +102,20 @@ func die(killer: ESportAgent2D = null) -> void:
 	agent_died.emit(self, killer)
 	queue_free()
 
+func apply_flashbang(duration: float) -> void:
+	is_flashed = true
+	modulate = Color(2, 2, 2) # Glow white
+	
+	# Create a tween bound to this specific agent
+	var tween = create_tween()
+	tween.tween_interval(duration) # Wait for 2.5 seconds
+	
+	# When the wait is over, reset everything
+	tween.tween_callback(func():
+		is_flashed = false
+		modulate = Color(1, 1, 1)
+	)
+	
 # ==============================================================================
 # OBJECTIVE & RETAKE LOGIC
 # ==============================================================================

@@ -26,6 +26,12 @@ enum PlayerRole { ENTRY_FRAGGER, AWPER, IGL, SUPPORT, LURKER }
 @export var contract_length_weeks: int = 52
 @export var salary_subscription: Resource
 
+@export_group("Career Statistics")
+@export var lifetime_kills: int = 0
+@export var lifetime_deaths: int = 0
+@export var lifetime_damage: float = 0.0
+@export var matches_played: int = 0
+
 ## ❤️ Vitals (Dynamic Stats)
 @export_group("Vitals")
 signal vital_changed(vital_type: int, current: float, max_val: float)

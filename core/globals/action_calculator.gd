@@ -21,7 +21,7 @@ static func get_effective_time_cost(action: ActionData, player: ESportPlayer = n
 # ==============================================================================
 # CALCULATE ENERGY COST MULTIPLIER
 # ==============================================================================
-static func get_energy_cost_multiplier(action: ActionData, player: ESportPlayer = null) -> float:
+static func get_energy_cost_multiplier(_action: ActionData, player: ESportPlayer = null) -> float:
 	var energy_efficiency_percent: float = 0.0 
 	
 	if player != null:

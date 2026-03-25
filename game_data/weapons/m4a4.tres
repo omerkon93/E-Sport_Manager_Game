@@ -9,3 +9,4 @@ base_damage = 31.0
 fire_rate = 0.25
 accuracy_multiplier = 1.05
 mobility = 0.95
+cost = 3100

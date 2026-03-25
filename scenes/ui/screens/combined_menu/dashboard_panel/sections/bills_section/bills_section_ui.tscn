@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://dl5bau0ngudy7"]
 
-[ext_resource type="Script" uid="uid://oc4emrjodugn" path="res://scenes/ui/screens/combined_menu/dashboard_panel/sections/bills_section_ui.gd" id="1_qc3bl"]
+[ext_resource type="Script" uid="uid://oc4emrjodugn" path="res://scenes/ui/screens/combined_menu/dashboard_panel/sections/bills_section/bills_section_ui.gd" id="1_qc3bl"]
 
 [node name="BillsSectionUI" type="VBoxContainer" unique_id=292039700]
 offset_right = 112.0

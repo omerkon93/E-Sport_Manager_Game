@@ -1,0 +1,67 @@
+[gd_scene format=3 uid="uid://bd1vpyyrg76qd"]
+
+[ext_resource type="Script" uid="uid://38vgfql55idp" path="res://scenes/match_simulation/match_arena/player_stats_board_display.gd" id="1_ri5mq"]
+
+[node name="PlayerStatsBoardDisplay" type="HBoxContainer" unique_id=1450650373]
+size_flags_horizontal = 3
+script = ExtResource("1_ri5mq")
+
+[node name="NameLabel" type="Label" parent="." unique_id=714451226]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Name"
+text_overrun_behavior = 1
+
+[node name="MoneyLabel" type="Label" parent="." unique_id=1766295765]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text_overrun_behavior = 1
+
+[node name="WeaponLabel" type="Label" parent="." unique_id=188441910]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text_overrun_behavior = 1
+
+[node name="UtilityLabel" type="Label" parent="." unique_id=1990745360]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text_overrun_behavior = 1
+
+[node name="KDLabel" type="Label" parent="." unique_id=89043267]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "K-D"
+text_overrun_behavior = 1
+
+[node name="PlusMinusLabel" type="Label" parent="." unique_id=1476951264]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "+ / -"
+text_overrun_behavior = 1
+
+[node name="ADRLabel" type="Label" parent="." unique_id=1330705048]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "ADR"
+text_overrun_behavior = 1
+
+[node name="KastLabel" type="Label" parent="." unique_id=1854496999]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "KAST"
+text_overrun_behavior = 1
+
+[node name="RatingLabel" type="Label" parent="." unique_id=1707872562]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Rating"
+text_overrun_behavior = 1

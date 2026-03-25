@@ -7,3 +7,4 @@ script = ExtResource("1_qxsy5")
 weapon_name = "DESERT_EAGLE"
 fire_rate = 0.45
 accuracy_multiplier = 1.1
+cost = 700

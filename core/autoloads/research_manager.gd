@@ -3,6 +3,7 @@ extends Node
 # Signals for the UI to listen to
 signal research_started(item_id: String, duration: int)
 signal research_progressed(item_id: String, remaining: int)
+@warning_ignore("unused_signal")
 signal research_finished(item_id: String)
 
 # Stores active research data

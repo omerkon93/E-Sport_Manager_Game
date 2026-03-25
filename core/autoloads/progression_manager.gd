@@ -112,7 +112,7 @@ func _check_all_milestones() -> void:
 # ==============================================================================
 # EVALUATION LOGIC
 # ==============================================================================
-func _evaluate_milestone(m: Milestone, event_context: String = "") -> void:
+func _evaluate_milestone(m: Milestone, _event_context: String = "") -> void:
 	if m.target_flag == null: return
 	
 	# Skip if already unlocked

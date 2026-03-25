@@ -6,8 +6,6 @@
 [ext_resource type="PackedScene" uid="uid://s1ioa71ujeci" path="res://scenes/match_simulation/esport_agent_2d/movement_component/movement_component.tscn" id="4_0m434"]
 [ext_resource type="PackedScene" uid="uid://xrfn8flxy27y" path="res://scenes/match_simulation/esport_agent_2d/state_machine/state_machine.tscn" id="5_a6blh"]
 [ext_resource type="Script" uid="uid://drajymnvr1x83" path="res://scenes/match_simulation/esport_agent_2d/state_machine/state_move.gd" id="6_bh6wl"]
-[ext_resource type="PackedScene" uid="uid://dsf0yrpvolm12" path="res://scenes/match_simulation/interactables/smoke_grenade/thrown_smoke.tscn" id="7_atm6t"]
-[ext_resource type="PackedScene" uid="uid://cp1pdc0exmm0d" path="res://scenes/match_simulation/interactables/thrown_flashbang/thrown_flashbang.tscn" id="8_sb28c"]
 [ext_resource type="Script" uid="uid://c4t75hufflyur" path="res://scenes/match_simulation/esport_agent_2d/state_machine/state_engage.gd" id="9_awt5g"]
 [ext_resource type="Script" uid="uid://oqsxc38d4dnr" path="res://scenes/match_simulation/esport_agent_2d/state_machine/state_defend.gd" id="10_1usdx"]
 [ext_resource type="Script" uid="uid://dqho0m07rb087" path="res://scenes/match_simulation/esport_agent_2d/state_machine/state_plant.gd" id="11_w4hn6"]
@@ -47,8 +45,6 @@ initial_state = NodePath("StateMove")
 
 [node name="StateMove" type="Node" parent="StateMachine" unique_id=901719954]
 script = ExtResource("6_bh6wl")
-thrown_smoke_scene = ExtResource("7_atm6t")
-thrown_flashbang_scene = ExtResource("8_sb28c")
 
 [node name="StateEngage" type="Node" parent="StateMachine" unique_id=881640350]
 script = ExtResource("9_awt5g")

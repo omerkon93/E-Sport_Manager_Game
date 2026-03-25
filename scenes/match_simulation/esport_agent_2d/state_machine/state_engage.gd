@@ -114,13 +114,13 @@ func _broadcast_gunshot() -> void:
 # ==============================================================================
 
 func _calculate_hit_chance() -> float:
-	var aim_stat = actor.agent_data.aim if actor.agent_data else 50.0
+	# Force both sides to be Floats!
+	var aim_stat: float = float(actor.agent_data.aim) if actor.agent_data else 50.0
 	var base_chance = (aim_stat / 100.0) 
 	
 	if actor.equipped_weapon:
 		base_chance *= actor.equipped_weapon.accuracy_multiplier
 		
-	# Cap hit chance between 5% and 95% to maintain some RNG
 	return clamp(base_chance, 0.05, 0.95)
 
 func _calculate_ttk() -> float:

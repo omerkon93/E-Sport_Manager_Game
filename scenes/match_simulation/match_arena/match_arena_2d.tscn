@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://b060wxubeyflc" path="res://scenes/match_simulation/match_arena/match_arena_2d.gd" id="1_fr0va"]
 [ext_resource type="Script" uid="uid://bt2gfbd8pp04q" path="res://scenes/match_simulation/match_arena/spectator_camera/spectator_camera.gd" id="3_1f282"]
 [ext_resource type="PackedScene" uid="uid://bghax761bplq" path="res://scenes/match_simulation/match_arena/map_zone/map_zone.tscn" id="3_gwh25"]
+[ext_resource type="PackedScene" uid="uid://bncf3a2sevcqc" path="res://scenes/match_simulation/match_arena/stat_board_ui.tscn" id="4_y6tup"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_10c88"]
 vertices = PackedVector2Array(1463.3516, 704.34375, 1253.6797, 692.5703, 1239.2109, 632.1875, 1326.2578, 594.6172, 1370.75, 41.226563, 1791, 41, 1791, 871, 1420.3281, 289.71094, 1387.0078, 227.07813, 1175.7813, 802.4531, 1200.3594, 871, 1351.6172, 871, 1473.8828, 725.39844, 943.59375, 428.3828, 999.8672, 567.9297, 953.6328, 264.47656, 1104.25, 200.57031, 1002.09375, 791.3906, 876.27344, 560.3203, 869.8672, 536.8594, 832.53125, 449.5, 815.53906, 73.6875, 473.79688, 490.07813, 534.78125, 409.57813, 467.8125, 223.24219, 578.2031, 81.28125, 614.8281, 871, 788.4531, 841.6172, 512.5703, 769.6094, 474.6875, 760.2578, 476.67188, 701.7031, 648.40625, 696.28125, 608.3906, 774.46094, 750.0625, 673.5078, 1187.3594, 41.328125, 1, 41.992188, 198.10156, 186.5625, 1, 871, 192.90625, 782.84375, 483.59375, 871, 670.40625, 845.27344)
@@ -10,16 +11,11 @@ polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Arr
 outlines = Array[PackedVector2Array]([PackedVector2Array(1801, 31, 1801, 881, -9, 881, -9, 32)])
 
 [node name="MatchArena2D" type="Node2D" unique_id=788467565]
-position = Vector2(3, -3)
 script = ExtResource("1_fr0va")
 
-[node name="Background" type="ColorRect" parent="." unique_id=1039417425]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0.18000486, 0.18000486, 0.18000486, 1)
+[node name="Background2" type="Polygon2D" parent="." unique_id=2124161388]
+color = Color(0.20511743, 0.20511743, 0.20511743, 1)
+polygon = PackedVector2Array(-395, -254, 2219, -237, 2512, 1425, -600, 1396)
 
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="." unique_id=1419689874]
 unique_name_in_owner = true
@@ -267,3 +263,8 @@ position = Vector2(824, 518)
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1204714302]
 position = Vector2(883, 430)
 script = ExtResource("3_1f282")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=313526531]
+
+[node name="StatBoardUI" parent="CanvasLayer" unique_id=1161452960 instance=ExtResource("4_y6tup")]
+size_flags_vertical = 3

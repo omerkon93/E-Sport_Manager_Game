@@ -78,7 +78,7 @@ func _on_kill_feed_event(killer_name: String, victim_name: String, killer_is_tea
 	tween.tween_property(kill_label, "modulate:a", 0.0, 1.0) # Fade alpha to 0 over 1 second
 	tween.tween_callback(kill_label.queue_free) # Delete the label
 
-func _on_round_played(round_num: int, winner_name: String, log_text: String, score_a: int, score_b: int) -> void:
+func _on_round_played(_round_num: int, winner_name: String, _log_text: String, _score_a: int, _score_b: int) -> void:
 	print("📺 HUD: Round over! Winner: ", winner_name)
 	
 	# Optional: Clear the kill feed instantly when the round ends
