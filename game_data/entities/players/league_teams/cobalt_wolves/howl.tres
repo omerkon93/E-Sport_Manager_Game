@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="ESportPlayer" format=3 uid="uid://j10cip413uv7"]
+
+[ext_resource type="Script" uid="uid://s8g4vr2wd2ld" path="res://core/definitions/entities/esport_player.gd" id="1_5nxdi"]
+
+[resource]
+script = ExtResource("1_5nxdi")
+alias = "Howl"
+preferred_role = 1
+aim = 92
+game_sense = 88
+teamwork = 80
+hiring_cost = 4800

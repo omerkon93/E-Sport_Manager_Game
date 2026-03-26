@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="ESportPlayer" format=3 uid="uid://dauinh7kmw1is"]
+
+[ext_resource type="Script" uid="uid://s8g4vr2wd2ld" path="res://core/definitions/entities/esport_player.gd" id="1_xt0xl"]
+
+[resource]
+script = ExtResource("1_xt0xl")
+alias = "Zenith"
+preferred_role = 2
+aim = 65
+game_sense = 98
+teamwork = 95
+hiring_cost = 4500

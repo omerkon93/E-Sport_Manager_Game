@@ -25,7 +25,8 @@ class_name ShopMenu
 func _ready() -> void:
 	ProgressionManager.upgrade_leveled_up.connect(func(_id, _l): _rebuild_ui())
 	ProgressionManager.flag_changed.connect(func(_id, _v): _rebuild_ui())
-
+	SignalBus.market_updated.connect(_rebuild_ui)
+	
 	visibility_changed.connect(func(): if visible: _rebuild_ui())
 
 	if visible:

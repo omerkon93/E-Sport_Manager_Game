@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="ESportPlayer" format=3 uid="uid://cuat0jc411rp7"]
+
+[ext_resource type="Script" uid="uid://s8g4vr2wd2ld" path="res://core/definitions/entities/esport_player.gd" id="1_auamr"]
+
+[resource]
+script = ExtResource("1_auamr")
+alias = "Glitch"
+preferred_role = 2
+aim = 75
+game_sense = 80
+teamwork = 60
+hiring_cost = 2500

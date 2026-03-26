@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://bf3d60xcuqrwy"]
 
 [ext_resource type="Script" uid="uid://b25bcmvt4whgm" path="res://scenes/ui/screens/combined_menu/shop_menu/market_agent_row/market_agent_row.gd" id="1_h42ol"]
-[ext_resource type="PackedScene" uid="uid://bxjmbr25a74fl" path="res://scenes/ui/screens/combined_menu/player_stats_display.tscn" id="2_6tmav"]
+[ext_resource type="PackedScene" uid="uid://bxjmbr25a74fl" path="res://scenes/ui/screens/combined_menu/dashboard_panel/sections/roster_section/player_stats_display.tscn" id="2_6tmav"]
 [ext_resource type="PackedScene" uid="uid://b3t87otrm8e5y" path="res://core/components/animation_component/animation_component.tscn" id="2_us16k"]
 
 [node name="MarketAgentRow" type="PanelContainer" unique_id=1946849082]

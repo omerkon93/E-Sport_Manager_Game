@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="ESportPlayer" format=3 uid="uid://cfntt4l661kgi"]
+
+[ext_resource type="Script" uid="uid://s8g4vr2wd2ld" path="res://core/definitions/entities/esport_player.gd" id="1_68r5j"]
+
+[resource]
+script = ExtResource("1_68r5j")
+alias = "Summit"
+preferred_role = 1
+aim = 80
+game_sense = 88
+teamwork = 80
+hiring_cost = 3800

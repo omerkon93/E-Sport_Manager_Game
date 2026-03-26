@@ -1,12 +1,12 @@
 [gd_resource type="Resource" script_class="ESportTeam" format=3 uid="uid://lbpattm84dgm"]
 
 [ext_resource type="Script" uid="uid://s8g4vr2wd2ld" path="res://core/definitions/entities/esport_player.gd" id="1_p16kp"]
-[ext_resource type="Resource" uid="uid://cakiqw3chw087" path="res://game_data/entities/players/enemy_team/1.tres" id="2_5jehw"]
+[ext_resource type="Resource" uid="uid://cakiqw3chw087" path="res://game_data/entities/players/league_pros/1.tres" id="2_5jehw"]
 [ext_resource type="Script" uid="uid://vei17jbopuev" path="res://core/definitions/entities/esport_team.gd" id="2_fc5ow"]
-[ext_resource type="Resource" uid="uid://djieaholbnpak" path="res://game_data/entities/players/enemy_team/2.tres" id="3_141np"]
-[ext_resource type="Resource" uid="uid://sy11nlctvo51" path="res://game_data/entities/players/enemy_team/3.tres" id="4_emjan"]
-[ext_resource type="Resource" uid="uid://cq415w0q0ltvj" path="res://game_data/entities/players/enemy_team/4.tres" id="5_vp1mg"]
-[ext_resource type="Resource" uid="uid://cpkl3gvme36k6" path="res://game_data/entities/players/enemy_team/5.tres" id="6_qnh6f"]
+[ext_resource type="Resource" uid="uid://djieaholbnpak" path="res://game_data/entities/players/league_pros/2.tres" id="3_141np"]
+[ext_resource type="Resource" uid="uid://sy11nlctvo51" path="res://game_data/entities/players/league_pros/3.tres" id="4_emjan"]
+[ext_resource type="Resource" uid="uid://cq415w0q0ltvj" path="res://game_data/entities/players/league_pros/4.tres" id="5_vp1mg"]
+[ext_resource type="Resource" uid="uid://cpkl3gvme36k6" path="res://game_data/entities/players/league_pros/5.tres" id="6_qnh6f"]
 
 [resource]
 script = ExtResource("2_fc5ow")

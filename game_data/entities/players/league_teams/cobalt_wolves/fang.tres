@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="ESportPlayer" format=3 uid="uid://bipogkwondj10"]
+
+[ext_resource type="Script" uid="uid://s8g4vr2wd2ld" path="res://core/definitions/entities/esport_player.gd" id="1_gesq8"]
+
+[resource]
+script = ExtResource("1_gesq8")
+alias = "Fang"
+aim = 90
+game_sense = 85
+teamwork = 85
+hiring_cost = 4500

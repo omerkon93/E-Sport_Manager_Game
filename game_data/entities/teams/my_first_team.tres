@@ -2,11 +2,11 @@
 
 [ext_resource type="Script" uid="uid://s8g4vr2wd2ld" path="res://core/definitions/entities/esport_player.gd" id="1_1hcp2"]
 [ext_resource type="Script" uid="uid://vei17jbopuev" path="res://core/definitions/entities/esport_team.gd" id="2_ldmcf"]
-[ext_resource type="Resource" uid="uid://bv8e45r435brc" path="res://game_data/entities/players/my_team_starter/player_igl.tres" id="2_rdk5c"]
-[ext_resource type="Resource" uid="uid://ca1wgqplbhy4e" path="res://game_data/entities/players/my_team_starter/player_support.tres" id="3_evp4b"]
-[ext_resource type="Resource" uid="uid://dubsxawswi4kg" path="res://game_data/entities/players/my_team_starter/player_lurker.tres" id="4_ycs37"]
-[ext_resource type="Resource" uid="uid://b44b1pny6prtx" path="res://game_data/entities/players/my_team_starter/player_awper.tres" id="5_jph5j"]
-[ext_resource type="Resource" uid="uid://dcd5fdwmj8im0" path="res://game_data/entities/players/my_team_starter/player_rifler.tres" id="6_xgbaq"]
+[ext_resource type="Resource" uid="uid://bv8e45r435brc" path="res://game_data/entities/players/starters/player_igl.tres" id="2_rdk5c"]
+[ext_resource type="Resource" uid="uid://ca1wgqplbhy4e" path="res://game_data/entities/players/starters/player_support.tres" id="3_evp4b"]
+[ext_resource type="Resource" uid="uid://dubsxawswi4kg" path="res://game_data/entities/players/starters/player_lurker.tres" id="4_ycs37"]
+[ext_resource type="Resource" uid="uid://b44b1pny6prtx" path="res://game_data/entities/players/starters/player_awper.tres" id="5_jph5j"]
+[ext_resource type="Resource" uid="uid://dcd5fdwmj8im0" path="res://game_data/entities/players/starters/player_rifler.tres" id="6_xgbaq"]
 
 [resource]
 script = ExtResource("2_ldmcf")

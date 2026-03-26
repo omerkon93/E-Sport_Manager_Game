@@ -1,5 +1,5 @@
 extends HBoxContainer
-class_name PlayerStatsBoardDisplay
+class_name StatBoardDisplay
 
 @onready var name_label: Label = %NameLabel
 @onready var money_label: Label = %MoneyLabel

@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="ESportPlayer" format=3 uid="uid://xb5064wyl8xj"]
+
+[ext_resource type="Script" uid="uid://s8g4vr2wd2ld" path="res://core/definitions/entities/esport_player.gd" id="1_u4ve4"]
+
+[resource]
+script = ExtResource("1_u4ve4")
+alias = "Vortex"
+aim = 75
+game_sense = 65
+teamwork = 70
+hiring_cost = 1500

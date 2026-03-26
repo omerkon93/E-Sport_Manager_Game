@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://bxjmbr25a74fl"]
 
-[ext_resource type="Script" uid="uid://dla2a08bu0pbi" path="res://scenes/ui/screens/combined_menu/player_stats_display.gd" id="1_rri8x"]
+[ext_resource type="Script" uid="uid://dla2a08bu0pbi" path="res://scenes/ui/screens/combined_menu/dashboard_panel/sections/roster_section/player_stats_display.gd" id="1_rri8x"]
 
 [node name="PlayerStatsDisplay" type="HBoxContainer" unique_id=103468743]
 anchors_preset = 15

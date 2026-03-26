@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="ESportTeam" format=3 uid="uid://dtgxkdclw1pja"]
+
+[ext_resource type="Script" uid="uid://s8g4vr2wd2ld" path="res://core/definitions/entities/esport_player.gd" id="1_5b314"]
+[ext_resource type="Resource" uid="uid://854u0ogx2afj" path="res://game_data/entities/players/league_teams/quantum_force/quark.tres" id="2_p6v67"]
+[ext_resource type="Resource" uid="uid://t5eoptculoye" path="res://game_data/entities/players/league_teams/quantum_force/atom.tres" id="3_pi2ho"]
+[ext_resource type="Resource" uid="uid://dlxhwbd0i600i" path="res://game_data/entities/players/league_teams/quantum_force/proton.tres" id="4_ivdoc"]
+[ext_resource type="Resource" uid="uid://cgk5hi1anns8d" path="res://game_data/entities/players/league_teams/quantum_force/neutron.tres" id="5_mrlk7"]
+[ext_resource type="Resource" uid="uid://dkhosme50ieep" path="res://game_data/entities/players/league_teams/quantum_force/boson.tres" id="6_ugvlt"]
+[ext_resource type="Script" uid="uid://vei17jbopuev" path="res://core/definitions/entities/esport_team.gd" id="7_55bd7"]
+
+[resource]
+script = ExtResource("7_55bd7")
+team_name = "Quantum Force"
+active_roster = Array[ExtResource("1_5b314")]([ExtResource("2_p6v67"), ExtResource("3_pi2ho"), ExtResource("4_ivdoc"), ExtResource("5_mrlk7"), ExtResource("6_ugvlt")])

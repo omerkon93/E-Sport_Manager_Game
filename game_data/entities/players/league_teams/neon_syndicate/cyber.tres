@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="ESportPlayer" format=3 uid="uid://psc5yq7y0kts"]
+
+[ext_resource type="Script" uid="uid://s8g4vr2wd2ld" path="res://core/definitions/entities/esport_player.gd" id="1_s18fi"]
+
+[resource]
+script = ExtResource("1_s18fi")
+alias = "Cyber"
+preferred_role = 4
+aim = 88
+game_sense = 75
+teamwork = 60
+hiring_cost = 3000

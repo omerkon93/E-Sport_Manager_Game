@@ -98,6 +98,22 @@ static func try_hire_agent(agent: ESportPlayer, team: ESportTeam, money_type: in
 		print("TransactionManager: Started paying salary for ", hired_agent.alias)
 
 	print("🤝 Successfully hired ", hired_agent.alias, " to the bench!")
+	
+	# ==========================================
+	# 6. NEW: TELL THE UI TO UPDATE!
+	# ==========================================
+	if SignalBus.has_signal("market_updated"):
+		SignalBus.market_updated.emit() # Makes the ShopMenu remove them from the list
+		
+	if SignalBus.has_signal("team_roster_changed"):
+		SignalBus.team_roster_changed.emit(team) # Makes the Dashboard update the bench
+		
+	# I noticed your Dashboard also listens to GameManager.roster_updated, 
+	# so you might want to emit that here too just to be safe!
+	if GameManager.has_signal("roster_updated"):
+		GameManager.roster_updated.emit()
+	# ==========================================
+
 	return true
 
 

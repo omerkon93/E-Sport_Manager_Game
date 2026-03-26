@@ -19,10 +19,10 @@ const ROLE_NAMES = {
 func setup_display(player: ESportPlayer) -> void:
 	if player == null:
 		name_label.text = "Empty Slot"
-		role_label.text = "-"
-		aim_label.text = "-"
-		sense_label.text = "-"
-		teamwork_label.text = "-"
+		role_label.text = ""
+		aim_label.text = ""
+		sense_label.text = ""
+		teamwork_label.text = ""
 		return
 		
 	name_label.text = player.alias

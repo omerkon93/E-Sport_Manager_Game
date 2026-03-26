@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="ESportTeam" format=3 uid="uid://fbiovt8yg24t"]
+
+[ext_resource type="Script" uid="uid://s8g4vr2wd2ld" path="res://core/definitions/entities/esport_player.gd" id="1_sy02t"]
+[ext_resource type="Resource" uid="uid://bmdjpei7m3y76" path="res://game_data/entities/players/league_teams/apex_vanguard/crest.tres" id="2_lwdpx"]
+[ext_resource type="Resource" uid="uid://cfntt4l661kgi" path="res://game_data/entities/players/league_teams/apex_vanguard/summit.tres" id="3_hfsgw"]
+[ext_resource type="Resource" uid="uid://dauinh7kmw1is" path="res://game_data/entities/players/league_teams/apex_vanguard/zenith.tres" id="4_wqe5e"]
+[ext_resource type="Resource" uid="uid://mlaxjui3pe8i" path="res://game_data/entities/players/league_teams/apex_vanguard/pinnacle.tres" id="5_qi575"]
+[ext_resource type="Resource" uid="uid://dcqid4tk2bwdl" path="res://game_data/entities/players/league_teams/apex_vanguard/vertex.tres" id="6_348be"]
+[ext_resource type="Script" uid="uid://vei17jbopuev" path="res://core/definitions/entities/esport_team.gd" id="7_hju80"]
+
+[resource]
+script = ExtResource("7_hju80")
+team_name = "Apex Vanguard"
+active_roster = Array[ExtResource("1_sy02t")]([ExtResource("2_lwdpx"), ExtResource("3_hfsgw"), ExtResource("4_wqe5e"), ExtResource("5_qi575"), ExtResource("6_348be")])

@@ -1,4 +1,5 @@
 extends VBoxContainer
+class_name RosterSectionUI
 
 @export var player_row_scene: PackedScene
 

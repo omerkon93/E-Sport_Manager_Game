@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://b060wxubeyflc" path="res://scenes/match_simulation/match_arena/match_arena_2d.gd" id="1_fr0va"]
 [ext_resource type="Script" uid="uid://bt2gfbd8pp04q" path="res://scenes/match_simulation/match_arena/spectator_camera/spectator_camera.gd" id="3_1f282"]
 [ext_resource type="PackedScene" uid="uid://bghax761bplq" path="res://scenes/match_simulation/match_arena/map_zone/map_zone.tscn" id="3_gwh25"]
-[ext_resource type="PackedScene" uid="uid://bncf3a2sevcqc" path="res://scenes/match_simulation/match_arena/stat_board_ui.tscn" id="4_y6tup"]
+[ext_resource type="PackedScene" uid="uid://bncf3a2sevcqc" path="res://scenes/match_simulation/match_arena/stat_board/stat_board_ui.tscn" id="4_y6tup"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_10c88"]
 vertices = PackedVector2Array(1463.3516, 704.34375, 1253.6797, 692.5703, 1239.2109, 632.1875, 1326.2578, 594.6172, 1370.75, 41.226563, 1791, 41, 1791, 871, 1420.3281, 289.71094, 1387.0078, 227.07813, 1175.7813, 802.4531, 1200.3594, 871, 1351.6172, 871, 1473.8828, 725.39844, 943.59375, 428.3828, 999.8672, 567.9297, 953.6328, 264.47656, 1104.25, 200.57031, 1002.09375, 791.3906, 876.27344, 560.3203, 869.8672, 536.8594, 832.53125, 449.5, 815.53906, 73.6875, 473.79688, 490.07813, 534.78125, 409.57813, 467.8125, 223.24219, 578.2031, 81.28125, 614.8281, 871, 788.4531, 841.6172, 512.5703, 769.6094, 474.6875, 760.2578, 476.67188, 701.7031, 648.40625, 696.28125, 608.3906, 774.46094, 750.0625, 673.5078, 1187.3594, 41.328125, 1, 41.992188, 198.10156, 186.5625, 1, 871, 192.90625, 782.84375, 483.59375, 871, 670.40625, 845.27344)

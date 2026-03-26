@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="ESportPlayer" format=3 uid="uid://dkhosme50ieep"]
+
+[ext_resource type="Script" uid="uid://s8g4vr2wd2ld" path="res://core/definitions/entities/esport_player.gd" id="1_fwvj4"]
+
+[resource]
+script = ExtResource("1_fwvj4")
+alias = "Boson"
+preferred_role = 4
+aim = 72
+game_sense = 75
+teamwork = 80
+hiring_cost = 1700

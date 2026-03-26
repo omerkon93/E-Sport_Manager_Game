@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dnssq07erf3q5" path="res://scenes/ui/screens/combined_menu/shop_menu/shop_menu.gd" id="1_3b8rw"]
 [ext_resource type="PackedScene" uid="uid://bf3d60xcuqrwy" path="res://scenes/ui/screens/combined_menu/shop_menu/market_agent_row/market_agent_row.tscn" id="3_fwosp"]
-[ext_resource type="PackedScene" uid="uid://bxjmbr25a74fl" path="res://scenes/ui/screens/combined_menu/player_stats_display.tscn" id="4_l60rr"]
+[ext_resource type="PackedScene" uid="uid://bxjmbr25a74fl" path="res://scenes/ui/screens/combined_menu/dashboard_panel/sections/roster_section/player_stats_display.tscn" id="4_l60rr"]
 [ext_resource type="PackedScene" uid="uid://dn2stxn2gia2u" path="res://scenes/ui/screens/combined_menu/shop_menu/shop_item_button/shop_item_button.tscn" id="4_sjk1b"]
 
 [node name="ShopMenu" type="Control" unique_id=598056843 node_paths=PackedStringArray("consumable_grid", "knowledge_grid", "skill_grid", "agent_grid")]

@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="ESportPlayer" format=3 uid="uid://osvrcp8l2s2p"]
+
+[ext_resource type="Script" uid="uid://s8g4vr2wd2ld" path="res://core/definitions/entities/esport_player.gd" id="1_k8p1h"]
+
+[resource]
+script = ExtResource("1_k8p1h")
+alias = "Shadow"
+preferred_role = 4
+aim = 80
+game_sense = 85
+teamwork = 60
+hiring_cost = 2200

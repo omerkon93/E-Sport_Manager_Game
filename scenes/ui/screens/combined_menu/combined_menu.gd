@@ -19,6 +19,7 @@ func _ready() -> void:
 	if tab_container:
 		tab_container.tab_changed.connect(_on_tab_changed)
 	
+	
 	_update_tabs()
 
 func _on_visibility_changed() -> void:

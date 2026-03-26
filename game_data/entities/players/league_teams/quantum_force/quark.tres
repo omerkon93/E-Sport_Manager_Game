@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="ESportPlayer" format=3 uid="uid://854u0ogx2afj"]
+
+[ext_resource type="Script" uid="uid://s8g4vr2wd2ld" path="res://core/definitions/entities/esport_player.gd" id="1_xkj48"]
+
+[resource]
+script = ExtResource("1_xkj48")
+alias = "Quark"
+aim = 70
+game_sense = 70
+teamwork = 80
+hiring_cost = 1500

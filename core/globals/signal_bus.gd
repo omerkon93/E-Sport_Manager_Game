@@ -86,3 +86,14 @@ signal action_performed(action: ActionData)
 ## Emitted by ProgressionManager when a narrative/unlock flag turns true.
 @warning_ignore("unused_signal")
 signal story_flag_changed(flag_id: String, value: bool)
+
+# ==============================================================================
+# ROSTER & MARKET
+# ==============================================================================
+## Emitted when a team's active roster or bench changes. Listener: Dashboard UI
+@warning_ignore("unused_signal")
+signal team_roster_changed(team: ESportTeam)
+
+## Emitted when the free agent pool changes (buy/sell/spawn). Listener: Shop UI
+@warning_ignore("unused_signal")
+signal market_updated

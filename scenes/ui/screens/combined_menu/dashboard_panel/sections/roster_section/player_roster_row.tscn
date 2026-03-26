@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://c42li4sivc6rb"]
 
 [ext_resource type="Script" uid="uid://cqrb0s2f8v4hc" path="res://scenes/ui/screens/combined_menu/dashboard_panel/sections/roster_section/player_roster_row.gd" id="1_j4xup"]
-[ext_resource type="PackedScene" uid="uid://bxjmbr25a74fl" path="res://scenes/ui/screens/combined_menu/player_stats_display.tscn" id="2_cxayd"]
+[ext_resource type="PackedScene" uid="uid://bxjmbr25a74fl" path="res://scenes/ui/screens/combined_menu/dashboard_panel/sections/roster_section/player_stats_display.tscn" id="2_cxayd"]
 [ext_resource type="PackedScene" uid="uid://bfpcoipsdfboo" path="res://scenes/ui/widgets/vital_display/player_vital_display.tscn" id="2_g58k1"]
 
 [node name="PlayerRosterRow" type="PanelContainer" unique_id=1043887541]
@@ -41,3 +41,7 @@ layout_mode = 2
 size_flags_horizontal = 2
 size_flags_vertical = 4
 text = "Swap"
+
+[node name="FireButton" type="Button" parent="PlayerStatsDisplay" unique_id=1461668217]
+unique_name_in_owner = true
+layout_mode = 2

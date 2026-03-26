@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="ESportTeam" format=3 uid="uid://bc63ft23knhct"]
+
+[ext_resource type="Script" uid="uid://s8g4vr2wd2ld" path="res://core/definitions/entities/esport_player.gd" id="1_uegpn"]
+[ext_resource type="Resource" uid="uid://bipogkwondj10" path="res://game_data/entities/players/league_teams/cobalt_wolves/fang.tres" id="2_4i54t"]
+[ext_resource type="Resource" uid="uid://j10cip413uv7" path="res://game_data/entities/players/league_teams/cobalt_wolves/howl.tres" id="3_v8wbr"]
+[ext_resource type="Resource" uid="uid://cddeigmxsonf7" path="res://game_data/entities/players/league_teams/cobalt_wolves/alpha.tres" id="4_tfgmd"]
+[ext_resource type="Resource" uid="uid://cfnp55aydhrss" path="res://game_data/entities/players/league_teams/cobalt_wolves/pack.tres" id="5_odkdq"]
+[ext_resource type="Resource" uid="uid://cryccfjseepp7" path="res://game_data/entities/players/league_teams/cobalt_wolves/claw.tres" id="6_23nwu"]
+[ext_resource type="Script" uid="uid://vei17jbopuev" path="res://core/definitions/entities/esport_team.gd" id="7_cgmi0"]
+
+[resource]
+script = ExtResource("7_cgmi0")
+team_name = "Cobalt Wolves"
+active_roster = Array[ExtResource("1_uegpn")]([ExtResource("2_4i54t"), ExtResource("3_v8wbr"), ExtResource("4_tfgmd"), ExtResource("5_odkdq"), ExtResource("6_23nwu")])

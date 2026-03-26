@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="ESportTeam" format=3 uid="uid://xpciv12mkk38"]
+
+[ext_resource type="Script" uid="uid://s8g4vr2wd2ld" path="res://core/definitions/entities/esport_player.gd" id="1_t672y"]
+[ext_resource type="Resource" uid="uid://bhiwvuljk17l5" path="res://game_data/entities/players/league_teams/neon_syndicate/pulse.tres" id="2_akimo"]
+[ext_resource type="Resource" uid="uid://dymh06844rq0j" path="res://game_data/entities/players/league_teams/neon_syndicate/wire.tres" id="3_vhja6"]
+[ext_resource type="Resource" uid="uid://cuat0jc411rp7" path="res://game_data/entities/players/league_teams/neon_syndicate/glitch.tres" id="4_q2mdu"]
+[ext_resource type="Resource" uid="uid://c0k558fhjsmi4" path="res://game_data/entities/players/league_teams/neon_syndicate/volt.tres" id="5_0mqh5"]
+[ext_resource type="Resource" uid="uid://psc5yq7y0kts" path="res://game_data/entities/players/league_teams/neon_syndicate/cyber.tres" id="6_upwmn"]
+[ext_resource type="Script" uid="uid://vei17jbopuev" path="res://core/definitions/entities/esport_team.gd" id="7_s4uy5"]
+
+[resource]
+script = ExtResource("7_s4uy5")
+team_name = "Neon Syndicate"
+active_roster = Array[ExtResource("1_t672y")]([ExtResource("2_akimo"), ExtResource("3_vhja6"), ExtResource("4_q2mdu"), ExtResource("5_0mqh5"), ExtResource("6_upwmn")])

@@ -4,9 +4,9 @@ class_name StatBoardUI
 # Drag your 'player_stats_board_display.tscn' into this slot in the Inspector!
 @export var player_row_scene: PackedScene 
 
-@onready var team_a_title: Label = %TeamANameLabel
+@onready var team_a_stat_names: HBoxContainer = %TeamAStatNames
 @onready var team_a_stats: Control = %TeamAStats
-@onready var team_b_title: Label = %TeamANameLabel
+@onready var team_b_stat_names: HBoxContainer = %TeamBStatNames
 @onready var team_b_stats: Control = %TeamBStats
 
 func _ready() -> void:
@@ -33,8 +33,8 @@ func update_board() -> void:
 	if not is_instance_valid(MatchSimulator.active_team_a): return
 	
 	# Update Team Names
-	team_a_title.text = MatchSimulator.active_team_a.team_name
-	team_b_title.text = MatchSimulator.active_team_b.team_name
+	team_a_stat_names.name_label.text = MatchSimulator.active_team_a.team_name
+	team_b_stat_names.name_label.text = MatchSimulator.active_team_b.team_name
 	
 	# Populate both tables
 	_populate_team(MatchSimulator.active_team_a.active_roster, team_a_stats)
@@ -53,7 +53,7 @@ func _populate_team(roster: Array, container: Control) -> void:
 	for player in roster:
 		if player == null: continue
 			
-		var row = player_row_scene.instantiate() as PlayerStatsBoardDisplay
+		var row = player_row_scene.instantiate() as StatBoardDisplay
 		container.add_child(row)
 		
 		# Pull their data from the MatchStats component

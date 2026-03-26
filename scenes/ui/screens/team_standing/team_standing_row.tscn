@@ -1,0 +1,41 @@
+[gd_scene format=3 uid="uid://qtff1ig17ux7"]
+
+[ext_resource type="Script" uid="uid://lsq4hprip5wn" path="res://scenes/ui/screens/team_standing/team_standing_row.gd" id="1_8gadl"]
+
+[node name="TeamStandingRow" type="HBoxContainer" unique_id=753622663]
+script = ExtResource("1_8gadl")
+
+[node name="RankLabel" type="Label" parent="." unique_id=696959792]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Rank"
+text_overrun_behavior = 1
+
+[node name="NameLabel" type="Label" parent="." unique_id=785167229]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Name"
+text_overrun_behavior = 1
+
+[node name="WinsLabel" type="Label" parent="." unique_id=1118838039]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Wins"
+text_overrun_behavior = 1
+
+[node name="LossesLabel" type="Label" parent="." unique_id=861361685]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Losses"
+text_overrun_behavior = 1
+
+[node name="DiffLabel" type="Label" parent="." unique_id=989889179]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Diff"
+text_overrun_behavior = 1

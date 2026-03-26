@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="ESportPlayer" format=3 uid="uid://dlxhwbd0i600i"]
+
+[ext_resource type="Script" uid="uid://s8g4vr2wd2ld" path="res://core/definitions/entities/esport_player.gd" id="1_jvh2u"]
+
+[resource]
+script = ExtResource("1_jvh2u")
+alias = "Proton"
+preferred_role = 2
+aim = 60
+game_sense = 75
+teamwork = 88
+hiring_cost = 1600
