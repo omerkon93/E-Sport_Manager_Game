@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="WeaponData" format=3 uid="uid://cghkwynsnlrec"]
+
+[ext_resource type="Script" uid="uid://rn0l1d40goqn" path="res://core/definitions/weapons/weapon_data.gd" id="1_3cu0x"]
+
+[resource]
+script = ExtResource("1_3cu0x")
+weapon_name = "SSG 08"
+base_damage = 88.0
+fire_rate = 0.4
+accuracy_multiplier = 0.9
+mobility = 0.85
+cost = 900

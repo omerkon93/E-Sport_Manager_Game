@@ -4,7 +4,9 @@
 
 [resource]
 script = ExtResource("1_gbq8v")
-weapon_name = "Glock"
-base_damage = 12.0
-cost = 0
-metadata/_custom_type_script = "uid://rn0l1d40goqn"
+weapon_name = "Glock-18"
+base_damage = 28.0
+fire_rate = 1.2
+accuracy_multiplier = 0.5
+mobility = 0.95
+cost = 200

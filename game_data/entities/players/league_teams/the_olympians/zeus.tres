@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="ESportPlayer" format=3 uid="uid://cpw1gw6nyw7qt"]
+
+[ext_resource type="Script" uid="uid://s8g4vr2wd2ld" path="res://core/definitions/entities/esport_player.gd" id="1_8um36"]
+
+[resource]
+script = ExtResource("1_8um36")
+alias = "Zeus"
+aim = 94
+game_sense = 88
+teamwork = 60
+hiring_cost = 4800

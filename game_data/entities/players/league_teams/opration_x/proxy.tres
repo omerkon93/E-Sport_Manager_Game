@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="ESportPlayer" format=3 uid="uid://d4ig2s7ot7ot2"]
+
+[ext_resource type="Script" uid="uid://s8g4vr2wd2ld" path="res://core/definitions/entities/esport_player.gd" id="1_phhdt"]
+
+[resource]
+script = ExtResource("1_phhdt")
+alias = "Proxy"
+preferred_role = 3
+aim = 79
+game_sense = 91
+teamwork = 72
+hiring_cost = 3600

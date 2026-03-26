@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="WeaponData" format=3 uid="uid://e6cu2yahr2se"]
+
+[ext_resource type="Script" uid="uid://rn0l1d40goqn" path="res://core/definitions/weapons/weapon_data.gd" id="1_wxm83"]
+
+[resource]
+script = ExtResource("1_wxm83")
+weapon_name = "USP-S"
+base_damage = 35.0
+fire_rate = 1.2
+accuracy_multiplier = 0.9
+mobility = 0.95
+cost = 200

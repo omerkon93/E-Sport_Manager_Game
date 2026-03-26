@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="ESportPlayer" format=3 uid="uid://dv46kodvs6gtm"]
+
+[ext_resource type="Script" uid="uid://s8g4vr2wd2ld" path="res://core/definitions/entities/esport_player.gd" id="1_olcqq"]
+
+[resource]
+script = ExtResource("1_olcqq")
+alias = "Signal"
+aim = 88
+game_sense = 72
+teamwork = 65
+hiring_cost = 3200

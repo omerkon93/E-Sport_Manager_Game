@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="WeaponData" format=3 uid="uid://cu8aa8ntcyvlo"]
+
+[ext_resource type="Script" uid="uid://rn0l1d40goqn" path="res://core/definitions/weapons/weapon_data.gd" id="1_6q1lo"]
+
+[resource]
+script = ExtResource("1_6q1lo")
+weapon_name = "XM1014"
+base_damage = 100.0
+fire_rate = 1.1
+accuracy_multiplier = 0.25
+mobility = 0.7
+cost = 2000

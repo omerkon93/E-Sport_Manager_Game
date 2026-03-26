@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="ESportTeam" format=3 uid="uid://noc1e13tpdv6"]
+
+[ext_resource type="Script" uid="uid://s8g4vr2wd2ld" path="res://core/definitions/entities/esport_player.gd" id="1_mje2u"]
+[ext_resource type="Resource" uid="uid://cpw1gw6nyw7qt" path="res://game_data/entities/players/league_teams/the_olympians/zeus.tres" id="2_b2e8k"]
+[ext_resource type="Resource" uid="uid://docpt1p68isi8" path="res://game_data/entities/players/league_teams/the_olympians/hades.tres" id="3_7ux8s"]
+[ext_resource type="Resource" uid="uid://lpje4xwq0f1k" path="res://game_data/entities/players/league_teams/the_olympians/apollo.tres" id="4_n5q5t"]
+[ext_resource type="Resource" uid="uid://835ag7h75ltm" path="res://game_data/entities/players/league_teams/the_olympians/athena.tres" id="5_qu5rk"]
+[ext_resource type="Resource" uid="uid://xvfdd46g6awv" path="res://game_data/entities/players/league_teams/the_olympians/ares.tres" id="6_k5fji"]
+[ext_resource type="Script" uid="uid://vei17jbopuev" path="res://core/definitions/entities/esport_team.gd" id="7_s2wty"]
+
+[resource]
+script = ExtResource("7_s2wty")
+team_name = "The Olympians"
+active_roster = Array[ExtResource("1_mje2u")]([ExtResource("2_b2e8k"), ExtResource("3_7ux8s"), ExtResource("4_n5q5t"), ExtResource("5_qu5rk"), ExtResource("6_k5fji")])

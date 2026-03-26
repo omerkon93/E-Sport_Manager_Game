@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="ESportPlayer" format=3 uid="uid://bes3r8agny2ct"]
+
+[ext_resource type="Script" uid="uid://s8g4vr2wd2ld" path="res://core/definitions/entities/esport_player.gd" id="1_brrjn"]
+
+[resource]
+script = ExtResource("1_brrjn")
+alias = "Pink Ranger"
+preferred_role = 4
+aim = 78
+game_sense = 84
+teamwork = 92
+hiring_cost = 3300

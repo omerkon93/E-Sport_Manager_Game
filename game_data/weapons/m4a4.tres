@@ -5,8 +5,7 @@
 [resource]
 script = ExtResource("1_bgewk")
 weapon_name = "M4A4"
-base_damage = 31.0
-fire_rate = 0.25
-accuracy_multiplier = 1.05
-mobility = 0.95
-cost = 3100
+base_damage = 30.0
+fire_rate = 1.7
+accuracy_multiplier = 0.85
+mobility = 0.75

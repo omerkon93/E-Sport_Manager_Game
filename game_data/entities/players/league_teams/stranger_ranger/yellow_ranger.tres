@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="ESportPlayer" format=3 uid="uid://bcclo0v5ayyn7"]
+
+[ext_resource type="Script" uid="uid://s8g4vr2wd2ld" path="res://core/definitions/entities/esport_player.gd" id="1_hcs0b"]
+
+[resource]
+script = ExtResource("1_hcs0b")
+alias = "Yellow Ranger"
+preferred_role = 3
+aim = 80
+game_sense = 72
+teamwork = 90
+hiring_cost = 3000

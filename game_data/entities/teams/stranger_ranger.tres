@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="ESportTeam" format=3 uid="uid://c8w3xm0u46h7o"]
+
+[ext_resource type="Script" uid="uid://s8g4vr2wd2ld" path="res://core/definitions/entities/esport_player.gd" id="1_fcy2n"]
+[ext_resource type="Resource" uid="uid://nmphnmxtgvj1" path="res://game_data/entities/players/league_teams/stranger_ranger/red_ranger.tres" id="2_023al"]
+[ext_resource type="Resource" uid="uid://cdevi6cwhym1m" path="res://game_data/entities/players/league_teams/stranger_ranger/blue_ranger.tres" id="3_1xeew"]
+[ext_resource type="Resource" uid="uid://btkv5nm0t2b6f" path="res://game_data/entities/players/league_teams/stranger_ranger/black_ranger.tres" id="4_j3srm"]
+[ext_resource type="Resource" uid="uid://bcclo0v5ayyn7" path="res://game_data/entities/players/league_teams/stranger_ranger/yellow_ranger.tres" id="5_p0qaj"]
+[ext_resource type="Resource" uid="uid://bes3r8agny2ct" path="res://game_data/entities/players/league_teams/stranger_ranger/pink_ranger.tres" id="6_5ymjw"]
+[ext_resource type="Script" uid="uid://vei17jbopuev" path="res://core/definitions/entities/esport_team.gd" id="7_2541w"]
+
+[resource]
+script = ExtResource("7_2541w")
+team_name = "Stranger Ranger"
+active_roster = Array[ExtResource("1_fcy2n")]([ExtResource("2_023al"), ExtResource("3_1xeew"), ExtResource("4_j3srm"), ExtResource("5_p0qaj"), ExtResource("6_5ymjw")])

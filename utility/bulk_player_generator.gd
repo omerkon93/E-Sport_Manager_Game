@@ -12,40 +12,19 @@ func _run() -> void:
 		DirAccess.make_dir_recursive_absolute(TEAMS_DIR)
 	
 	var player_database = {
-		"free_agents": [
-			{"alias": "Vortex", "role": 0, "aim": 75, "sense": 65, "teamwork": 70, "cost": 1500},
-			{"alias": "Shadow", "role": 4, "aim": 80, "sense": 85, "teamwork": 60, "cost": 2200},
-			{"alias": "Echo",   "role": 3, "aim": 65, "sense": 70, "teamwork": 85, "cost": 1200},
-			{"alias": "Rook",   "role": 2, "aim": 60, "sense": 80, "teamwork": 75, "cost": 1400},
-			{"alias": "Stryker", "role": 1, "aim": 85, "sense": 60, "teamwork": 60, "cost": 1800}
+		"league_teams/Stranger Ranger": [
+			{"alias": "Red Ranger",     "role": 0, "aim": 85, "sense": 80, "teamwork": 95, "cost": 4000},
+			{"alias": "Blue Ranger",    "role": 1, "aim": 76, "sense": 90, "teamwork": 88, "cost": 3600},
+			{"alias": "Black Ranger",   "role": 2, "aim": 82, "sense": 75, "teamwork": 85, "cost": 3200},
+			{"alias": "Yellow Ranger",  "role": 3, "aim": 80, "sense": 72, "teamwork": 90, "cost": 3000},
+			{"alias": "Pink Ranger",    "role": 4, "aim": 78, "sense": 84, "teamwork": 92, "cost": 3300}
 		],
-		"league_teams/neon_syndicate": [
-			{"alias": "Pulse",  "role": 0, "aim": 92, "sense": 70, "teamwork": 50, "cost": 3500},
-			{"alias": "Wire",   "role": 1, "aim": 95, "sense": 65, "teamwork": 45, "cost": 4000},
-			{"alias": "Glitch", "role": 2, "aim": 75, "sense": 80, "teamwork": 60, "cost": 2500},
-			{"alias": "Volt",   "role": 3, "aim": 80, "sense": 70, "teamwork": 55, "cost": 2000},
-			{"alias": "Cyber",  "role": 4, "aim": 88, "sense": 75, "teamwork": 60, "cost": 3000}
-		],
-		"league_teams/apex_vanguard": [
-			{"alias": "Crest",    "role": 0, "aim": 78, "sense": 85, "teamwork": 85, "cost": 3200},
-			{"alias": "Summit",   "role": 1, "aim": 80, "sense": 88, "teamwork": 80, "cost": 3800},
-			{"alias": "Zenith",   "role": 2, "aim": 65, "sense": 98, "teamwork": 95, "cost": 4500},
-			{"alias": "Pinnacle", "role": 3, "aim": 70, "sense": 85, "teamwork": 90, "cost": 2800},
-			{"alias": "Vertex",   "role": 4, "aim": 75, "sense": 90, "teamwork": 85, "cost": 3100}
-		],
-		"league_teams/cobalt_wolves": [
-			{"alias": "Fang",  "role": 0, "aim": 90, "sense": 85, "teamwork": 85, "cost": 4500},
-			{"alias": "Howl",  "role": 1, "aim": 92, "sense": 88, "teamwork": 80, "cost": 4800},
-			{"alias": "Alpha", "role": 2, "aim": 85, "sense": 95, "teamwork": 90, "cost": 5000},
-			{"alias": "Pack",  "role": 3, "aim": 80, "sense": 85, "teamwork": 95, "cost": 4000},
-			{"alias": "Claw",  "role": 4, "aim": 88, "sense": 90, "teamwork": 85, "cost": 4600}
-		],
-		"league_teams/quantum_force": [
-			{"alias": "Quark",   "role": 0, "aim": 70, "sense": 70, "teamwork": 80, "cost": 1500},
-			{"alias": "Atom",    "role": 1, "aim": 75, "sense": 65, "teamwork": 85, "cost": 1800},
-			{"alias": "Proton",  "role": 2, "aim": 60, "sense": 75, "teamwork": 88, "cost": 1600},
-			{"alias": "Neutron", "role": 3, "aim": 65, "sense": 70, "teamwork": 90, "cost": 1400},
-			{"alias": "Boson",   "role": 4, "aim": 72, "sense": 75, "teamwork": 80, "cost": 1700}
+		"league_teams/The Olympians": [
+			{"alias": "Zeus",    "role": 0, "aim": 94, "sense": 88, "teamwork": 60, "cost": 4800},
+			{"alias": "Hades",   "role": 1, "aim": 89, "sense": 92, "teamwork": 55, "cost": 4400},
+			{"alias": "Apollo",  "role": 2, "aim": 91, "sense": 70, "teamwork": 75, "cost": 3900},
+			{"alias": "Athena",  "role": 3, "aim": 78, "sense": 95, "teamwork": 92, "cost": 4100},
+			{"alias": "Ares",    "role": 4, "aim": 97, "sense": 50, "teamwork": 40, "cost": 3700}
 		]
 	}
 	

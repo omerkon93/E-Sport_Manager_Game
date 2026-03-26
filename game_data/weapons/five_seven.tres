@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="WeaponData" format=3 uid="uid://bi5gg63l2m6et"]
+
+[ext_resource type="Script" uid="uid://rn0l1d40goqn" path="res://core/definitions/weapons/weapon_data.gd" id="1_c2y2x"]
+
+[resource]
+script = ExtResource("1_c2y2x")
+weapon_name = "Five-SeveN"
+base_damage = 32.0
+fire_rate = 1.3
+accuracy_multiplier = 0.85
+mobility = 0.95
+cost = 500

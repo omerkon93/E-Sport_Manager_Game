@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="ESportPlayer" format=3 uid="uid://brrntcw5uc8xn"]
+
+[ext_resource type="Script" uid="uid://s8g4vr2wd2ld" path="res://core/definitions/entities/esport_player.gd" id="1_bvpqo"]
+
+[resource]
+script = ExtResource("1_bvpqo")
+alias = "Vector"
+preferred_role = 2
+aim = 93
+game_sense = 68
+hiring_cost = 4100

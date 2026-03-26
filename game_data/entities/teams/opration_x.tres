@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="ESportTeam" format=3 uid="uid://dd0wrckc1qx28"]
+
+[ext_resource type="Script" uid="uid://s8g4vr2wd2ld" path="res://core/definitions/entities/esport_player.gd" id="1_1tm7p"]
+[ext_resource type="Resource" uid="uid://dv46kodvs6gtm" path="res://game_data/entities/players/league_teams/opration_x/signal.tres" id="2_3kgvx"]
+[ext_resource type="Resource" uid="uid://dx4425h0uyf4a" path="res://game_data/entities/players/league_teams/opration_x/static.tres" id="3_2da5u"]
+[ext_resource type="Resource" uid="uid://brrntcw5uc8xn" path="res://game_data/entities/players/league_teams/opration_x/vector.tres" id="4_0gbd5"]
+[ext_resource type="Resource" uid="uid://d4ig2s7ot7ot2" path="res://game_data/entities/players/league_teams/opration_x/proxy.tres" id="5_v5t3d"]
+[ext_resource type="Resource" uid="uid://bb7gw3v8k4tto" path="res://game_data/entities/players/league_teams/opration_x/buffer.tres" id="6_6kl2t"]
+[ext_resource type="Script" uid="uid://vei17jbopuev" path="res://core/definitions/entities/esport_team.gd" id="7_i3mg6"]
+
+[resource]
+script = ExtResource("7_i3mg6")
+team_name = "Opration X"
+active_roster = Array[ExtResource("1_1tm7p")]([ExtResource("2_3kgvx"), ExtResource("3_2da5u"), ExtResource("4_0gbd5"), ExtResource("5_v5t3d"), ExtResource("6_6kl2t")])

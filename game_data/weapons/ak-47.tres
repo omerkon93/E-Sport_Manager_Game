@@ -4,4 +4,8 @@
 
 [resource]
 script = ExtResource("1_emv5j")
-mobility = 0.95
+base_damage = 36.0
+fire_rate = 1.5
+accuracy_multiplier = 0.75
+mobility = 0.7
+cost = 2700

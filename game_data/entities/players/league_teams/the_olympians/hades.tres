@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="ESportPlayer" format=3 uid="uid://docpt1p68isi8"]
+
+[ext_resource type="Script" uid="uid://s8g4vr2wd2ld" path="res://core/definitions/entities/esport_player.gd" id="1_l3uoe"]
+
+[resource]
+script = ExtResource("1_l3uoe")
+alias = "Hades"
+preferred_role = 1
+aim = 89
+game_sense = 92
+teamwork = 55
+hiring_cost = 4400

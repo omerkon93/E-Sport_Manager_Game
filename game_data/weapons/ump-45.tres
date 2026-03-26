@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="WeaponData" format=3 uid="uid://cktp4ublahygy"]
+
+[ext_resource type="Script" uid="uid://rn0l1d40goqn" path="res://core/definitions/weapons/weapon_data.gd" id="1_8tkga"]
+
+[resource]
+script = ExtResource("1_8tkga")
+weapon_name = "UMP-45"
+base_damage = 35.0
+fire_rate = 1.4
+accuracy_multiplier = 0.55
+mobility = 0.88
+cost = 1200

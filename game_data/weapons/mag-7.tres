@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="WeaponData" format=3 uid="uid://cccquxcgcq3wn"]
+
+[ext_resource type="Script" uid="uid://rn0l1d40goqn" path="res://core/definitions/weapons/weapon_data.gd" id="1_6mcvx"]
+
+[resource]
+script = ExtResource("1_6mcvx")
+weapon_name = "MAG-7"
+base_damage = 120.0
+fire_rate = 0.5
+accuracy_multiplier = 0.3
+mobility = 0.75
+cost = 1300

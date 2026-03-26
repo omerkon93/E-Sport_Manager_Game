@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://dbxp2tgigvw2i" path="res://scenes/ui/screens/combined_menu/dashboard_panel/sections/quests_section/quests_section_ui.tscn" id="2_jcvta"]
 [ext_resource type="PackedScene" uid="uid://dt7oud6brxudn" path="res://scenes/ui/screens/combined_menu/dashboard_panel/sections/roster_section/roster_section_ui.tscn" id="2_qil6l"]
 [ext_resource type="PackedScene" uid="uid://dwx0cuggwqqml" path="res://scenes/ui/screens/combined_menu/dashboard_panel/sections/research_section/research_section_ui.tscn" id="3_31bfp"]
-[ext_resource type="Resource" uid="uid://lbpattm84dgm" path="res://game_data/entities/teams/enemy_team.tres" id="3_jssym"]
+[ext_resource type="Resource" uid="uid://dd0wrckc1qx28" path="res://game_data/entities/teams/opration_x.tres" id="3_rwcju"]
 [ext_resource type="Script" uid="uid://derwj2ijevwkr" path="res://core/definitions/stats/vitals_definition.gd" id="4_jssym"]
 [ext_resource type="PackedScene" uid="uid://dl5bau0ngudy7" path="res://scenes/ui/screens/combined_menu/dashboard_panel/sections/bills_section/bills_section_ui.tscn" id="4_kxvrf"]
 [ext_resource type="Resource" uid="uid://cdr1jgug886xp" path="res://game_data/game_resources/vitals/energy.tres" id="5_mtkf2"]
@@ -24,7 +24,7 @@ grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("1_1ny11")
 match_popup_scene = ExtResource("2_emv7l")
-enemy_team = ExtResource("3_jssym")
+enemy_team = ExtResource("3_rwcju")
 vital_definitions = Array[ExtResource("4_jssym")]([ExtResource("5_mtkf2"), ExtResource("6_rr4n2"), ExtResource("7_rwcju")])
 live_viewer_scene = ExtResource("8_mtkf2")
 match_hud_scene = ExtResource("9_rr4n2")

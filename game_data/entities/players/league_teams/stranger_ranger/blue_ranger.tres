@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="ESportPlayer" format=3 uid="uid://cdevi6cwhym1m"]
+
+[ext_resource type="Script" uid="uid://s8g4vr2wd2ld" path="res://core/definitions/entities/esport_player.gd" id="1_xqhli"]
+
+[resource]
+script = ExtResource("1_xqhli")
+alias = "Blue Ranger"
+preferred_role = 1
+aim = 76
+game_sense = 90
+teamwork = 88
+hiring_cost = 3600
