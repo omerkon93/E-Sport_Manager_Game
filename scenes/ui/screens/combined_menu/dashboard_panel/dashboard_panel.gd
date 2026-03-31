@@ -40,18 +40,33 @@ func _ready() -> void:
 # ==========================================
 # NEW HELPER: Find out who we play this week!
 # ==========================================
-func _get_current_opponent() -> ESportTeam:
+func _get_current_match_data() -> Dictionary:
+	print("\n--- [DEBUG] DASHBOARD FETCHING MATCH ---")
+	print("1. LeagueManager.current_week is: ", LeagueManager.current_week)
+	print("2. Total weeks in schedule: ", LeagueManager.schedule.size())
+	
 	if LeagueManager.current_week - 1 >= LeagueManager.schedule.size():
-		return null # The season is over!
+		print("❌ FAILED: Schedule is empty or season is over!")
+		return {} 
 		
-	var week_matches = LeagueManager.schedule[LeagueManager.current_week - 1]
+	var week_idx = LeagueManager.current_week - 1
+	var week_matches = LeagueManager.schedule[week_idx]
+	var my_name = GameManager.my_team.team_name
+	
+	print("3. Searching for '", my_name, "' in Week Index ", week_idx)
+	
 	for match_pair in week_matches:
-		if match_pair["home"] == GameManager.my_team:
-			return match_pair["away"]
-		elif match_pair["away"] == GameManager.my_team:
-			return match_pair["home"]
+		var home_name = match_pair["home"].team_name
+		var away_name = match_pair["away"].team_name
+		print("   -> Checking match: ", home_name, " vs ", away_name)
+		
+		if home_name == my_name or away_name == my_name:
+			var target_day = match_pair.get("scheduled_day", "ERROR")
+			print("✅ SUCCESS: Found match! Scheduled for Day: ", target_day)
+			return match_pair
 			
-	return null
+	print("❌ FAILED: Could not find player team in this week's matches!")
+	return {}
 
 # ==============================================================================
 # QUICK SIM MATCH (Instant)
@@ -61,16 +76,19 @@ func _on_play_now_button_pressed() -> void:
 		push_warning("Match blocked: Team is not ready!")
 		return
 
-	# Ask the schedule who we are fighting!
-	var current_enemy = _get_current_opponent()
-
-	if current_enemy == null or match_popup_scene == null:
-		push_warning("Missing resources or season is over!")
+	# 1. Get the match dictionary
+	var match_data = _get_current_match_data()
+	if match_data.is_empty():
+		push_warning("Missing match data or season is over!")
 		return
+		
+	# 2. EXTRACT THE ENEMY TEAM!
+	# If we are the home team, the enemy is away. Otherwise, the enemy is home.
+	var current_enemy = match_data["away"] if match_data["home"] == GameManager.my_team else match_data["home"]
 		
 	_disable_match_buttons("Simulating...")
 	
-	# Pass the dynamically found enemy to the simulator!
+	# 3. Pass the extracted enemy team (not the dictionary) to the simulator!
 	var match_results = MatchSimulator.quick_simulate_match(GameManager.my_team, current_enemy)
 	
 	_show_results_and_cleanup(match_results)
@@ -82,11 +100,14 @@ func _on_play_now_button_pressed() -> void:
 func _on_play_match_button_pressed() -> void:
 	if GameManager.my_team == null or not GameManager.my_team.is_match_ready(): return
 	
-	# Ask the schedule who we are fighting!
-	var current_enemy = _get_current_opponent()
-	if current_enemy == null:
+	# 1. Get the match dictionary
+	var match_data = _get_current_match_data()
+	if match_data.is_empty():
 		push_warning("No opponent found! Is the season over?")
 		return
+		
+	# 2. EXTRACT THE ENEMY TEAM!
+	var current_enemy = match_data["away"] if match_data["home"] == GameManager.my_team else match_data["home"]
 	
 	if live_viewer_scene == null or match_hud_scene == null:
 		push_error("Missing scenes! Assign the Map and HUD in the inspector.")
@@ -94,7 +115,6 @@ func _on_play_match_button_pressed() -> void:
 		
 	_disable_match_buttons("Playing Live...")
 	
-	# 1. HIDE THE DASHBOARD!
 	var root_menu = owner if owner else self
 	root_menu.hide()
 	
@@ -109,20 +129,17 @@ func _on_play_match_button_pressed() -> void:
 		_validate_match_button()
 		return
 		
-	# 2. ADD TO THE ROOT!
 	get_tree().root.add_child(arena_instance)
 	get_tree().root.add_child(hud_instance) 
 	
-	# Pass the dynamically found enemy to the live simulator!
+	# 3. Pass the extracted enemy team (not the dictionary) to the live simulator!
 	MatchSimulator.play_live_match(arena_instance, GameManager.my_team, current_enemy)
 	
 	var match_results = await MatchSimulator.match_finished
 	
-	# 3. Destroy both when the match is over!
 	arena_instance.queue_free()
 	hud_instance.queue_free()
 	
-	# 4. SHOW THE DASHBOARD AGAIN!
 	root_menu.show()
 	_show_results_and_cleanup(match_results)
 
@@ -141,18 +158,20 @@ func _show_results_and_cleanup(match_results) -> void:
 	popup_instance.display_results(match_results)
 	
 	# ==========================================
-	# 2. EXTRACT DATA & RECORD PLAYER MATCH
+	# 2. RECORD PLAYER MATCH
 	# ==========================================
 	var team_a = match_results["team_a"]
 	var team_b = match_results["team_b"]
 	var score_a = match_results["score_a"]
 	var score_b = match_results["score_b"]
 	
+	# Manually record our score into the League Manager FIRST!
 	LeagueManager.record_match_result(team_a, team_b, score_a, score_b)
 	
 	# ==========================================
-	# 3. SIMULATE THE REST OF THE LEAGUE!
+	# 3. SIMULATE THE REST OF THE LEAGUE
 	# ==========================================
+	# Now that our score is saved, tell the AI to play the rest of the week's matches
 	LeagueManager.simulate_ai_matches_for_week(GameManager.my_team)
 	
 	# ==========================================
@@ -161,10 +180,13 @@ func _show_results_and_cleanup(match_results) -> void:
 	VitalManager.process_match_exhaustion(GameManager.my_team)
 	
 	# ==========================================
-	# TIME PASSAGE
+	# 5. TIME PASSAGE
 	# ==========================================
+	# Mark today as a played day so the buttons lock!
+	LeagueManager.last_match_played_day = TimeManager.current_day
+	
 	print("⏳ Match complete. 2 hours have passed.")
-	TimeManager.advance_time(120) # 120 minutes = 2 hours
+	TimeManager.advance_time(120)
 	
 	_validate_match_button()
 
@@ -175,16 +197,59 @@ func _disable_match_buttons(text: String) -> void:
 	play_now_button.text = text
 
 func _validate_match_button() -> void:
-	if GameManager.my_team != null and GameManager.my_team.is_match_ready():
-		play_match_button.disabled = false
-		play_now_button.disabled = false
-		play_match_button.text = "Watch Live"
-		play_now_button.text = "Quick Sim"
-	else:
+	# ==========================================
+	# 1. Check if Roster is Complete
+	# ==========================================
+	if GameManager.my_team == null or not GameManager.my_team.is_match_ready():
 		play_match_button.disabled = true
 		play_now_button.disabled = true
 		play_match_button.text = "Roster Incomplete!"
 		play_now_button.text = "Roster Incomplete!"
+		return # Stop here, don't check anything else!
+
+	# ==========================================
+	# 2. Check the Calendar Date
+	# ==========================================
+	var next_match = _get_current_match_data()
+	if not next_match.is_empty():
+		var target_day = next_match.get("scheduled_day", 1)
+		
+		# Assuming your TimeManager has a 'current_day' variable
+		if TimeManager.current_day < target_day:
+			play_now_button.disabled = true
+			play_match_button.disabled = true
+			play_match_button.text = "Match is Day " + str(target_day)
+			play_now_button.text = "Match is Day " + str(target_day)
+			return # Stop here!
+
+	# ==========================================
+	# 3. Check the Time of Day
+	# ==========================================
+	# Assuming your TimeManager has a 'current_hour' variable
+	if TimeManager.current_hour >= 22 or TimeManager.current_hour < 6:
+		play_now_button.disabled = true
+		play_match_button.disabled = true
+		play_match_button.text = "Too Late! Sleep."
+		play_now_button.text = "Too Late! Sleep."
+		return # Stop here!
+		
+	# ==========================================
+	# 4. Did we already play today?
+	# ==========================================
+	if LeagueManager.last_match_played_day == TimeManager.current_day:
+		play_now_button.disabled = true
+		play_match_button.disabled = true
+		play_match_button.text = "Done for today. Sleep."
+		play_now_button.text = "Done for today. Sleep."
+		return # Stop here!
+	
+	# ==========================================
+	# 5. All Checks Passed! Ready to Play!
+	# ==========================================
+	play_match_button.disabled = false
+	play_now_button.disabled = false
+	play_match_button.text = "Watch Live"
+	play_now_button.text = "Quick Sim"
 
 func _on_advance_day_button_pressed() -> void:
 	# Calculate how many minutes until 8:00 AM the next day

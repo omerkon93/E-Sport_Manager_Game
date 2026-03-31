@@ -1,0 +1,48 @@
+[gd_scene format=3 uid="uid://hq0jlug6w5cd"]
+
+[ext_resource type="Script" uid="uid://bou88v2v83tbp" path="res://scenes/ui/screens/schedule_menu/schedule_row.gd" id="1_wexgc"]
+
+[node name="ScheduleRow" type="Control" unique_id=1112982494]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_wexgc")
+metadata/_edit_use_anchors_ = true
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=558872822]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+metadata/_edit_use_anchors_ = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer" unique_id=905659514]
+layout_mode = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="DayLabel" type="Label" parent="MarginContainer/HBoxContainer" unique_id=1823064099]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(60, 0)
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="MatchupLabel" type="Label" parent="MarginContainer/HBoxContainer" unique_id=1572312552]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="StatusLabel" type="Label" parent="MarginContainer/HBoxContainer" unique_id=374732992]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3

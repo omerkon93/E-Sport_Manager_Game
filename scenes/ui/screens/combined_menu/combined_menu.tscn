@@ -3,6 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://diw24lvqdympd" path="res://scenes/ui/screens/combined_menu/actions_menu/actions_menu.tscn" id="1_edv8t"]
 [ext_resource type="Script" uid="uid://bbfwomm3k5l4v" path="res://scenes/ui/screens/combined_menu/combined_menu.gd" id="1_n7u7p"]
 [ext_resource type="PackedScene" uid="uid://bymtdvkh5wiit" path="res://scenes/ui/screens/combined_menu/shop_menu/shop_menu.tscn" id="2_n7u7p"]
+[ext_resource type="PackedScene" uid="uid://bofevaogi78dj" path="res://scenes/ui/screens/schedule_menu/schedule_ui.tscn" id="3_he5gf"]
 [ext_resource type="PackedScene" uid="uid://onv2rqhpafe5" path="res://scenes/ui/screens/combined_menu/dashboard_panel/dashboard_panel.tscn" id="5_he5gf"]
 
 [node name="CombinedMenu" type="Control" unique_id=1927334450]
@@ -40,14 +41,19 @@ layout_mode = 2
 size_flags_horizontal = 3
 metadata/_tab_index = 0
 
+[node name="ScheduleUI" parent="HBoxContainer/MarginContainer/TabContainer" unique_id=1370041693 instance=ExtResource("3_he5gf")]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 1
+
 [node name="Actions" parent="HBoxContainer/MarginContainer/TabContainer" unique_id=772517719 instance=ExtResource("1_edv8t")]
 unique_name_in_owner = true
 visible = false
 layout_mode = 2
-metadata/_tab_index = 1
+metadata/_tab_index = 2
 
 [node name="Shop" parent="HBoxContainer/MarginContainer/TabContainer" unique_id=598056843 instance=ExtResource("2_n7u7p")]
 unique_name_in_owner = true
 visible = false
 layout_mode = 2
-metadata/_tab_index = 2
+metadata/_tab_index = 3

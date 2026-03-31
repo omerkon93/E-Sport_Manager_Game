@@ -1,0 +1,105 @@
+[gd_scene format=3 uid="uid://bofevaogi78dj"]
+
+[ext_resource type="Script" uid="uid://c645cvbmw6wiw" path="res://scenes/ui/screens/schedule_menu/schedule_ui.gd" id="1_0egk7"]
+[ext_resource type="PackedScene" uid="uid://hq0jlug6w5cd" path="res://scenes/ui/screens/schedule_menu/schedule_row.tscn" id="2_1xep7"]
+
+[node name="ScheduleUI" type="Control" unique_id=1370041693]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_0egk7")
+schedule_row_scene = ExtResource("2_1xep7")
+metadata/_edit_use_anchors_ = true
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=872306859]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_top = 40
+theme_override_constants/margin_right = 40
+theme_override_constants/margin_bottom = 40
+metadata/_edit_use_anchors_ = true
+
+[node name="SplitScreenContainer" type="HBoxContainer" parent="MarginContainer" unique_id=58076694]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="DailyStandingsContainer" type="VBoxContainer" parent="MarginContainer/SplitScreenContainer" unique_id=1174577468]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="DayPickContainer" type="HBoxContainer" parent="MarginContainer/SplitScreenContainer/DailyStandingsContainer" unique_id=1324038235]
+layout_mode = 2
+
+[node name="PrevButton" type="Button" parent="MarginContainer/SplitScreenContainer/DailyStandingsContainer/DayPickContainer" unique_id=1026246565]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "<"
+
+[node name="DayTitleLabel" type="Label" parent="MarginContainer/SplitScreenContainer/DailyStandingsContainer/DayPickContainer" unique_id=1243504823]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 6
+
+[node name="NextButton" type="Button" parent="MarginContainer/SplitScreenContainer/DailyStandingsContainer/DayPickContainer" unique_id=1081077720]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = ">"
+
+[node name="DailyListContainer" type="ScrollContainer" parent="MarginContainer/SplitScreenContainer/DailyStandingsContainer" unique_id=1216268153]
+layout_mode = 2
+size_flags_vertical = 3
+metadata/_edit_use_anchors_ = true
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/SplitScreenContainer/DailyStandingsContainer/DailyListContainer" unique_id=596330612]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+metadata/_edit_use_anchors_ = true
+
+[node name="DailyList" type="VBoxContainer" parent="MarginContainer/SplitScreenContainer/DailyStandingsContainer/DailyListContainer/MarginContainer" unique_id=1451321876]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 20
+
+[node name="MySeasonView" type="VBoxContainer" parent="MarginContainer/SplitScreenContainer" unique_id=2032001399]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="MarginContainer/SplitScreenContainer/MySeasonView" unique_id=1855728704]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "My Team's Season Schedule"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/SplitScreenContainer/MySeasonView" unique_id=782263911]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/SplitScreenContainer/MySeasonView/ScrollContainer" unique_id=1420971120]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="PlayerList" type="VBoxContainer" parent="MarginContainer/SplitScreenContainer/MySeasonView/ScrollContainer/MarginContainer" unique_id=218998964]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 20
