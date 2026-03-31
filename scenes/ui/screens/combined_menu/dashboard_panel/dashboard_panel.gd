@@ -41,10 +41,6 @@ func _ready() -> void:
 # NEW HELPER: Find out who we play this week!
 # ==========================================
 func _get_current_match_data() -> Dictionary:
-	print("\n--- [DEBUG] DASHBOARD FETCHING MATCH ---")
-	print("1. LeagueManager.current_week is: ", LeagueManager.current_week)
-	print("2. Total weeks in schedule: ", LeagueManager.schedule.size())
-	
 	if LeagueManager.current_week - 1 >= LeagueManager.schedule.size():
 		print("❌ FAILED: Schedule is empty or season is over!")
 		return {} 
@@ -148,8 +144,6 @@ func _on_play_match_button_pressed() -> void:
 # SHARED HELPERS
 # ==============================================================================
 func _show_results_and_cleanup(match_results) -> void:
-	print("🔍 EXACT MATCH RESULTS: ", match_results)
-	
 	# ==========================================
 	# 1. SHOW THE UI POPUP
 	# ==========================================

@@ -132,17 +132,7 @@ func _generate_round_robin_schedule() -> void:
 		# Rotate the array clockwise
 		var last_team = teams.pop_back()
 		teams.push_front(last_team)
-		
-		# === DEBUG GENERATION ===
-	print("\n--- [DEBUG] LEAGUE SCHEDULE GENERATED ---")
-	print("Current Week variable is set to: ", current_week)
-	var debug_week_idx = 1
-	for week in schedule:
-		for m in week:
-			if m["home"] == GameManager.my_team or m["away"] == GameManager.my_team:
-				print("Week ", debug_week_idx, " | My Match: ", m["home"].team_name, " vs ", m["away"].team_name, " | Scheduled Day: ", m.get("scheduled_day", "ERROR"))
-		debug_week_idx += 1
-	print("-------------------------------------------\n")
+
 
 # ==============================================================================
 # 2. MATCH RECORDING & POINTS MATH
@@ -276,7 +266,6 @@ func get_save_data() -> Dictionary:
 	return data
 
 func load_save_data(data: Dictionary) -> void:
-	print("\n--- [DEBUG] LEAGUE MANAGER LOADING ---")
 	var all_loaded_teams: Array[ESportTeam] = []
 	if GameManager.my_team != null:
 		all_loaded_teams.append(GameManager.my_team)
@@ -323,4 +312,3 @@ func load_save_data(data: Dictionary) -> void:
 	standings_updated.emit()
 	print("📂 LeagueManager: Loaded data! Current Week: ", current_week)
 	
-	print("--- [DEBUG] LOAD COMPLETE ---\n")
